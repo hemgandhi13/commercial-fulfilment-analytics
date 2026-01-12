@@ -1,2 +1,5 @@
 data/*.zip
 data/*.csv
+# Large local exports - do not commit
+data/exports_full/
+*.gz

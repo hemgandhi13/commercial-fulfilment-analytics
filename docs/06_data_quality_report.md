@@ -1,48 +1,148 @@
-# Data Quality Report
+# Silver Data Quality Report (Day 2)
 
-## Row counts
+## Scope
 
-- Bronze rows: 180,519
-- Silver rows: 180,519
+This report documents the main Silver layer validations across:
 
-## Timestamp parse nulls (should be ~0)
+- v1: `silver.dataco_supplychain_clean`
+- v2: `silver.dataco_supplychain_clean_v2`
+- v3: `silver.dataco_supplychain_clean_v3`
+- current: `silver.dataco_supplychain_clean_current`
 
-- order_ts_nulls: 0
-- ship_ts_nulls: 0
-- total_rows: 180,519
+All results below are copied from Databricks SQL outputs.
 
-## Key nulls (should be 0 or explained)
+---
 
-- null_order_item_id: 0
-- null_order_id: 0
-- null_customer_id: 0
-- null_product_id: 0
+## 1) Row Count Reconciliation
 
-## Grain uniqueness (fact grain = order_item_id)
+**Expectation:** Silver should not drop rows relative to upstream Bronze audited input, and later Silver iterations should remain row-stable.
 
-- rows: 180,519
-- distinct_order_item_id: 180,519
+**Result**
+| v1_rows | v2_rows | v3_rows |
+|--------:|--------:|--------:|
+| 180,519 | 180,519 | 180,519 |
 
-## Commercial sanity (document anomalies, do not hide them)
+**Conclusion:** Row counts are stable across all Silver versions.
 
-- min_discount_rate: 0.0000
-- max_discount_rate: 0.2500
-- min_net_sales: 7.49
-- min_gross_sales: 9.99
-- min_profit: -4,274.98
+---
 
-## Additional anomaly checks (optional but “senior” signal)
+## 2) Timestamp Parsing Nulls (v1)
 
-- ship_before_order_rows: 0
-- nonpositive_qty_rows: 0
-- negative_unit_price_rows:0
+**Expectation:** near-zero parse failures.
 
-## Notes / Decisions (Data Integrity & Business Logic)
+**Result**
+| order_ts_nulls | ship_ts_nulls | total_rows |
+|--------------:|--------------:|-----------:|
+| 0 | 0 | 180,519 |
 
-- **100% Volumetric Integrity**: Successfully achieved a 1:1 row count match (180,519 rows) across Bronze, Silver, and Gold Fact layers. This confirms zero data loss during schema enforcement and complex date-parsing operations.
-- **Timestamp Parsing Accuracy**: Verified that the `COALESCE` multi-pattern parsing logic handled 100% of the raw date strings. No NULL values were generated in `order_ts` or `ship_ts`, ensuring high-reliability for Time-Intelligence calculations.
-- **Grain & Relationship Validation**: Confirmed `order_item_id` as the unique primary grain (180,519 distinct keys). Relationship testing across all 20,652 customers and 118 products returned zero "orphaned" records, ensuring a robust Star Schema for Power BI.
-- **Financial Anomaly Investigation**:
-  - **Discount Logic**: Discount rates are capped at 25%, indicating a consistent promotional strategy.
-  - **Negative Profit Analysis**: Observed a minimum profit of -$4,274.98. These records were investigated and deemed valid business events (likely representing high-value returns or high-cost fulfilment regions) and will be retained for "Loss Leader" analysis in the Gold layer.
-- **Operational Consistency**: Zero instances of "Logistics Time-Travel" (ship dates occurring before order dates) and zero non-positive quantities or unit prices. The dataset is deemed operationally sound for supply chain KPI reporting.
+**Conclusion:** Timestamp parsing is fully successful for this dataset.
+
+---
+
+## 3) Primary Key / Identifier Nulls (v3)
+
+**Expectation:** core identifiers should not be NULL.
+
+**Result**
+| null_order_item_id | null_order_id | null_customer_id | null_product_card_id |
+|-------------------:|--------------:|-----------------:|----------------------:|
+| 0 | 0 | 0 | 0 |
+
+**Conclusion:** All critical identifiers are complete.
+
+---
+
+## 4) Grain Uniqueness (Order Item Grain, v3)
+
+**Expectation:** 1 row per `order_item_id`.
+
+**Result**
+| rows | distinct_order_item_id |
+|--------:|------------------------:|
+| 180,519 | 180,519 |
+
+**Conclusion:** Grain is consistent: 1 row per order item.
+
+---
+
+## 5) Standardisation Impact (v2)
+
+v2 standardises whitespace and key strings. This section demonstrates measurable corrections.
+
+**Result**
+| region_corrected_rows | market_corrected_rows | shipmode_corrected_rows | total_rows |
+|----------------------:|----------------------:|-------------------------:|-----------:|
+| 17,925 | 0 | 0 | 180,519 |
+
+**Interpretation:** The main standardisation gain was `order_region` whitespace cleanup.
+
+Example patterns observed:
+
+- `West of USA␠` → `West of USA`
+- `US Center␠` → `US Center`
+- `South of␠␠USA␠` → `South of USA`
+
+---
+
+## 6) Encoding Corruption Detection (v2)
+
+Replacement character `�` indicates corrupted encoding in upstream source fields.
+
+**Result**
+| bad_country_rows | bad_city_rows | total_rows |
+|-----------------:|--------------:|-----------:|
+| 37,430 | 15,208 | 180,519 |
+
+**Conclusion:** Significant encoding corruption existed in country/city fields and required controlled remediation.
+
+---
+
+## 7) Controlled Fix Outcomes (v3)
+
+v3 applies reference-driven corrections from `silver.ref_text_fixes`.
+
+**Result**
+| bad_order_country_after | bad_order_city_after | bad_customer_country_after | bad_customer_city_after | total_rows |
+|------------------------:|---------------------:|----------------------------:|-------------------------:|-----------:|
+| 0 | 0 | 0 | 0 | 180,519 |
+
+**Conclusion:** Encoding-corrupted values were fully eliminated in the Silver v3 “clean” columns.
+
+---
+
+## 8) Zipcode Null Rate (Data Property)
+
+High NULL rate in `order_zipcode` is treated as a **source-data property**, not forcibly imputed.
+
+**Result**
+| null_order_zip | total_rows |
+|--------------:|-----------:|
+| 155,679 | 180,519 |
+
+**Decision:** Keep zipcode nullable. Downstream modelling should use NULL-safe key strategies rather than composite joins requiring non-null zipcodes.
+
+---
+
+## 9) Commercial Sanity (v1 Baseline)
+
+**Result**
+| min_discount_rate | max_discount_rate | min_net_sales | min_gross_sales | min_profit |
+|------------------:|------------------:|--------------:|----------------:|---------------:|
+| 0 | 0.25 | 7.489999771 | 9.989999771 | -4274.97998 |
+
+**Interpretation:**
+
+- Discount rates fall in a plausible range (0 to 25%).
+- Negative profit exists in the dataset. This is not automatically a data error; it can occur due to returns, promotions, loss-leading strategies, or pricing/discount combinations. It is documented rather than “fixed.”
+
+---
+
+## Summary
+
+- Row counts stable across Silver v1/v2/v3 (`180,519`)
+- Timestamp parsing succeeded fully (0 nulls)
+- Core identifiers complete (0 nulls)
+- Grain is clean: 1 row per `order_item_id`
+- v2 delivered measurable standardisation (17,925 region corrections)
+- v3 eliminated encoding corruption (all `�` resolved in clean columns)
+- Zipcodes are often missing (155,679 nulls); treated as a source property and handled downstream with robust keying patterns
