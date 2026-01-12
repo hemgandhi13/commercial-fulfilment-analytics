@@ -1,5 +1,13 @@
-data/*.zip
+# --- Large/raw datasets (keep out of Git) ---
+data/DataCoSupplyChainDataset.csv
+data/DescriptionDataCoSupplyChain.csv
+data/archive.zip
+data/tokenized_access_logs.csv
+
+# ignore any future large csv/zip dropped into /data
 data/*.csv
-# Large local exports - do not commit
-data/exports_full/
+data/*.zip
+
+# Keep small curated samples
+!data/sample/**
 *.gz
