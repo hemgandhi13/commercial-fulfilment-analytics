@@ -2,11 +2,11 @@
 
 ## Objective
 
-Load the Databricks **Gold** layer exports (CSV files stored locally) into **Snowflake** using the **Snowsight UI**, then validate the star schema using row-count and foreign-key (FK) coverage checks. This creates a Snowflake-ready Gold layer for Power BI modelling on Day 4.
+Load the Databricks **Gold** layer exports (CSV files stored locally) into **Snowflake** using the **Snowsight UI**, then validate the star schema using row-count and foreign-key (FK) coverage checks. This creates a Snowflake-ready Gold layer for Power BI modelling.
 
 ---
 
-## High-level process (one line)
+## Simple process (one line)
 
 **Create compute → create namespace → create tables → UI upload CSV → validate row counts + FK joins → save proof pack.**
 
@@ -45,7 +45,7 @@ Load the Databricks **Gold** layer exports (CSV files stored locally) into **Sno
 
 ---
 
-## Snowflake objects created (conceptual)
+## Snowflake objects created
 
 Snowflake needs 3 things for this workflow:
 
@@ -67,7 +67,7 @@ Snowflake needs 3 things for this workflow:
 
 ## Loading method used
 
-This Day 3 load used **Snowsight UI (Load Data)** instead of SnowSQL.
+For loading data, **Snowsight UI (Load Data)** was used instead of SnowSQL.
 
 Why UI load:
 
@@ -280,7 +280,6 @@ Because this was executed on a time-limited trial, a proof pack was saved locall
   - FK coverage output
   - Query History
 - Downloaded CSV results:
-  - Row counts
   - FK coverage outputs
 
 Recommended folder:
@@ -308,7 +307,7 @@ Recommended folder:
 
 ---
 
-## Handover to Day 4 (Power BI)
+## Handover
 
 Snowflake Gold is now ready for Power BI:
 
