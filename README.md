@@ -1,6 +1,7 @@
 # Commercial + Fulfilment Executive Dashboard (v1)
 
-## Databricks → Snowflake (optional) → Power BI
+## Databricks → Snowflake (trial serving layer) → Power BI
+with CSV fallback for durability after trial expiry.
 
 End-to-end analytics build that takes raw retail + fulfilment data through a **medallion pipeline (Bronze → Silver → Gold)** in **Databricks Free Edition**, models it as a **star schema**, and delivers a **Power BI executive dashboard** covering commercial performance, discount leakage, fulfilment risk, and customer retention.
 
@@ -17,7 +18,7 @@ End-to-end analytics build that takes raw retail + fulfilment data through a **m
 - Pricing & discount analysis + **Discount Leakage Table**
 - Operations & fulfilment monitoring (late delivery trend, risk by market, scheduled vs actual shipping days)
 - Customer retention view (new vs returning, retention trend, cohort table)
-- Data trust page (row counts, FK coverage checks, KPI definitions + refresh notes)
+- Data trust page (row counts, FK coverage checks, KPI definitions **Core KPIs:** Net Sales, Profit, Gross Margin %, Orders, Discount $, Discount Rate, Late Delivery %, Avg Shipping Delay Days, Returning Customer Rate + refresh notes)
 
 **Engineering signals**
 
@@ -28,7 +29,7 @@ End-to-end analytics build that takes raw retail + fulfilment data through a **m
 
 ---
 
-## Architecture (high level)
+## Architecture 
 
 1. **Databricks Free Edition**
 
@@ -56,15 +57,35 @@ End-to-end analytics build that takes raw retail + fulfilment data through a **m
 
 ### Pages included (v1)
 
-- **01 Executive Overview** — top-line KPIs + trend + market/category views
-- **02 Commercial Breakdown** — product/category/department performance
-- **03 Profitability Scatter** — net sales vs profit (quadrant analysis)
-- **04 Pricing & Discount Impact** — discount rate/amount vs margin/profit outcomes
-- **05 Discount Leakage Table** — categories giving away the most discount $
-- **06 Operations Overview** — late delivery trend, risk by market, scheduled vs actual days
-- **07 Operations Deep Dive** — revenue at risk + delay drivers + market table
-- **08 Customer Retention** — new vs returning + retention trend + cohorts
-- **09 Data Trust & KPI Definitions** — row counts, FK checks, KPI definitions, refresh notes
+### Report pages (highlights)
+
+**01) Executive Overview** — top-line KPIs + trends + market/category views  
+![Executive Overview](powerbi/screenshots/01.png)
+
+**02) Commercial Breakdown** — product/category/department performance  
+![Commercial Breakdown](powerbi/screenshots/02.png)
+
+**03) Profitability Scatter** — net sales vs profit (quadrant analysis)  
+![Profitability Scatter](powerbi/screenshots/03.png)
+
+**04) Pricing & Discount Impact** — discount rate/amount vs margin/profit outcomes  
+![Pricing & Discount Impact](powerbi/screenshots/04.png)
+
+**05) Discount Leakage Table** — categories giving away the most discount $  
+![Discount Leakage Table](powerbi/screenshots/05.png)
+
+**06) Operations Overview** — late delivery trend, risk by market, scheduled vs actual days  
+![Operations Overview](powerbi/screenshots/06.png)
+
+**07) Operations Deep Dive** — revenue at risk + delay drivers + market table  
+![Operations Deep Dive](powerbi/screenshots/07.png)
+
+**08) Customer Retention** — new vs returning + retention trend + cohorts  
+![Customer Retention](powerbi/screenshots/08.png)
+
+**09) Data Trust & KPI Definitions** — row counts, FK checks, KPI definitions, refresh notes  
+![Data Trust & KPI Definitions](powerbi/screenshots/09.png)
+
 
 ---
 
@@ -74,9 +95,9 @@ End-to-end analytics build that takes raw retail + fulfilment data through a **m
 /powerbi/
   Commercial_Fulfilment_Executive_Dashboard_v1.pbix
   README.md
-  /Screenshots/
-    page_01.png
-    page_02.png
+  /screenshots/
+    01.png
+    02.png
     ...
 /data/
   /databricks_gold_export/
@@ -116,7 +137,7 @@ End-to-end analytics build that takes raw retail + fulfilment data through a **m
 
 - Power BI Desktop → **Home → Refresh**
 - If prompted for a folder/parameter, select your local path:
-  - `D:\Projects\databricks-snowflake-medallion-pipeline\data\databricks_gold_export`
+  - `<your-local-repo-path>/data/databricks_gold_export`
 
 ✅ The report should load using the Gold CSV exports.
 
@@ -134,11 +155,15 @@ End-to-end analytics build that takes raw retail + fulfilment data through a **m
 
 All supporting project notes live in `docs/`:
 
+- Star schema (semantic model)
 - BI brief (stakeholder goals + KPI contract)
 - KPI glossary (metric definitions)
 - Data dictionary notes (tables, grain, keys, pitfalls)
 - Ingestion + Silver story + QA reports
-- Star schema design notes
+- Engineering decisions & errors log
 - Gold data quality report
+
+### Star schema (semantic model)
+![Star schema model](powerbi/screenshots/model_star_schema.png)
 
 Power BI-specific usage notes: `powerbi/README.md`
