@@ -11,3 +11,4 @@ data/*.zip
 # Keep small curated samples
 !data/sample/**
 *.gz
+*.pbi*
