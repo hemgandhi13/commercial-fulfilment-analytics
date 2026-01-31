@@ -218,8 +218,6 @@ The report includes a dedicated **Data Trust & KPI Definitions** page with valid
     DIM_MARKET.csv
     DIM_DISCOUNT_BAND.csv
 /docs/
-  demo_script_90s.md
-  demo_90s.mp4
   rls.md
   rls_demo.mp4
   performance.md
