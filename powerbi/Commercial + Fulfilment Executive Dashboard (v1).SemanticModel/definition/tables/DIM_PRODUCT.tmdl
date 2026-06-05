@@ -1,0 +1,120 @@
+table DIM_PRODUCT
+	lineageTag: d3e54a08-4b57-4b35-a93d-2c5a42db0d79
+
+	column PRODUCT_CARD_ID
+		dataType: int64
+		isHidden
+		lineageTag: 656f32f4-d184-415f-9404-aa17532c9e02
+		summarizeBy: none
+		sourceColumn: PRODUCT_CARD_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRODUCT_NAME
+		dataType: string
+		lineageTag: 025dcc29-bf6d-4cf7-a4bd-af1f966a08ea
+		summarizeBy: none
+		sourceColumn: PRODUCT_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_CATEGORY_ID
+		dataType: int64
+		isHidden
+		lineageTag: 0466c8e6-6080-4c89-912c-06c000922748
+		summarizeBy: none
+		sourceColumn: PRODUCT_CATEGORY_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CATEGORY_ID
+		dataType: int64
+		isHidden
+		lineageTag: 452f47ed-1fee-4949-b81d-6df7a72f39b3
+		summarizeBy: none
+		sourceColumn: CATEGORY_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DEPARTMENT_ID
+		dataType: int64
+		isHidden
+		lineageTag: 107a6ad2-44af-4f08-9d7d-c7adae363058
+		summarizeBy: none
+		sourceColumn: DEPARTMENT_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CATALOG_PRICE
+		dataType: double
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 981564a5-4090-40d3-85d2-906c97f4da72
+		summarizeBy: sum
+		sourceColumn: CATALOG_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AU"}
+
+	column PRODUCT_DESCRIPTION
+		dataType: string
+		lineageTag: 5c4b4dbc-8252-4a4e-ba89-2ab52ca86157
+		summarizeBy: none
+		sourceColumn: PRODUCT_DESCRIPTION
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_STATUS
+		dataType: int64
+		lineageTag: 1372930c-3154-4c74-a034-c524887bb712
+		summarizeBy: sum
+		sourceColumn: PRODUCT_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DIM_PRODUCT = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_product.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        UpperHeaders,
+				        {
+				            {"PRODUCT_CARD_ID", Int64.Type},
+				            {"PRODUCT_NAME", type text},
+				            {"PRODUCT_CATEGORY_ID", Int64.Type},
+				            {"CATEGORY_ID", Int64.Type},
+				            {"DEPARTMENT_ID", Int64.Type},
+				            {"CATALOG_PRICE", type number},
+				            {"PRODUCT_DESCRIPTION", type text},
+				            {"PRODUCT_STATUS", Int64.Type}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

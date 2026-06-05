@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(powerbi/**)",
+      "Write(powerbi/**/*.tmdl)",
+      "Write(powerbi/**/*.json)",
+      "Read(data/databricks_gold_export/**)",
+      "Read(docs/**)",
+      "Read(sql/**)"
+    ]
+  }
+}

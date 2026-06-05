@@ -1,0 +1,21 @@
+table DIM_MARKET
+	lineageTag: 4b9a064b-ab39-4756-824c-677c129b07ad
+
+	column MARKET
+		lineageTag: 5b4911ac-158f-4543-a008-7297e5f8a267
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DIM_CHANNEL[MARKET]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_MARKET = calculated
+		mode: import
+		source = ```
+				
+				DISTINCT ( DIM_CHANNEL[MARKET] )
+				
+				```
+
+	annotation PBI_Id = 0713fc25cfee47cd92c0f5854cc30dc0
+

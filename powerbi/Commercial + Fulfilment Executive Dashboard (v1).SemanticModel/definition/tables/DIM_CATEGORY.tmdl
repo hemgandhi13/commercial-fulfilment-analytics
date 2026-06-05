@@ -1,0 +1,43 @@
+table DIM_CATEGORY
+	lineageTag: 8762e76e-852b-4d45-8864-6ca719c1ceee
+
+	column CATEGORY_ID
+		dataType: int64
+		lineageTag: 920ce374-fd3e-41da-af9c-c56fd36415d1
+		summarizeBy: none
+		sourceColumn: CATEGORY_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CATEGORY_NAME
+		dataType: string
+		lineageTag: d8ded9e0-dae9-4751-bf9b-694445833556
+		summarizeBy: none
+		sourceColumn: CATEGORY_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_CATEGORY = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_category.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        UpperHeaders,
+				        {
+				            {"CATEGORY_ID", Int64.Type},
+				            {"CATEGORY_NAME", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

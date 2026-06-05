@@ -1,0 +1,30 @@
+table SEC_USER_MARKET
+	lineageTag: eda551ef-2882-400d-be9b-6b1768d1572c
+
+	column UserEmail
+		dataType: string
+		lineageTag: b13a2d9a-974c-4964-8d40-0a7734c9f9e6
+		summarizeBy: none
+		sourceColumn: UserEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column MARKET
+		dataType: string
+		lineageTag: 56086da3-c4ac-4739-b405-52b46f3b8241
+		summarizeBy: none
+		sourceColumn: MARKET
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SEC_USER_MARKET = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WSkwrykxOjM9NL3JIzs8tSMyr1APSSjpKjmAJBaVYnWil1NKi/IJULIpcwRIKEABWmpNYkpiLRaWPY4ijrwKyyoLE5MTiTGxWByQmZ6ZlJis4AqXBSkuLsToxNNjZUSk2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [UserEmail = _t, MARKET = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"UserEmail", type text}, {"MARKET", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

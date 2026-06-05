@@ -1,0 +1,28 @@
+/// Gold Data Export from Local Folder
+expression pDataFolder = "D:\Projects\databricks-snowflake-medallion-pipeline\data\databricks_gold_export" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 96bfcaf4-766c-4b67-9f66-c29153e935fd
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression fnLoadCsv =
+		(fileName as text) as table =>
+		let
+		    FolderPath = if Text.EndsWith(pDataFolder, "\") then pDataFolder else pDataFolder & "\",
+		    FilePath = FolderPath & fileName,
+		
+		    Raw = Csv.Document(
+		        File.Contents(FilePath),
+		        [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+		    ),
+		    Promoted = Table.PromoteHeaders(Raw, [PromoteAllScalars=true]),
+		    CleanHeaders = Table.TransformColumnNames(Promoted, each Text.Trim(_))
+		in
+		    CleanHeaders
+	lineageTag: bb0e67ac-be3f-4831-aa25-7312076ddde5
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+

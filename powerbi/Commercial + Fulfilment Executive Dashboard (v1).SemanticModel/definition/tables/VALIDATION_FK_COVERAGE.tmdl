@@ -1,0 +1,118 @@
+table VALIDATION_FK_COVERAGE
+	lineageTag: 0c692b07-fd2a-4bd8-83db-34ca213625e8
+
+	column FACT_TABLE
+		dataType: string
+		lineageTag: 672ac504-ab0e-4499-8dbd-c45bc75709c1
+		summarizeBy: none
+		sourceColumn: FACT_TABLE
+
+		annotation SummarizationSetBy = Automatic
+
+	column FACT_ROWS
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ed85cbd-e50f-4eb8-8abe-96699da71e33
+		summarizeBy: sum
+		sourceColumn: FACT_ROWS
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension_Name
+		dataType: string
+		lineageTag: 6fa87c8d-6419-4717-bf60-72e0bdfd11d3
+		summarizeBy: none
+		sourceColumn: Dimension_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Missing_Key_Count
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e348317-ff3d-4e3d-8074-cc99f6988a8d
+		summarizeBy: sum
+		sourceColumn: Missing_Key_Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FK Coverage %' = ```
+			
+			1 - DIVIDE ( 
+			    VALIDATION_FK_COVERAGE[Missing_Key_Count], 
+			    VALIDATION_FK_COVERAGE[FACT_ROWS] 
+			)
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: beb00a64-fdc5-486c-9e4e-49b9a79785bf
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VALIDATION_FK_COVERAGE = m
+		mode: import
+		source =
+				let
+				    Sales = FACT_SALES,
+				    Ful = FACT_FULFILMENT,
+				
+				    // Build distinct key sets from dimensions
+				    DimDate = List.Buffer(Table.Column(DIM_DATE, "DATE_KEY")),
+				    DimCust = List.Buffer(Table.Column(DIM_CUSTOMER, "CUSTOMER_ID")),
+				    DimProd = List.Buffer(Table.Column(DIM_PRODUCT, "PRODUCT_CARD_ID")),
+				    DimCat  = List.Buffer(Table.Column(DIM_CATEGORY, "CATEGORY_ID")),
+				    DimDept = List.Buffer(Table.Column(DIM_DEPARTMENT, "DEPARTMENT_ID")),
+				    DimGeo  = List.Buffer(Table.Column(DIM_GEO, "GEO_KEY")),
+				    DimChan = List.Buffer(Table.Column(DIM_CHANNEL, "CHANNEL_KEY")),
+				    DimBand = List.Buffer(Table.Column(DIM_DISCOUNT_BAND, "DISCOUNT_BAND_KEY")),
+				
+				    // Helper to count missing keys
+				    MissingCount = (factCol as list, dimCol as list) as number =>
+				        List.Count(List.Select(factCol, each _ <> null and not List.Contains(dimCol, _))),
+				
+				    SalesOut = #table(
+				        {"FACT_TABLE","FACT_ROWS","MISSING_DIM_DATE","MISSING_DIM_CUSTOMER","MISSING_DIM_PRODUCT","MISSING_DIM_CATEGORY","MISSING_DIM_DEPARTMENT","MISSING_DIM_GEO","MISSING_DIM_CHANNEL","MISSING_DIM_DISCOUNT_BAND"},
+				        {
+				            {
+				                "FACT_SALES",
+				                Table.RowCount(Sales),
+				                MissingCount(Sales[ORDER_DATE_KEY], DimDate),
+				                MissingCount(Sales[CUSTOMER_ID], DimCust),
+				                MissingCount(Sales[PRODUCT_CARD_ID], DimProd),
+				                MissingCount(Sales[CATEGORY_ID], DimCat),
+				                MissingCount(Sales[DEPARTMENT_ID], DimDept),
+				                MissingCount(Sales[GEO_KEY], DimGeo),
+				                MissingCount(Sales[CHANNEL_KEY], DimChan),
+				                MissingCount(Sales[DISCOUNT_BAND_KEY], DimBand)
+				            }
+				        }
+				    ),
+				
+				    FulOut = #table(
+				        {"FACT_TABLE","FACT_ROWS","MISSING_DIM_ORDER_DATE","MISSING_DIM_SHIP_DATE","MISSING_DIM_CUSTOMER","MISSING_DIM_PRODUCT","MISSING_DIM_CATEGORY","MISSING_DIM_DEPARTMENT","MISSING_DIM_GEO","MISSING_DIM_CHANNEL"},
+				        {
+				            {
+				                "FACT_FULFILMENT",
+				                Table.RowCount(Ful),
+				                MissingCount(Ful[ORDER_DATE_KEY], DimDate),
+				                MissingCount(Ful[SHIP_DATE_KEY], DimDate),
+				                MissingCount(Ful[CUSTOMER_ID], DimCust),
+				                MissingCount(Ful[PRODUCT_CARD_ID], DimProd),
+				                MissingCount(Ful[CATEGORY_ID], DimCat),
+				                MissingCount(Ful[DEPARTMENT_ID], DimDept),
+				                MissingCount(Ful[GEO_KEY], DimGeo),
+				                MissingCount(Ful[CHANNEL_KEY], DimChan)
+				            }
+				        }
+				    ),
+				
+				    Out = Table.Combine({SalesOut, FulOut}),
+				    #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(Out, {"FACT_TABLE", "FACT_ROWS"}, "Attribute", "Value"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Unpivoted Other Columns",{{"Attribute", "Dimension_Name"}, {"Value", "Missing_Key_Count"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Missing_Key_Count", Int64.Type}, {"FACT_ROWS", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

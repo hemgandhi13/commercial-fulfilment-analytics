@@ -1,0 +1,68 @@
+table DIM_DISCOUNT_BAND
+	lineageTag: 09d48d2d-74de-4c19-88b1-35847f22ec28
+
+	column DISCOUNT_BAND_KEY
+		dataType: int64
+		isHidden
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d448d331-431a-4e89-b90a-3f9b42895c40
+		summarizeBy: none
+		sourceColumn: DISCOUNT_BAND_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column DISCOUNT_BAND_LABEL
+		dataType: string
+		lineageTag: efa4b98c-fb6d-42d3-ba1f-70e75b30da1f
+		summarizeBy: none
+		sourceColumn: DISCOUNT_BAND_LABEL
+		sortByColumn: DISCOUNT_BAND_KEY
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column RATE_MIN
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2a2f71ec-d724-4a3f-b9e4-2ae541aa1593
+		summarizeBy: none
+		sourceColumn: RATE_MIN
+
+		annotation SummarizationSetBy = Automatic
+
+	column RATE_MAX
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f2dc25ca-e357-4a0d-8602-46848cc84d8a
+		summarizeBy: none
+		sourceColumn: RATE_MAX
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_DISCOUNT_BAND = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_discount_band.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        UpperHeaders,
+				        {
+				            {"DISCOUNT_BAND_KEY", Int64.Type},
+				            {"DISCOUNT_BAND_LABEL", type text},
+				            {"RATE_MIN", type number},
+				            {"RATE_MAX", type number}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

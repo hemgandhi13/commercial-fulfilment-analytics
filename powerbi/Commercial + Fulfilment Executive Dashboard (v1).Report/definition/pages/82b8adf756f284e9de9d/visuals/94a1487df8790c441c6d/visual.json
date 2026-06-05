@@ -1,0 +1,186 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "94a1487df8790c441c6d",
+  "position": {
+    "x": 576,
+    "y": 464,
+    "z": 2000,
+    "height": 256,
+    "width": 688,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VALIDATION_FK_COVERAGE"
+                    }
+                  },
+                  "Property": "FACT_TABLE"
+                }
+              },
+              "queryRef": "VALIDATION_FK_COVERAGE.FACT_TABLE",
+              "nativeQueryRef": "FACT_TABLE"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VALIDATION_FK_COVERAGE"
+                    }
+                  },
+                  "Property": "Dimension_Name"
+                }
+              },
+              "queryRef": "VALIDATION_FK_COVERAGE.Dimension_Name",
+              "nativeQueryRef": "Dimension_Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "VALIDATION_FK_COVERAGE"
+                    }
+                  },
+                  "Property": "Missing_Key_Count"
+                }
+              },
+              "queryRef": "VALIDATION_FK_COVERAGE.Missing_Key_Count",
+              "nativeQueryRef": "Missing_Key_Count"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "VALIDATION_FK_COVERAGE"
+                        }
+                      },
+                      "Property": "FK Coverage %"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(VALIDATION_FK_COVERAGE.FK Coverage %)",
+              "nativeQueryRef": "Sum of FK Coverage %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "VALIDATION_FK_COVERAGE"
+                  }
+                },
+                "Property": "Dimension_Name"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Aggregation": {
+                                  "Expression": {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Entity": "VALIDATION_FK_COVERAGE"
+                                        }
+                                      },
+                                      "Property": "Missing_Key_Count"
+                                    }
+                                  },
+                                  "Function": 0
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "1D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#E66C37'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "VALIDATION_FK_COVERAGE.Missing_Key_Count"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'FK Coverage Checks (Missing Keys)'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

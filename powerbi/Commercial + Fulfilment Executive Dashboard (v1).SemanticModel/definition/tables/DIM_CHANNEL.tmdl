@@ -1,0 +1,104 @@
+table DIM_CHANNEL
+	lineageTag: c2d865ec-612c-4ce4-91f7-e49e71067568
+
+	column CHANNEL_KEY
+		dataType: string
+		isHidden
+		lineageTag: abac75bd-fcef-4fa9-9d9e-d46729a28250
+		summarizeBy: none
+		sourceColumn: CHANNEL_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MARKET
+		dataType: string
+		lineageTag: 44f30e85-76fb-479a-9f68-11df10f5c21d
+		summarizeBy: none
+		sourceColumn: MARKET
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_REGION
+		dataType: string
+		lineageTag: d70f2b2c-27e4-4f2b-abc5-46bf33e91f3d
+		summarizeBy: none
+		sourceColumn: ORDER_REGION
+
+		annotation SummarizationSetBy = Automatic
+
+	column SHIPPING_MODE
+		dataType: string
+		lineageTag: 293b83f2-0560-43f9-9f3b-fb0777a35d9d
+		summarizeBy: none
+		sourceColumn: SHIPPING_MODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column MARKET_KEY
+		dataType: string
+		isHidden
+		lineageTag: 4a952989-002c-40f1-8b22-0e3447031985
+		summarizeBy: none
+		sourceColumn: MARKET_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_REGION_KEY
+		dataType: string
+		isHidden
+		lineageTag: c0210fb6-7de0-412b-9d07-fa66585b6133
+		summarizeBy: none
+		sourceColumn: ORDER_REGION_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SHIPPING_MODE_KEY
+		dataType: string
+		isHidden
+		lineageTag: 925e14c9-0d0d-48af-9864-636ab2f33d75
+		summarizeBy: none
+		sourceColumn: SHIPPING_MODE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_CHANNEL = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_channel.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    KeyText = Table.TransformColumns(
+				        UpperHeaders,
+				        {
+				            {"CHANNEL_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text}
+				        }
+				    ),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        KeyText,
+				        {
+				            {"MARKET", type text},
+				            {"ORDER_REGION", type text},
+				            {"SHIPPING_MODE", type text},
+				            {"MARKET_KEY", type text},
+				            {"ORDER_REGION_KEY", type text},
+				            {"SHIPPING_MODE_KEY", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

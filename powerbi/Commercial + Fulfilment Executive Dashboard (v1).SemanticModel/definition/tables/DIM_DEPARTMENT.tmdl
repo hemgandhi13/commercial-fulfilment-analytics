@@ -1,0 +1,46 @@
+table DIM_DEPARTMENT
+	lineageTag: 1fd967bf-c948-461a-980a-462751f9e614
+
+	column DEPARTMENT_ID
+		dataType: int64
+		isHidden
+		lineageTag: 1af48125-5df9-4456-97e4-8239a84a8270
+		summarizeBy: none
+		sourceColumn: DEPARTMENT_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DEPARTMENT_NAME
+		dataType: string
+		lineageTag: b8c6c73d-1191-43e3-8181-dbfb69074f1a
+		summarizeBy: none
+		sourceColumn: DEPARTMENT_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_DEPARTMENT = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_department.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        UpperHeaders,
+				        {
+				            {"DEPARTMENT_ID", Int64.Type},
+				            {"DEPARTMENT_NAME", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
