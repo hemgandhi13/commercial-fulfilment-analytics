@@ -1,0 +1,54 @@
+table VALIDATION_ROWCOUNTS
+	lineageTag: d951c6a6-75ab-41b3-a9b8-d9afbc93e00e
+
+	column TABLE_NAME
+		dataType: string
+		lineageTag: 824f61b9-6196-49d1-a75e-8d6cafc18787
+		summarizeBy: none
+		sourceColumn: TABLE_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column ROWS
+		dataType: int64
+		formatString: 0
+		lineageTag: 99ee8241-6269-4cdd-898e-481fc694283c
+		summarizeBy: sum
+		sourceColumn: ROWS
+
+		changedProperty = SortByColumn
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition VALIDATION_ROWCOUNTS = m
+		mode: import
+		source =
+				let
+				    Tables = {
+				        {"DIM_DATE", DIM_DATE},
+				        {"DIM_CUSTOMER", DIM_CUSTOMER},
+				        {"DIM_PRODUCT", DIM_PRODUCT},
+				        {"DIM_CATEGORY", DIM_CATEGORY},
+				        {"DIM_DEPARTMENT", DIM_DEPARTMENT},
+				        {"DIM_GEO", DIM_GEO},
+				        {"DIM_CHANNEL", DIM_CHANNEL},
+				        {"DIM_DISCOUNT_BAND", DIM_DISCOUNT_BAND},
+				        {"FACT_SALES", FACT_SALES},
+				        {"FACT_FULFILMENT", FACT_FULFILMENT}
+				    },
+				
+				    RowCounts = Table.FromRecords(
+				        List.Transform(
+				            Tables,
+				            each [TABLE_NAME = _{0}, ROWS = Table.RowCount(_{1})]
+				        )
+				    )
+				in
+				    RowCounts
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

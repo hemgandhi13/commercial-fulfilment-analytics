@@ -1,0 +1,7 @@
+role MarketManager
+	modelPermission: read
+
+	tablePermission SEC_USER_MARKET = SEC_USER_MARKET[UserEmail] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 99dbf477467a4a758a3fa7510ae72bfe
+

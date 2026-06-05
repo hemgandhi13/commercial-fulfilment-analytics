@@ -1,0 +1,303 @@
+table FACT_SALES
+	lineageTag: b612e045-2a76-4d05-8634-5351c0287ac2
+
+	column ORDER_ITEM_ID
+		dataType: int64
+		lineageTag: 1fa73049-351f-4343-b480-bc7f30b25993
+		summarizeBy: none
+		sourceColumn: ORDER_ITEM_ID
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_ID
+		dataType: int64
+		lineageTag: 7a482218-b85d-488c-9750-6e4882882ec7
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_ID
+		dataType: int64
+		isHidden
+		lineageTag: 5bdadf15-bedc-4a62-9fd4-fe179e24f1e5
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRODUCT_CARD_ID
+		dataType: int64
+		isHidden
+		lineageTag: 50210422-b8b9-42ce-aa8b-341090b46f89
+		summarizeBy: none
+		sourceColumn: PRODUCT_CARD_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CATEGORY_ID
+		dataType: int64
+		isHidden
+		lineageTag: c1feb661-0c62-4c0a-8384-852a9bba9afe
+		summarizeBy: none
+		sourceColumn: CATEGORY_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DEPARTMENT_ID
+		dataType: int64
+		isHidden
+		lineageTag: 218da223-eba2-4d73-9bf9-05c09b4523f4
+		summarizeBy: none
+		sourceColumn: DEPARTMENT_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_DATE_KEY
+		dataType: int64
+		isHidden
+		lineageTag: 9b4aae70-64ac-4823-9f97-cf293acbba5c
+		summarizeBy: none
+		sourceColumn: ORDER_DATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GEO_KEY
+		dataType: string
+		isHidden
+		lineageTag: 3b8d87e8-aa49-4005-8287-f0b08e69f737
+		summarizeBy: none
+		sourceColumn: GEO_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column CHANNEL_KEY
+		dataType: string
+		isHidden
+		lineageTag: 0c67dee6-e1a1-4709-ad57-820f13d0d9e1
+		summarizeBy: none
+		sourceColumn: CHANNEL_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column DISCOUNT_BAND_KEY
+		dataType: int64
+		isHidden
+		lineageTag: 9700f580-07fb-4a93-b474-09a90159fd5b
+		summarizeBy: none
+		sourceColumn: DISCOUNT_BAND_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GROSS_SALES
+		dataType: double
+		isHidden
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 901d8394-b9aa-47ee-857c-0e865b5bec01
+		summarizeBy: sum
+		sourceColumn: GROSS_SALES
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AU"}
+
+	column NET_SALES
+		dataType: double
+		isHidden
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: c2894124-5b64-4da4-995f-c34c9280a752
+		summarizeBy: sum
+		sourceColumn: NET_SALES
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AU"}
+
+	column DISCOUNT_AMOUNT
+		dataType: double
+		isHidden
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: ef8eba21-e9d7-4305-b3b9-372c1358f340
+		summarizeBy: sum
+		sourceColumn: DISCOUNT_AMOUNT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AU"}
+
+	column DISCOUNT_RATE
+		dataType: double
+		isHidden
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 161145e6-1aff-4cab-9462-428f11dea36f
+		summarizeBy: sum
+		sourceColumn: DISCOUNT_RATE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROFIT
+		dataType: double
+		isHidden
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 0f576fbd-0d7c-4e7a-ab55-187c5fe0efb2
+		summarizeBy: sum
+		sourceColumn: PROFIT
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AU"}
+
+	column QUANTITY
+		dataType: int64
+		isHidden
+		lineageTag: ca2f35f3-0739-4e50-bc9d-c2fead704642
+		summarizeBy: sum
+		sourceColumn: QUANTITY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UNIT_PRICE
+		dataType: double
+		isHidden
+		formatString: \$#,0.###############;-\$#,0.###############;\$#,0.###############
+		lineageTag: 255cca4e-4d2d-444b-8118-d09705efd81c
+		summarizeBy: sum
+		sourceColumn: UNIT_PRICE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-AU"}
+
+	column ORDER_STATUS
+		dataType: string
+		lineageTag: 8b8fd15b-6cdd-4ea0-a355-f81ba3ed41d0
+		summarizeBy: none
+		sourceColumn: ORDER_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column _INGEST_TS
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: d754469d-9547-4e70-9743-85c631c74dd2
+		summarizeBy: none
+		sourceColumn: _INGEST_TS
+
+		variation Variation
+			isDefault
+			relationship: 173fcb42-7a93-4b9e-9681-6b234c5e586a
+			defaultHierarchy: LocalDateTable_c84c6441-2a34-413a-812c-4db736ad182d.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column _BATCH_ID
+		dataType: string
+		isHidden
+		lineageTag: 91717800-5bba-438f-8e4c-b2e1a7b3d2b8
+		summarizeBy: none
+		sourceColumn: _BATCH_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	partition FACT_SALES = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("fact_sales.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    // Convert very-large numeric keys safely to TEXT (avoid scientific notation issues)
+				    KeyText = Table.TransformColumns(
+				        UpperHeaders,
+				        {
+				            {"GEO_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text},
+				            {"CHANNEL_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text}
+				        }
+				    ),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        KeyText,
+				        {
+				            {"ORDER_ITEM_ID", Int64.Type},
+				            {"ORDER_ID", Int64.Type},
+				            {"CUSTOMER_ID", Int64.Type},
+				            {"PRODUCT_CARD_ID", Int64.Type},
+				            {"CATEGORY_ID", Int64.Type},
+				            {"DEPARTMENT_ID", Int64.Type},
+				            {"ORDER_DATE_KEY", Int64.Type},
+				            {"DISCOUNT_BAND_KEY", Int64.Type},
+				
+				            {"GROSS_SALES", type number},
+				            {"NET_SALES", type number},
+				            {"DISCOUNT_AMOUNT", type number},
+				            {"DISCOUNT_RATE", type number},
+				            {"PROFIT", type number},
+				            {"QUANTITY", Int64.Type},
+				            {"UNIT_PRICE", type number},
+				
+				            {"ORDER_STATUS", type text},
+				            {"_INGEST_TS", type datetimezone},
+				            {"_BATCH_ID", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

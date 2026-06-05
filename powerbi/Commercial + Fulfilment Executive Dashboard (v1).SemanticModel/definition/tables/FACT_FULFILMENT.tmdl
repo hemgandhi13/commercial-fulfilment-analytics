@@ -1,0 +1,295 @@
+table FACT_FULFILMENT
+	lineageTag: bd4cf158-7313-4171-9b94-7560f1f5f5c2
+
+	column ORDER_ITEM_ID
+		dataType: int64
+		lineageTag: ef970d13-6f26-4dd6-b3ce-b71366bb6393
+		summarizeBy: none
+		sourceColumn: ORDER_ITEM_ID
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_ID
+		dataType: int64
+		lineageTag: fad08f42-df22-479e-a5f4-6c5256b12d8f
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_ID
+		dataType: int64
+		isHidden
+		lineageTag: e7653a71-d486-4b87-97a1-d65b976a6cf1
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PRODUCT_CARD_ID
+		dataType: int64
+		isHidden
+		lineageTag: 9504155e-3e0d-42cc-b47f-a38325a1bea3
+		summarizeBy: none
+		sourceColumn: PRODUCT_CARD_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CATEGORY_ID
+		dataType: int64
+		isHidden
+		lineageTag: 1db6bb16-60d2-4e0b-bb5d-49b0063e6113
+		summarizeBy: none
+		sourceColumn: CATEGORY_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DEPARTMENT_ID
+		dataType: int64
+		isHidden
+		lineageTag: 91126d85-ac92-4422-b23b-e0ff17fb6d9a
+		summarizeBy: none
+		sourceColumn: DEPARTMENT_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_DATE_KEY
+		dataType: int64
+		isHidden
+		lineageTag: 85d28796-4375-4ab1-9bf9-b749abf1359b
+		summarizeBy: none
+		sourceColumn: ORDER_DATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SHIP_DATE_KEY
+		dataType: int64
+		isHidden
+		lineageTag: 43659953-3366-467c-881d-268c5161e5a8
+		summarizeBy: none
+		sourceColumn: SHIP_DATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column GEO_KEY
+		dataType: string
+		isHidden
+		lineageTag: 19fe3eed-c6a4-4c6c-9227-cbb0e6522ae0
+		summarizeBy: none
+		sourceColumn: GEO_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column CHANNEL_KEY
+		dataType: string
+		isHidden
+		lineageTag: 1d8ff588-3a00-443b-805d-72585f3bbe15
+		summarizeBy: none
+		sourceColumn: CHANNEL_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column DAYS_FOR_SHIPPING_REAL
+		dataType: int64
+		isHidden
+		lineageTag: 07e9431b-2e7d-49d8-9d33-ba00e65afa04
+		summarizeBy: sum
+		sourceColumn: DAYS_FOR_SHIPPING_REAL
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DAYS_FOR_SHIPMENT_SCHEDULED
+		dataType: int64
+		isHidden
+		lineageTag: 17c8dcf8-2a82-4ded-bd04-d143c99cc083
+		summarizeBy: sum
+		sourceColumn: DAYS_FOR_SHIPMENT_SCHEDULED
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SHIPPING_DAYS_VARIANCE
+		dataType: int64
+		isHidden
+		lineageTag: 364f3273-c4a6-472e-a10e-4841b9138382
+		summarizeBy: sum
+		sourceColumn: SHIPPING_DAYS_VARIANCE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LATE_DELIVERY_RISK
+		dataType: int64
+		lineageTag: fbc25782-aeb1-4892-b187-9a920d771972
+		summarizeBy: none
+		sourceColumn: LATE_DELIVERY_RISK
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IS_LATE_BY_DAYS
+		dataType: int64
+		isHidden
+		lineageTag: 9aaa7534-a20a-4eca-9758-a17ad04d9dee
+		summarizeBy: sum
+		sourceColumn: IS_LATE_BY_DAYS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DELIVERY_STATUS
+		dataType: string
+		lineageTag: d34c46b4-5d14-4af2-8f92-24df68d21ab8
+		summarizeBy: none
+		sourceColumn: DELIVERY_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column SHIPPING_MODE
+		dataType: string
+		lineageTag: bc820905-9485-436f-ace6-d44267065cb7
+		summarizeBy: none
+		sourceColumn: SHIPPING_MODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_STATUS
+		dataType: string
+		lineageTag: 0860804c-d9da-4fe7-a99d-393e3dbd1a8d
+		summarizeBy: none
+		sourceColumn: ORDER_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_ZIPCODE
+		dataType: string
+		lineageTag: e0811c95-ad78-4a62-91f5-9fbd3316a490
+		summarizeBy: none
+		sourceColumn: ORDER_ZIPCODE
+
+		annotation SummarizationSetBy = User
+
+	column _INGEST_TS
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: fef68abc-5ec2-4b90-8634-77f4718b8347
+		summarizeBy: none
+		sourceColumn: _INGEST_TS
+
+		variation Variation
+			isDefault
+			relationship: b214a45a-6bb2-4bb7-b358-17fd62042464
+			defaultHierarchy: LocalDateTable_2a704480-0439-4de1-b4c7-8d89baad25d5.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column _BATCH_ID
+		dataType: string
+		isHidden
+		lineageTag: 76adc521-e231-495b-898b-a4b51eebd86a
+		summarizeBy: none
+		sourceColumn: _BATCH_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	partition FACT_FULFILMENT = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("fact_fulfilment.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    KeyText = Table.TransformColumns(
+				        UpperHeaders,
+				        {
+				            {"GEO_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text},
+				            {"CHANNEL_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text},
+				            {"ORDER_ZIPCODE", each Text.From(_, "en-US"), type text}
+				        }
+				    ),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        KeyText,
+				        {
+				            {"ORDER_ITEM_ID", Int64.Type},
+				            {"ORDER_ID", Int64.Type},
+				            {"CUSTOMER_ID", Int64.Type},
+				            {"PRODUCT_CARD_ID", Int64.Type},
+				            {"CATEGORY_ID", Int64.Type},
+				            {"DEPARTMENT_ID", Int64.Type},
+				            {"ORDER_DATE_KEY", Int64.Type},
+				            {"SHIP_DATE_KEY", Int64.Type},
+				
+				            {"DAYS_FOR_SHIPPING_REAL", Int64.Type},
+				            {"DAYS_FOR_SHIPMENT_SCHEDULED", Int64.Type},
+				            {"SHIPPING_DAYS_VARIANCE", Int64.Type},
+				            {"LATE_DELIVERY_RISK", Int64.Type},
+				            {"IS_LATE_BY_DAYS", Int64.Type},
+				
+				            {"DELIVERY_STATUS", type text},
+				            {"SHIPPING_MODE", type text},
+				            {"ORDER_STATUS", type text},
+				
+				            {"_INGEST_TS", type datetimezone},
+				            {"_BATCH_ID", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

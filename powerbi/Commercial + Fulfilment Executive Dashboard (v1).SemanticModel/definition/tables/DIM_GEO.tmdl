@@ -1,0 +1,68 @@
+table DIM_GEO
+	lineageTag: 1f827895-c191-4021-b7a2-f36b61cd87cd
+
+	column GEO_KEY
+		dataType: string
+		isHidden
+		lineageTag: 9261f8bc-344e-4805-bbf1-1cf72ed23618
+		summarizeBy: none
+		sourceColumn: GEO_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COUNTRY
+		dataType: string
+		lineageTag: 57e7db8f-2f5f-49d7-9492-e9e11098fb41
+		summarizeBy: none
+		sourceColumn: COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column STATE
+		dataType: string
+		lineageTag: eca15be3-4fb9-4df5-8695-ad8eab53f475
+		summarizeBy: none
+		sourceColumn: STATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column CITY
+		dataType: string
+		lineageTag: bee224bd-e8fd-4b39-be4d-707b0cc221c5
+		summarizeBy: none
+		sourceColumn: CITY
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_GEO = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_geo.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    KeyText = Table.TransformColumns(
+				        UpperHeaders,
+				        {
+				            {"GEO_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text}
+				        }
+				    ),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        KeyText,
+				        {
+				            {"COUNTRY", type text},
+				            {"STATE", type text},
+				            {"CITY", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

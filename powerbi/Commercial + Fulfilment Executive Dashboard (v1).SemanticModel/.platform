@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Commercial + Fulfilment Executive Dashboard (v1)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7761c307-e36e-4091-adaa-b3903bbc1836"
+  }
+}

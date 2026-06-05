@@ -1,0 +1,257 @@
+table DIM_CUSTOMER
+	lineageTag: 66f36807-236e-408c-a308-6e81d5f9a17d
+
+	column CUSTOMER_ID
+		dataType: int64
+		isHidden
+		lineageTag: 83710622-9728-4203-9997-56bd001ba98e
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_SEGMENT
+		dataType: string
+		lineageTag: 5821d796-e144-47f3-9352-1a1847a61a5d
+		summarizeBy: none
+		sourceColumn: CUSTOMER_SEGMENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_COUNTRY
+		dataType: string
+		lineageTag: 7771475c-fe96-4017-b0c1-2832637e179d
+		summarizeBy: none
+		sourceColumn: CUSTOMER_COUNTRY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_STATE
+		dataType: string
+		lineageTag: 4ffca299-e72c-497f-a2b3-d6128a5a93a9
+		summarizeBy: none
+		sourceColumn: CUSTOMER_STATE
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_CITY
+		dataType: string
+		lineageTag: 819a4d53-ec40-43f4-8ecc-0163859e14ca
+		summarizeBy: none
+		sourceColumn: CUSTOMER_CITY
+
+		annotation SummarizationSetBy = Automatic
+
+	column CUSTOMER_ZIPCODE
+		dataType: string
+		lineageTag: dd385732-221a-43a0-b555-87af1ad4f193
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ZIPCODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column LATITUDE
+		dataType: double
+		lineageTag: 7b6a5d0a-9291-463c-894f-743df30feeae
+		summarizeBy: none
+		sourceColumn: LATITUDE
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LONGITUDE
+		dataType: double
+		lineageTag: bbccf474-25e9-4886-8c08-f9482f6899e0
+		summarizeBy: none
+		sourceColumn: LONGITUDE
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_COUNTRY_KEY
+		dataType: string
+		isHidden
+		lineageTag: b5da91db-3672-4dfa-a8b3-f273c6fcb983
+		summarizeBy: none
+		sourceColumn: CUSTOMER_COUNTRY_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column CUSTOMER_STATE_KEY
+		dataType: string
+		isHidden
+		lineageTag: 27580eee-2037-42af-82ff-280c82873698
+		summarizeBy: none
+		sourceColumn: CUSTOMER_STATE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column CUSTOMER_CITY_KEY
+		dataType: string
+		isHidden
+		lineageTag: 17e3f05c-9ba2-4a41-9b3c-d6c5e1804c10
+		summarizeBy: none
+		sourceColumn: CUSTOMER_CITY_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column CUSTOMER_ZIPCODE_KEY
+		dataType: string
+		isHidden
+		lineageTag: 55e4064f-fb6e-4bad-a52c-728666919f13
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ZIPCODE_KEY
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'First Purchase Date' = ```
+			
+			MINX (
+			    RELATEDTABLE ( FACT_SALES ),
+			    RELATED ( DIM_DATE[date] )
+			)
+			
+			```
+		formatString: General Date
+		lineageTag: 6cb2fd0c-659b-4c95-a1de-c82a7eb5de62
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: b091445b-56b6-4b06-b263-b7f7a8bff424
+			defaultHierarchy: LocalDateTable_ca8330e5-c1d0-484c-9f5f-6ae64967f61d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cohort Month' = ```
+			
+			DATE ( YEAR ( DIM_CUSTOMER[First Purchase Date] ), MONTH ( DIM_CUSTOMER[First Purchase Date] ), 1 )
+			
+			```
+		formatString: General Date
+		lineageTag: 4fd8f40e-7bde-4f8d-a020-713da4f2e79d
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 6d5b82e5-4353-4dfe-9760-ec917bed7b8e
+			defaultHierarchy: LocalDateTable_4dba043d-d954-46b2-be5a-183e27b8f631.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Order Date Key' = ```
+			
+			CALCULATE ( MIN ( FACT_SALES[order_date_key] ) )
+			
+			```
+		formatString: 0
+		lineageTag: dda7be41-bd8b-4504-8a23-5d650edfa3eb
+		summarizeBy: count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Purchase YearMonth' = ```
+			
+			LOOKUPVALUE (
+			    DIM_DATE[year_month],
+			    DIM_DATE[date_key], DIM_CUSTOMER[First Order Date Key]
+			)
+			
+			```
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: ff7706fe-c406-41be-ac26-244ed38c1f62
+		summarizeBy: none
+		sortByColumn: 'First Purchase YearMonth Sort'
+
+		variation Variation
+			isDefault
+			relationship: 2fbe45e3-1b24-4fa9-9720-df5acb65e27c
+			defaultHierarchy: LocalDateTable_49f7c27c-5ee4-4c6b-a72d-8ea9068eb192.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'First Purchase YearMonth Sort' = ```
+			
+			LOOKUPVALUE (
+			    DIM_DATE[YearMonthSort],
+			    DIM_DATE[date_key], DIM_CUSTOMER[First Order Date Key]
+			)
+			
+			```
+		dataType: int64
+		lineageTag: d852a71c-ae1e-4234-8b1d-880a3b690934
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'First Purchase YearMonthSort' = ```
+			
+			VAR k = DIM_CUSTOMER[First Order Date Key]
+			VAR y = INT ( k / 10000 )
+			VAR m = INT ( MOD ( k, 10000 ) / 100 )
+			RETURN y * 100 + m
+			
+			```
+		formatString: 0
+		lineageTag: 539383c2-594a-4e30-b602-c632d52b1bcc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_CUSTOMER = m
+		mode: import
+		source =
+				let
+				    Source = fnLoadCsv("dim_customer.csv"),
+				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(
+				        UpperHeaders,
+				        {
+				            {"CUSTOMER_ID", Int64.Type},
+				            {"CUSTOMER_SEGMENT", type text},
+				            {"CUSTOMER_COUNTRY", type text},
+				            {"CUSTOMER_STATE", type text},
+				            {"CUSTOMER_CITY", type text},
+				            {"CUSTOMER_ZIPCODE", type text},
+				            {"LATITUDE", type number},
+				            {"LONGITUDE", type number},
+				            {"CUSTOMER_COUNTRY_KEY", type text},
+				            {"CUSTOMER_STATE_KEY", type text},
+				            {"CUSTOMER_CITY_KEY", type text},
+				            {"CUSTOMER_ZIPCODE_KEY", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

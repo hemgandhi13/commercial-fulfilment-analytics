@@ -1,0 +1,43 @@
+model Model
+	culture: en-AU
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-AU
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["DIM_DATE","DIM_CUSTOMER","DIM_PRODUCT","DIM_CATEGORY","DIM_DEPARTMENT","DIM_GEO","DIM_CHANNEL","DIM_DISCOUNT_BAND","FACT_SALES","FACT_FULFILMENT","pDataFolder","fnLoadCsv","VALIDATION_ROWCOUNTS","VALIDATION_FK_COVERAGE","_Measures","SEC_USER_MARKET"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DIM_DATE
+ref table DateTableTemplate_d5bad7b1-837a-443d-b9fd-a38ed6b36beb
+ref table DIM_CUSTOMER
+ref table DIM_PRODUCT
+ref table DIM_CATEGORY
+ref table DIM_DEPARTMENT
+ref table DIM_GEO
+ref table DIM_CHANNEL
+ref table DIM_DISCOUNT_BAND
+ref table FACT_SALES
+ref table LocalDateTable_c84c6441-2a34-413a-812c-4db736ad182d
+ref table FACT_FULFILMENT
+ref table LocalDateTable_2a704480-0439-4de1-b4c7-8d89baad25d5
+ref table VALIDATION_ROWCOUNTS
+ref table VALIDATION_FK_COVERAGE
+ref table _Measures
+ref table LocalDateTable_ca8330e5-c1d0-484c-9f5f-6ae64967f61d
+ref table LocalDateTable_4dba043d-d954-46b2-be5a-183e27b8f631
+ref table LocalDateTable_49f7c27c-5ee4-4c6b-a72d-8ea9068eb192
+ref table DIM_MARKET
+ref table SEC_USER_MARKET
+ref table CG_TimeIntelligence
+
+ref role Executive
+ref role MarketManager
+
+ref cultureInfo en-AU
+

@@ -1,0 +1,591 @@
+table _Measures
+	lineageTag: c9b806c3-4948-411c-9cc3-9fdadb01e9ab
+
+	measure 'Total Gross Sales' = SUM(Fact_Sales[gross_sales])
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: A. Base Commercial
+		lineageTag: a965f7e1-cd8d-4b45-ad66-4244ce377b80
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Net Sales' =
+			
+			SUM ( FACT_SALES[net_sales] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: A. Base Commercial
+		lineageTag: 69657053-cc10-4579-975b-8993aabf8663
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Profit =
+			
+			SUM ( FACT_SALES[profit] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: A. Base Commercial
+		lineageTag: 8d9e3665-0035-403a-b09c-60b1483102b9
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Quantity =
+			
+			SUM ( FACT_SALES[quantity] )
+		formatString: 0
+		displayFolder: A. Base Commercial
+		lineageTag: 39231d81-0977-4f2d-866a-34d11c17c0a5
+
+		changedProperty = IsHidden
+
+	measure Orders = ```
+			
+			DISTINCTCOUNT ( FACT_SALES[order_id] )
+			
+			```
+		formatString: 0
+		displayFolder: A. Base Commercial
+		lineageTag: b9d69f65-c9ac-4e90-b277-fab84e26222c
+
+		changedProperty = IsHidden
+
+	measure 'Order Items' = ```
+			
+			DISTINCTCOUNT ( FACT_SALES[order_item_id] )
+			
+			```
+		formatString: 0
+		displayFolder: A. Base Commercial
+		lineageTag: 12650b6a-1b4b-47f4-9313-e41e4018fb4e
+
+		changedProperty = IsHidden
+
+	measure 'Discount Amount' = ```
+			
+			SUM ( FACT_SALES[discount_amount] )
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: B. Pricing & Discounts
+		lineageTag: 212431cd-be6f-40b7-9c89-b0d1d8bc51dd
+
+	measure 'Discount Rate % (Effective)' = ```
+			
+			DIVIDE ( [Discount Amount], [Total Gross Sales])
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: B. Pricing & Discounts
+		lineageTag: 3ff2304b-3e7c-4fdf-a4cf-df878f6b79f6
+
+	measure 'Discount Rate % (Average)' = ```
+			
+			AVERAGE ( FACT_SALES[discount_rate] )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: B. Pricing & Discounts
+		lineageTag: fb5d0fd6-4efb-44a6-a6c9-48e30ec70f4d
+
+	measure 'Gross Margin %' =
+			
+			DIVIDE ( [Profit], [Net Sales] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: C. Revenue & Ratios
+		lineageTag: e8526c97-1030-4e2d-98a9-f6c18fe5dab3
+
+	measure 'AOV (Avg Order Value)' = ```
+			
+			DIVIDE ( [Net Sales], [Orders] )
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: C. Revenue & Ratios
+		lineageTag: 269b7cc6-9689-46a8-a030-5e38322ab1cd
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Avg Unit Price (Weighted)' = ```
+			
+			DIVIDE ( [Net Sales], [Quantity] )
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: C. Revenue & Ratios
+		lineageTag: add0e7f1-7c77-4362-a9b3-fd4f2df9a61c
+
+	measure 'Profit per Order' = ```
+			
+			DIVIDE ( [Profit], [Orders] )
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: C. Revenue & Ratios
+		lineageTag: 4090df47-c834-4c8f-a82d-3850609a2be4
+
+	measure 'Units per Order (Basket Size)' = ```
+			
+			DIVIDE ( [Quantity], [Orders] )
+			
+			```
+		formatString: 0.0
+		displayFolder: C. Revenue & Ratios
+		lineageTag: e9ed4c35-ee71-40fd-9d17-d9b4f369797e
+
+	measure 'Fulfilment Orders' = ```
+			
+			DISTINCTCOUNT ( FACT_FULFILMENT[order_id] )
+			
+			```
+		formatString: #,0
+		displayFolder: E. Fulfillment
+		lineageTag: 2e03f0f8-83ef-4efa-9633-178a190a8a02
+
+	measure 'Late Orders (Fulfilment)' = ```
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( FACT_FULFILMENT[order_id] ),
+			    FACT_FULFILMENT[late_delivery_risk] = 1
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: E. Fulfillment
+		lineageTag: e574031a-48c1-4001-9f61-f85f96850603
+
+	measure 'On-Time Orders (Fulfilment)' = ```
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( FACT_FULFILMENT[order_id] ),
+			    FACT_FULFILMENT[late_delivery_risk] = 0
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: E. Fulfillment
+		lineageTag: f05781cb-4699-4ed4-b923-d099da9bc6d5
+
+	measure 'Late Delivery Rate %' = ```
+			
+			DIVIDE ( [Late Orders (Fulfilment)], [Fulfilment Orders] )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: E. Fulfillment
+		lineageTag: 8a5f02b1-0488-4d0c-a532-30f5ab92e062
+
+	measure 'On-Time Delivery Rate %' = ```
+			
+			DIVIDE ( [On-Time Orders (Fulfilment)], [Fulfilment Orders] )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: E. Fulfillment
+		lineageTag: 7d96aa4b-8fb4-4028-bd2b-7d09d81b41fb
+
+	measure 'Avg Shipping Days (Real)' = ```
+			
+			AVERAGE ( FACT_FULFILMENT[days_for_shipping_real] )
+			
+			```
+		formatString: 0.0
+		displayFolder: E. Fulfillment
+		lineageTag: f57259e1-8967-4c45-9a4c-d0b90f67f279
+
+	measure 'Avg Shipping Days (Scheduled)' = ```
+			
+			AVERAGE ( FACT_FULFILMENT[days_for_shipment_scheduled] )
+			
+			```
+		formatString: 0.0
+		displayFolder: E. Fulfillment
+		lineageTag: 72405a1b-747b-4570-b631-2d2756ca0b9b
+
+	measure 'Avg Shipping Variance' = ```
+			
+			AVERAGE ( FACT_FULFILMENT[shipping_days_variance] )
+			
+			```
+		formatString: 0.0
+		displayFolder: E. Fulfillment
+		lineageTag: 126e47e5-88d4-49c8-a4e9-190dd821d587
+
+	measure 'Avg Late Days (Late Orders Only)' = ```
+			
+			CALCULATE (
+			    AVERAGE ( FACT_FULFILMENT[is_late_by_days] ),
+			    FACT_FULFILMENT[late_delivery_risk] = 1
+			)
+			
+			```
+		formatString: 0.0
+		displayFolder: F. Op Severity
+		lineageTag: 4a898264-7784-4c87-9c58-51bc57785e6f
+
+	measure '% Orders Late 3+ Days' = ```
+			
+			VAR Late3 =
+			    CALCULATE (
+			        DISTINCTCOUNT ( FACT_FULFILMENT[order_id] ),
+			        FACT_FULFILMENT[is_late_by_days] >= 3
+			    )
+			RETURN
+			DIVIDE ( Late3, [Fulfilment Orders] )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: F. Op Severity
+		lineageTag: 0022edc2-b2f5-4144-843d-fa06e8451401
+
+	measure 'Late Delivery Rate % (Ship Date)' = ```
+			
+			CALCULATE (
+			    [Late Delivery Rate %],
+			    USERELATIONSHIP ( DIM_DATE[date_key], FACT_FULFILMENT[ship_date_key] )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: G. Ship Date Logic
+		lineageTag: 3c978534-d29c-40d1-98af-fad7084ad79b
+
+	measure 'Fulfilment Orders (Ship Date)' = ```
+			
+			CALCULATE (
+			    [Fulfilment Orders],
+			    USERELATIONSHIP ( DIM_DATE[date_key], FACT_FULFILMENT[ship_date_key] )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: G. Ship Date Logic
+		lineageTag: b7ede1f4-a74a-43c4-a932-e2f18e69a548
+
+	measure 'Repeat Customers' = ```
+			
+			VAR T =
+			    SUMMARIZE (
+			        FACT_SALES,
+			        FACT_SALES[customer_id],
+			        "OrderCount", DISTINCTCOUNT ( FACT_SALES[order_id] )
+			    )
+			RETURN
+			COUNTROWS ( FILTER ( T, [OrderCount] >= 2 ) )
+			
+			```
+		formatString: #,0
+		displayFolder: H. Customer Logic
+		lineageTag: 7ea3c2be-74cf-4c46-bb51-0d01e164676c
+
+	measure 'Repeat Purchase Rate %' = ```
+			
+			DIVIDE ( [Repeat Customers], [Active Customers] )
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: H. Customer Logic
+		lineageTag: 7e6edf04-9eb9-41cc-9bb0-d169a31c6877
+
+	measure 'Net Sales % of Total' = ```
+			
+			DIVIDE (
+			    [Net Sales],
+			    CALCULATE ( [Net Sales], ALL ( DIM_PRODUCT ) )
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: I. Advanced
+		lineageTag: f5f98f02-f801-4dc0-afb0-09402249feec
+
+	measure 'Product Rank (Net Sales)' = ```
+			
+			RANKX ( ALL ( DIM_PRODUCT[product_name] ), [Net Sales], , DESC )
+			
+			```
+		formatString: 0
+		displayFolder: I. Advanced
+		lineageTag: 0bdeabd0-18aa-45a9-b337-8dd94bcc9b91
+
+	measure '01 Executive Overview' =
+			
+			"Executive Overview — " &
+			IF (
+			    HASONEVALUE ( DIM_CHANNEL[Market] ),
+			    VALUES ( DIM_CHANNEL[Market] ),
+			    "All Markets"
+			)
+		lineageTag: f837f2ff-9737-4b3d-9430-dd4bc6e66021
+
+	measure 'Scatter Color Code' = IF([Profit] < 0, "#FF0000", "#008000")
+		lineageTag: c6530a0d-70f3-42c6-b05d-bc9d7520bf30
+
+	measure '02 Revenue & Margin Diagnostics' =
+			
+			"Revenue & Margin Diagnostics — " &
+			IF (
+			    HASONEVALUE ( DIM_CHANNEL[Market] ),
+			    VALUES ( DIM_CHANNEL[Market] ),
+			    "All Markets"
+			)
+		lineageTag: cfbba612-9940-4f45-b77b-b6ff1a911b62
+
+	measure 'Profitability Flag' = ```
+			
+			IF ( [Profit] < 0, "#FF0000", "#2E8B57" )
+			
+			```
+		displayFolder: J. Data Trust
+		lineageTag: 423fd01c-3be7-4f92-a5e3-2fb7d19dde57
+
+	measure '03 Category Profitability Map' =
+			
+			"Category Profitability Map — " &
+			IF (
+			    HASONEVALUE ( DIM_CHANNEL[Market] ),
+			    VALUES ( DIM_CHANNEL[Market] ),
+			    "All Markets"
+			)
+		lineageTag: 4412e34f-3326-4a31-b9fd-cf82f0f704ba
+
+	measure '04 Pricing & Discount' = ```
+			
+			"Pricing & Discount Impact — " & 
+			IF(
+			    HASONEVALUE(DIM_CHANNEL[Market]), 
+			    VALUES(DIM_CHANNEL[Market]), 
+			    "All Markets"
+			)
+			```
+		lineageTag: 21f08fdd-31cb-440a-93ef-4b91717f3209
+
+	measure '05 Discount Leakage' = ```
+			
+			"Discount Leakage — " & 
+			IF(
+			    HASONEVALUE(DIM_CHANNEL[Market]), 
+			    VALUES(DIM_CHANNEL[Market]), 
+			    "All Markets"
+			)
+			```
+		lineageTag: e5f47169-ca74-4a6f-8777-12c4a4edeb20
+
+	measure '06 Operations' = ```
+			
+			"Operations Overview — " & 
+			IF(
+			    HASONEVALUE(DIM_CHANNEL[Market]), 
+			    VALUES(DIM_CHANNEL[Market]), 
+			    "All Markets"
+			)
+			```
+		lineageTag: ad855d54-2e68-4f0c-8860-445d7eb69a64
+
+	measure '07 Operations Deep Dive' = ```
+			
+			"Operations Deep Dive — " & 
+			IF(
+			    HASONEVALUE(DIM_CHANNEL[Market]), 
+			    VALUES(DIM_CHANNEL[Market]), 
+			    "All Markets"
+			)
+			```
+		lineageTag: 339bed21-3e8a-455c-a659-9ede1b06f9f8
+
+	measure 'Late Delivery Rate % (3M Rolling)' =
+			
+			CALCULATE(
+			    [Late Delivery Rate %],
+			    DATESINPERIOD(
+			        DIM_DATE[Date],
+			        LASTDATE(DIM_DATE[Date]),
+			        -3,
+			        MONTH
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: I. Advanced
+		lineageTag: 33aad4d4-870f-4d2d-aa56-bba52e8c8340
+
+	measure 'Shipping Gap (Days)' = [Avg Shipping Days (Real)] - [Avg Shipping Days (Scheduled)]
+		displayFolder: I. Advanced
+		lineageTag: a31486ba-aa88-431a-80bb-e95f31e5f674
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue at Risk' = [Net Sales] * [Late Delivery Rate %]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: I. Advanced
+		lineageTag: a0dba646-6b4b-4fc6-a4c7-d22a84208c32
+
+	measure 'Active Customers' = ```
+			
+			DISTINCTCOUNT ( FACT_SALES[customer_id] )
+			
+			```
+		formatString: 0
+		displayFolder: H. Customer Logic
+		lineageTag: d73b56f8-b418-4cfe-abe5-d16ae2a46517
+
+	measure 'Orders per Customer' = ```
+			
+			DIVIDE ( [Orders], [Active Customers] )
+			
+			```
+		formatString: 0.00
+		displayFolder: H. Customer Logic
+		lineageTag: b941fa61-2962-4619-819a-33d7792cb248
+
+	measure 'New Customers' = ```
+			
+			VAR MinKey = MIN ( DIM_DATE[date_key] )
+			VAR MaxKey = MAX ( DIM_DATE[date_key] )
+			RETURN
+			CALCULATE (
+			    DISTINCTCOUNT ( FACT_SALES[customer_id] ),
+			    DIM_CUSTOMER[First Order Date Key] >= MinKey,
+			    DIM_CUSTOMER[First Order Date Key] <= MaxKey
+			)
+			
+			```
+		formatString: 0
+		displayFolder: H. Customer Logic
+		lineageTag: f7330a7f-b6ff-48d9-bd12-116de35a9032
+
+	measure 'Returning Customers' = ```
+			
+			VAR MinKey =
+			    MINX ( ALLSELECTED ( DIM_DATE ), DIM_DATE[date_key] )
+			RETURN
+			COALESCE (
+			    CALCULATE (
+			        DISTINCTCOUNT ( FACT_SALES[customer_id] ),
+			        DIM_CUSTOMER[First Order Date Key] < MinKey
+			    ),
+			    0
+			)
+			
+			```
+		formatString: 0
+		displayFolder: H. Customer Logic
+		lineageTag: dd209769-9502-4331-9068-86330bc3eca8
+
+	measure 'Returning Customer %' = ```
+			
+			DIVIDE ( [Returning Customers], [Active Customers], 0 )
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: H. Customer Logic
+		lineageTag: 9d3d6787-f7bb-4771-90e3-3dce92a96d1c
+
+	measure '08 Customer Retention' = ```
+			
+			"Customer Retention — " & 
+			IF(
+			    HASONEVALUE(DIM_CHANNEL[Market]), 
+			    VALUES(DIM_CHANNEL[Market]), 
+			    "All Markets"
+			)
+			```
+		lineageTag: a959c5e2-5942-4101-8a0b-6d83a5f2ac75
+
+	measure 'Cohort Size (All Time)' = ```
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( DIM_CUSTOMER[customer_id] ),
+			    REMOVEFILTERS ( DIM_DATE )
+			)
+			
+			```
+		formatString: 0
+		displayFolder: I. Advanced
+		lineageTag: 9d86b59c-3eac-4c01-b4f7-ba54703f1aff
+
+	measure 'Cohort Retained Customers (Selected Period)' = ```
+			
+			VAR ActivityMinYM =
+			    VALUE ( MIN ( DIM_DATE[YearMonthSort] ) )
+			RETURN
+			CALCULATE (
+			    DISTINCTCOUNT ( FACT_SALES[customer_id] ),
+			    FILTER (
+			        ALL ( DIM_CUSTOMER ),
+			        DIM_CUSTOMER[First Purchase YearMonthSort] < ActivityMinYM
+			    )
+			)
+			
+			```
+		formatString: 0
+		displayFolder: H. Customer Logic
+		lineageTag: a0d8cb81-4f29-4795-abd0-bc744483cbf6
+
+	measure 'Cohort Retention % (Post-Acquisition)' = ```
+			
+			DIVIDE (
+			    [Cohort Retained Customers (Selected Period)],
+			    [Cohort Size (All Time)]
+			)
+			
+			```
+		displayFolder: H. Customer Logic
+		lineageTag: c359e1ff-533f-4dae-a4fc-e965cddba391
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '09 Data Trust & KPI Definitions' = "Data Trust & KPI Definitions"
+		lineageTag: 5c36237c-6c2d-47be-a6db-e2d1e313dd1c
+
+	measure 'Last Refresh (Sales)' = MAX ( FACT_SALES[_ingest_ts] )
+		formatString: General Date
+		displayFolder: J. Data Trust
+		lineageTag: 18ffc45a-a63f-41de-b081-dd63ca625cc3
+
+	measure 'Rows - FACT_SALES' = COUNTROWS ( FACT_SALES )
+		formatString: #,0
+		displayFolder: J. Data Trust
+		lineageTag: 6c6fecc6-cff2-4de3-87bb-ec5c9fee3849
+
+	measure 'Rows - FACT_FULFILMENT' = COUNTROWS ( FACT_FULFILMENT )
+		formatString: #,0
+		displayFolder: J. Data Trust
+		lineageTag: 515fa2ba-847c-450f-a3c0-1fd4bbae6f45
+
+	measure 'FK Missing Keys (Total)' =
+			
+			SUM ( VALIDATION_FK_COVERAGE[Missing_Key_Count] )
+		formatString: 0
+		displayFolder: J. Data Trust
+		lineageTag: a5cf86ff-def3-4470-bb66-91967ba26714
+
+	measure 'Rank Category by Discount' = ```
+			
+			RANKX(
+			    ALL('DIM_CATEGORY'[CATEGORY_NAME]),
+			    [Discount Amount],
+			    ,
+			    DESC,
+			    Dense
+			)
+			
+			```
+		formatString: 0
+		lineageTag: f9e127f8-d10f-4488-8eb7-0330547a42e2
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Dummy = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Dummy", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Dummy"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

@@ -4,11 +4,30 @@ data/DescriptionDataCoSupplyChain.csv
 data/archive.zip
 data/tokenized_access_logs.csv
 
-# ignore any future large csv/zip dropped into /data
+# Ignore any future large CSV/zip dropped into /data
 data/*.csv
 data/*.zip
 
 # Keep small curated samples
 !data/sample/**
+
+# Compressed files
 *.gz
-*.pbi*
+
+# --- Power BI binary files (ignore; track PBIR folder format instead) ---
+# Keep .pbip project index — it's human-readable JSON and should be committed
+*.pbix
+*.pbit
+*.pbiviz
+
+# --- Power BI local/cache files (nested anywhere in the tree) ---
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/editorSettings.json
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- Office temp/lock files ---
+~$*

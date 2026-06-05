@@ -1,0 +1,100 @@
+relationship 173fcb42-7a93-4b9e-9681-6b234c5e586a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FACT_SALES._INGEST_TS
+	toColumn: LocalDateTable_c84c6441-2a34-413a-812c-4db736ad182d.Date
+
+relationship b214a45a-6bb2-4bb7-b358-17fd62042464
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FACT_FULFILMENT._INGEST_TS
+	toColumn: LocalDateTable_2a704480-0439-4de1-b4c7-8d89baad25d5.Date
+
+relationship d4f28990-2342-5f54-1887-03f96be95fc2
+	fromColumn: FACT_SALES.ORDER_DATE_KEY
+	toColumn: DIM_DATE.DATE_KEY
+
+relationship cc0a638e-43aa-bd57-0237-8c34fb08412b
+	fromColumn: FACT_FULFILMENT.ORDER_DATE_KEY
+	toColumn: DIM_DATE.DATE_KEY
+
+relationship bb46abc0-a751-8ea5-41d3-76999d0f7cbb
+	isActive: false
+	fromColumn: FACT_FULFILMENT.SHIP_DATE_KEY
+	toColumn: DIM_DATE.DATE_KEY
+
+relationship aa50d455-6f9e-c003-c0fd-4a732fd3e356
+	fromColumn: FACT_SALES.CUSTOMER_ID
+	toColumn: DIM_CUSTOMER.CUSTOMER_ID
+
+relationship d1a0c63e-f577-5c7c-6b16-d43de4bfcbe8
+	fromColumn: FACT_FULFILMENT.CUSTOMER_ID
+	toColumn: DIM_CUSTOMER.CUSTOMER_ID
+
+relationship 6f044f9f-c74b-f42d-35cf-62664f9a622a
+	fromColumn: FACT_SALES.PRODUCT_CARD_ID
+	toColumn: DIM_PRODUCT.PRODUCT_CARD_ID
+
+relationship 4fe24ca3-a8f8-3b0e-834c-d81c84b880ba
+	fromColumn: FACT_FULFILMENT.PRODUCT_CARD_ID
+	toColumn: DIM_PRODUCT.PRODUCT_CARD_ID
+
+relationship 63fe1a91-bee5-518e-b9e3-4b1545950429
+	fromColumn: FACT_SALES.CATEGORY_ID
+	toColumn: DIM_CATEGORY.CATEGORY_ID
+
+relationship 2416ddaa-ee99-c6a6-c2cb-0812637d2adb
+	fromColumn: FACT_FULFILMENT.CATEGORY_ID
+	toColumn: DIM_CATEGORY.CATEGORY_ID
+
+relationship 51d3e112-8700-f11d-18be-0f55716b47d5
+	fromColumn: FACT_SALES.DEPARTMENT_ID
+	toColumn: DIM_DEPARTMENT.DEPARTMENT_ID
+
+relationship 66a28ac9-56e6-9120-073d-d1c6bfd7d7a7
+	fromColumn: FACT_FULFILMENT.DEPARTMENT_ID
+	toColumn: DIM_DEPARTMENT.DEPARTMENT_ID
+
+relationship d6047f9b-5f6a-e94e-cf30-1550ae37680b
+	fromColumn: FACT_SALES.GEO_KEY
+	toColumn: DIM_GEO.GEO_KEY
+
+relationship 4f2c243b-f92f-84be-15ad-b46538b1b25a
+	fromColumn: FACT_FULFILMENT.GEO_KEY
+	toColumn: DIM_GEO.GEO_KEY
+
+relationship 09b62aba-7e31-622d-ec6f-7ca174b2da71
+	fromColumn: FACT_SALES.CHANNEL_KEY
+	toColumn: DIM_CHANNEL.CHANNEL_KEY
+
+relationship a5619d83-9bd9-b7fa-2b6e-053e8e05d64e
+	fromColumn: FACT_FULFILMENT.CHANNEL_KEY
+	toColumn: DIM_CHANNEL.CHANNEL_KEY
+
+relationship 2e0d609a-d389-3237-88d0-514beb54e2f7
+	fromColumn: FACT_SALES.DISCOUNT_BAND_KEY
+	toColumn: DIM_DISCOUNT_BAND.DISCOUNT_BAND_KEY
+
+relationship b091445b-56b6-4b06-b263-b7f7a8bff424
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CUSTOMER.'First Purchase Date'
+	toColumn: LocalDateTable_ca8330e5-c1d0-484c-9f5f-6ae64967f61d.Date
+
+relationship 6d5b82e5-4353-4dfe-9760-ec917bed7b8e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CUSTOMER.'Cohort Month'
+	toColumn: LocalDateTable_4dba043d-d954-46b2-be5a-183e27b8f631.Date
+
+relationship 2fbe45e3-1b24-4fa9-9720-df5acb65e27c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DIM_CUSTOMER.'First Purchase YearMonth'
+	toColumn: LocalDateTable_49f7c27c-5ee4-4c6b-a72d-8ea9068eb192.Date
+
+relationship 7f430edb-a457-eb2e-f60d-70b3274ea36d
+	fromColumn: DIM_CHANNEL.MARKET
+	toColumn: DIM_MARKET.MARKET
+
+relationship 36cc0274-f966-9f1d-dfaf-228c5860446c
+	crossFilteringBehavior: bothDirections
+	securityFilteringBehavior: bothDirections
+	fromColumn: SEC_USER_MARKET.MARKET
+	toColumn: DIM_MARKET.MARKET
+
