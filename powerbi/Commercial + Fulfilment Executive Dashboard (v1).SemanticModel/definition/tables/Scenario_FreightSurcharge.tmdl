@@ -1,0 +1,25 @@
+table Scenario_FreightSurcharge
+	lineageTag: e5f6a7b8-c9d0-1234-efab-234567890145
+
+	column Value
+		dataType: double
+		formatString: 0%
+		lineageTag: f6a7b8c9-d0e1-2345-fabc-345678901256
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = User
+
+	measure 'Selected Freight Surcharge %' = SELECTEDVALUE ( Scenario_FreightSurcharge[Value], 0 )
+		formatString: 0%
+		displayFolder: L. Scenario Planning
+		lineageTag: a7b8c9d0-e1f2-3456-abcd-456789012367
+
+	partition Scenario_FreightSurcharge = calculated
+		mode: import
+		source = GENERATESERIES ( 0, 0.50, 0.05 )
+
+	annotation PBI_ResultType = Table
+	annotation PBI_NavigationStepName = Navigation
+	annotation ParameterMetadata = {"version":3,"kind":"Numeric"}
+

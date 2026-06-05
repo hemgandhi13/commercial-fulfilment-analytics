@@ -1,0 +1,46 @@
+table Parameter_Dimensions
+	lineageTag: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+
+	column Parameter
+		dataType: string
+		lineageTag: b2c3d4e5-f6a7-8901-bcde-f01234567891
+		summarizeBy: none
+		sourceColumn: Parameter
+		sortByColumn: `Parameter Order`
+
+		annotation SummarizationSetBy = Automatic
+
+	column `Parameter Fields`
+		dataType: string
+		lineageTag: c3d4e5f6-a7b8-9012-cdef-012345678912
+		summarizeBy: none
+		sourceColumn: Parameter Fields
+
+		annotation SummarizationSetBy = Automatic
+		annotation ParameterMetadata = {"type":"field"}
+
+	column `Parameter Order`
+		dataType: int64
+		isHidden
+		lineageTag: d4e5f6a7-b8c9-0123-defa-123456789023
+		summarizeBy: sum
+		sourceColumn: Parameter Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter_Dimensions = calculated
+		mode: import
+		source = ```
+
+				{
+				    ( "Product Category",   NAMEOF ( 'DIM_CATEGORY'[CATEGORY_NAME] ),    0 ),
+				    ( "Product Department", NAMEOF ( 'DIM_DEPARTMENT'[DEPARTMENT_NAME] ), 1 ),
+				    ( "Shipping Mode",      NAMEOF ( 'DIM_CHANNEL'[SHIPPING_MODE] ),      2 ),
+				    ( "Market Region",      NAMEOF ( 'DIM_CHANNEL'[ORDER_REGION] ),       3 )
+				}
+
+				```
+
+	annotation PBI_ResultType = Table
+	annotation ParameterMetadata = {"version":3,"kind":"Field"}
+

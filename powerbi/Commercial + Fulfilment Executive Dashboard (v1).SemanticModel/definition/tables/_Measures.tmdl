@@ -523,12 +523,12 @@ table _Measures
 		lineageTag: a0d8cb81-4f29-4795-abd0-bc744483cbf6
 
 	measure 'Cohort Retention % (Post-Acquisition)' = ```
-
+			
 			DIVIDE (
 			    [Cohort Retained Customers (Selected Period)],
 			    [Cohort Size (All Time)]
 			)
-
+			
 			```
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: H. Customer Logic
@@ -573,61 +573,6 @@ table _Measures
 		formatString: 0
 		lineageTag: f9e127f8-d10f-4488-8eb7-0330547a42e2
 
-	measure 'Revenue at Risk (Late SLA)' = ```
-
-			VAR LateOrderIDs =
-			    CALCULATETABLE (
-			        VALUES ( FACT_FULFILMENT[ORDER_ID] ),
-			        FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1
-			    )
-			RETURN
-			CALCULATE (
-			    [Net Sales],
-			    FACT_SALES[ORDER_ID] IN LateOrderIDs
-			)
-
-			```
-		formatString: \$#,0;(\$#,0);\$#,0
-		displayFolder: L. Supply Chain Risk & Trade Spend
-		lineageTag: 11a1b2c3-d4e5-6789-abcd-ef0123456789
-
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
-
-	measure 'Estimated SLA Penalty' = [Revenue at Risk (Late SLA)] * 0.03
-		formatString: \$#,0;(\$#,0);\$#,0
-		displayFolder: L. Supply Chain Risk & Trade Spend
-		lineageTag: 22b2c3d4-e5f6-7890-bcde-f01234567890
-
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
-
-	measure 'Retailer Rebate Accrual' = ```
-
-			VAR TotalNetSales = [Net Sales]
-			VAR RebateRate =
-			    SWITCH (
-			        TRUE (),
-			        TotalNetSales > 5000000, 0.05,
-			        TotalNetSales > 1000000, 0.03,
-			        0.01
-			    )
-			RETURN
-			TotalNetSales * RebateRate
-
-			```
-		formatString: \$#,0;(\$#,0);\$#,0
-		displayFolder: L. Supply Chain Risk & Trade Spend
-		lineageTag: 33c3d4e5-f6a7-8901-cdef-012345678901
-
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
-
-	measure 'True Net Profit (Post-Rebate)' =
-			[Net Commercial Margin] - [Estimated SLA Penalty] - [Retailer Rebate Accrual]
-		formatString: \$#,0;(\$#,0);\$#,0
-		displayFolder: L. Supply Chain Risk & Trade Spend
-		lineageTag: 44d4e5f6-a7b8-9012-defa-123456789012
-
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
-
 	measure 'Handling Cost (ABC)' = ([Orders] * 2.50) + ([Quantity] * 0.50)
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: K. Cost-to-Serve
@@ -637,18 +582,21 @@ table _Measures
 
 	measure 'Freight Cost (Est)' = ```
 
-			SUMX (
-			    FACT_SALES,
-			    VAR ShipMode = RELATED ( DIM_CHANNEL[SHIPPING_MODE] )
-			    RETURN
-			    SWITCH (
-			        ShipMode,
-			        "Same Day",    FACT_SALES[QUANTITY] * 8,
-			        "First Class", FACT_SALES[QUANTITY] * 5,
-			        "Second Class", FACT_SALES[QUANTITY] * 3,
-			        FACT_SALES[QUANTITY] * 1.5
+			VAR BaseFreight =
+			    SUMX (
+			        FACT_SALES,
+			        VAR ShipMode = RELATED ( DIM_CHANNEL[SHIPPING_MODE] )
+			        RETURN
+			        SWITCH (
+			            ShipMode,
+			            "Same Day",     FACT_SALES[QUANTITY] * 8,
+			            "First Class",  FACT_SALES[QUANTITY] * 5,
+			            "Second Class", FACT_SALES[QUANTITY] * 3,
+			            FACT_SALES[QUANTITY] * 1.5
+			        )
 			    )
-			)
+			RETURN
+			BaseFreight * ( 1 + [Selected Freight Surcharge %] )
 
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
@@ -690,8 +638,6 @@ table _Measures
 				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Dummy"})
 				in
 				    #"Removed Columns"
-
-	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 
