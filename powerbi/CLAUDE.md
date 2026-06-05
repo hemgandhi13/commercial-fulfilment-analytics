@@ -363,7 +363,7 @@ New measure folder **L. Supply Chain Risk & Trade Spend** added to `_Measures.tm
 
 **"Late" definition used:** `FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1` (binary int64 flag, consistent with existing F/G folder measures)
 
-### Phase 4 — Declarative UI/UX & What-If Planning ✅ PARTIAL (4.1 & 4.2 complete)
+### Phase 4 — Declarative UI/UX & What-If Planning 🔄 IN PROGRESS
 
 #### 4.1 Field Parameter Table ✅ COMPLETE
 **Completed:** 2026-06-05
@@ -388,8 +388,28 @@ New calculated table `Scenario_FreightSurcharge` added:
 - `Freight Cost (Est)` measure updated: wraps base SUMX result in `* (1 + [Selected Freight Surcharge %])` so all CTS/margin measures cascade automatically.
 - Annotated with `ParameterMetadata = {"version":3,"kind":"Numeric"}`.
 
-#### 4.3 Deneb Vega-Lite Waterfall Chart ⬜ PENDING
-#### 4.4 Additional scenario sliders ⬜ PENDING
+#### 4.3 Global 9-Page Report UI/UX Redesign & Custom Deneb Waterfall Chart 🔄 CURRENT FOCUS — START HERE
+
+**Scope:**
+- Full UI/UX redesign pass across all 9 report pages (layout, typography, colour, spacing, KPI card hierarchy)
+- Custom Deneb Vega-Lite **Margin Waterfall chart** for Phase 4 scenario visualisation (gross → discounts → CTS → SLA penalties → rebates → true net profit)
+- Wire `Parameter_Dimensions` field parameter slicer into relevant visuals on pages 02–05
+- Wire `Scenario_FreightSurcharge` slicer into CTS / margin pages (pages 06–07)
+
+**Reference assets available in `~/powerbi-global-library/`:**
+- `templates/PowerBI-tips-Deneb-Templates/` — production-ready Deneb JSON templates
+- `templates/PBI-David-Deneb-Showcase/` — advanced Vega-Lite showcase patterns
+- `templates/Giammaria-Vega-Visuals/` — Vega grammar reference visuals
+- `skills/power-bi-agentic-development/` — agentic PBIR workflow patterns
+- `skills/chart_builder.skill.md` — PBIR chart builder skill (scan .tmdl → write visual.json)
+
+**When resuming:**
+1. Read this section first, then `powerbi/CLAUDE.md` sections 5 (page directory) and 9 (how to edit visuals)
+2. Review `screenshots/` (01.png–09.png) for current page layouts before redesigning
+3. Start with the Deneb Waterfall spec — scaffold from `~/powerbi-global-library/templates/` then adapt to model measures
+4. Apply UX redesign page-by-page, committing after each page
+
+#### 4.4 Additional Scenario Sliders ⬜ PENDING
 
 ### Phase 5 — QA & Performance Optimization ⬜ PENDING
 DAX Studio server timing benchmarks, RLS leakage audit, FK coverage validation.
