@@ -411,10 +411,9 @@ table _Measures
 		lineageTag: 33aad4d4-870f-4d2d-aa56-bba52e8c8340
 
 	measure 'Shipping Gap (Days)' = [Avg Shipping Days (Real)] - [Avg Shipping Days (Scheduled)]
+		formatString: 0.0
 		displayFolder: I. Advanced
 		lineageTag: a31486ba-aa88-431a-80bb-e95f31e5f674
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Revenue at Risk' = [Net Sales] * [Late Delivery Rate %]
 		formatString: \$#,0;(\$#,0);\$#,0
@@ -524,17 +523,16 @@ table _Measures
 		lineageTag: a0d8cb81-4f29-4795-abd0-bc744483cbf6
 
 	measure 'Cohort Retention % (Post-Acquisition)' = ```
-			
+
 			DIVIDE (
 			    [Cohort Retained Customers (Selected Period)],
 			    [Cohort Size (All Time)]
 			)
-			
+
 			```
+		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: H. Customer Logic
 		lineageTag: c359e1ff-533f-4dae-a4fc-e965cddba391
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '09 Data Trust & KPI Definitions' = "Data Trust & KPI Definitions"
 		lineageTag: 5c36237c-6c2d-47be-a6db-e2d1e313dd1c
