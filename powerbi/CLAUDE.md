@@ -363,8 +363,33 @@ New measure folder **L. Supply Chain Risk & Trade Spend** added to `_Measures.tm
 
 **"Late" definition used:** `FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1` (binary int64 flag, consistent with existing F/G folder measures)
 
-### Phase 4 — Declarative UI/UX & What-If Planning 🔜 NEXT
-Field Parameters, Deneb Vega-Lite Margin Waterfall chart, Numeric Range scenario sliders.
+### Phase 4 — Declarative UI/UX & What-If Planning ✅ PARTIAL (4.1 & 4.2 complete)
+
+#### 4.1 Field Parameter Table ✅ COMPLETE
+**Completed:** 2026-06-05
+
+New calculated table `Parameter_Dimensions` added to the semantic model:
+- Columns: `Parameter` (text, sorted by `Parameter Order`), `Parameter Fields` (field ref), `Parameter Order` (int, hidden)
+- 4 swappable axes:
+  - "Product Category" → `DIM_CATEGORY[CATEGORY_NAME]`
+  - "Product Department" → `DIM_DEPARTMENT[DEPARTMENT_NAME]`
+  - "Shipping Mode" → `DIM_CHANNEL[SHIPPING_MODE]`
+  - "Market Region" → `DIM_CHANNEL[ORDER_REGION]`
+- Annotated with `ParameterMetadata = {"version":3,"kind":"Field"}` for Power BI field-parameter recognition.
+- Usage: drop `Parameter_Dimensions[Parameter Fields]` onto the visual axis; add `Parameter_Dimensions[Parameter]` as the slicer.
+
+#### 4.2 What-If Scenario Slicer ✅ COMPLETE
+**Completed:** 2026-06-05
+
+New calculated table `Scenario_FreightSurcharge` added:
+- `GENERATESERIES(0, 0.50, 0.05)` — 11 values from 0% to 50% in 5% steps
+- Column `Value` format: `0%`
+- Harvest measure: `Selected Freight Surcharge %` = `SELECTEDVALUE(Scenario_FreightSurcharge[Value], 0)`, format `0%`, folder **L. Scenario Planning**
+- `Freight Cost (Est)` measure updated: wraps base SUMX result in `* (1 + [Selected Freight Surcharge %])` so all CTS/margin measures cascade automatically.
+- Annotated with `ParameterMetadata = {"version":3,"kind":"Numeric"}`.
+
+#### 4.3 Deneb Vega-Lite Waterfall Chart ⬜ PENDING
+#### 4.4 Additional scenario sliders ⬜ PENDING
 
 ### Phase 5 — QA & Performance Optimization ⬜ PENDING
 DAX Studio server timing benchmarks, RLS leakage audit, FK coverage validation.

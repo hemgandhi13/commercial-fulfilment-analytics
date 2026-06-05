@@ -35,6 +35,8 @@ ref table LocalDateTable_49f7c27c-5ee4-4c6b-a72d-8ea9068eb192
 ref table DIM_MARKET
 ref table SEC_USER_MARKET
 ref table CG_TimeIntelligence
+ref table Parameter_Dimensions
+ref table Scenario_FreightSurcharge
 
 ref role Executive
 ref role MarketManager
