@@ -288,3 +288,43 @@ Edit `SemanticModel/definition/tables/_Measures.tmdl` directly.
 | `docs/11_performance_test_optimization.md` | Performance Analyzer results and Top N fix |
 | `data/databricks_gold_export/` | 11 CSV files = Gold layer source data |
 | `sql/gold/01_gold_build.sql` | SQL that built the Gold star schema in Databricks |
+
+---
+
+## 12. Project Roadmap & State
+
+### Phase 1 — Local DevOps & Architecture Foundation ✅ COMPLETE
+**Completed:** 2026-06-05
+
+- [x] **1.1 Git version control** — Repo initialized, `.gitignore` corrected (4 bugs fixed: `*.pbi*` → explicit `*.pbix/pbit/pbiviz` to preserve `.pbip`; root-anchored `.pbi/` patterns fixed to `**/.pbi/`; `~$*` Office temp file pattern added). Baseline v1 PBIP committed on `main` (224 files, 91k lines of TMDL + JSON).
+- [x] **1.2 Branching strategy** — Feature branch `feature/v2-commercial-upgrade` created. All v2 work happens here; `main` holds the stable v1 baseline.
+- [x] **1.3 BPA governance (Batch 1)** — Full audit of `_Measures.tmdl`, `FACT_SALES.tmdl`, `FACT_FULFILMENT.tmdl`, `CG_TimeIntelligence.tmdl`, `relationships.tmdl`. Findings:
+  - DAX DIVIDE: all 14 division operations already use `DIVIDE()` — no raw `/` operators present.
+  - FK visibility: all 16 FK columns across both fact tables already carry `isHidden`.
+  - formatString: fixed 2 measures missing an explicit format (`'Shipping Gap (Days)'` → `0.0`; `'Cohort Retention % (Post-Acquisition)'` → `0.00%;-0.00%;0.00%`). Stale `PBI_FormatHint isGeneralNumber` annotations removed.
+  - Bi-directional RLS relationship (`SEC_USER_MARKET → DIM_MARKET`) confirmed untouched.
+- Commits: `5d4f79f` (baseline), `9be242f` (BPA fixes)
+
+---
+
+### Phase 2 — Upstream Engineering & Rigid Data Contracts 🔜 NEXT
+**Status:** About to begin
+
+**Goal:** Push all data cleaning and transformation logic out of Power Query and into Databricks (Python/PySpark or SQL), so Power BI receives only clean, pre-aggregated rows.
+
+**Planned actions:**
+- Review `expressions.tmdl` (`fnLoadCsv`) and identify all column casting, string manipulation, and conditional logic currently running in Power Query.
+- Migrate that logic into `sql/gold/01_gold_build.sql` or new Databricks notebooks.
+- Lock down Gold layer output schemas so they map perfectly to the UPPERCASE TMDL table structures.
+- Validate that schema changes never break downstream relationship joins.
+
+---
+
+### Phase 3 — Advanced Commercial Semantic Modeling ⬜ PENDING
+DAX: Activity-Based CTS measures, DIFOT financialization (penalty cost, Revenue at Risk), tiered rebate accrual logic.
+
+### Phase 4 — Declarative UI/UX & What-If Planning ⬜ PENDING
+Field Parameters, Deneb Vega-Lite Margin Waterfall chart, Numeric Range scenario sliders.
+
+### Phase 5 — QA & Performance Optimization ⬜ PENDING
+DAX Studio server timing benchmarks, RLS leakage audit, FK coverage validation.
