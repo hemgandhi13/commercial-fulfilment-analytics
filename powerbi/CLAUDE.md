@@ -195,6 +195,10 @@ Canvas size: **1280 × 720** (16:9), `displayOption: FitToPage` on all pages.
 - `Net Sales % of Total`, `Product Rank (Net Sales)`, `Late Delivery Rate % (3M Rolling)`
 - `Shipping Gap (Days)`, `Revenue at Risk`
 
+### K. Cost-to-Serve
+- `Handling Cost (ABC)`, `Freight Cost (Est)`, `Total Cost-to-Serve`
+- `CTS % of Net Sales`, `Net Commercial Margin`, `Net Commercial Margin %`
+
 ### J. Data Trust
 - `Profitability Flag`, `Last Refresh (Sales)`, `Rows - FACT_SALES`, `Rows - FACT_FULFILMENT`
 - `FK Missing Keys (Total)`, `Rank Category by Discount`
@@ -332,8 +336,21 @@ Edit `SemanticModel/definition/tables/_Measures.tmdl` directly.
 
 ---
 
-### Phase 3 — Advanced Commercial Semantic Modeling 🔜 NEXT
-DAX: Activity-Based CTS measures, DIFOT financialization (penalty cost, Revenue at Risk), tiered rebate accrual logic.
+### Phase 3 — Advanced Commercial Semantic Modeling 🔄 IN PROGRESS
+
+#### 3.1 Activity-Based Cost-to-Serve (CTS) DAX Modeling ✅ COMPLETE
+**Completed:** 2026-06-05
+
+New measure folder **K. Cost-to-Serve** added to `_Measures.tmdl`:
+- `Handling Cost (ABC)` = ([Orders] * 2.50) + ([Quantity] * 0.50)
+- `Freight Cost (Est)` = SUMX over FACT_SALES, SWITCH on DIM_CHANNEL[SHIPPING_MODE] (Same Day $8/unit, First Class $5, Second Class $3, Standard $1.50)
+- `Total Cost-to-Serve` = [Handling Cost (ABC)] + [Freight Cost (Est)]
+- `CTS % of Net Sales` = DIVIDE([Total Cost-to-Serve], [Net Sales])
+- `Net Commercial Margin` = [Profit] - [Total Cost-to-Serve]
+- `Net Commercial Margin %` = DIVIDE([Net Commercial Margin], [Net Sales])
+
+#### 3.2 DIFOT Financialization & Rebate Accrual ⬜ PENDING
+DAX: DIFOT penalty cost, Revenue at Risk v2, tiered rebate accrual logic.
 
 ### Phase 4 — Declarative UI/UX & What-If Planning ⬜ PENDING
 Field Parameters, Deneb Vega-Lite Margin Waterfall chart, Numeric Range scenario sliders.

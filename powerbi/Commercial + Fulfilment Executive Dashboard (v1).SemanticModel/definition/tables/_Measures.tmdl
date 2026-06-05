@@ -573,6 +573,59 @@ table _Measures
 		formatString: 0
 		lineageTag: f9e127f8-d10f-4488-8eb7-0330547a42e2
 
+	measure 'Handling Cost (ABC)' = ([Orders] * 2.50) + ([Quantity] * 0.50)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: K. Cost-to-Serve
+		lineageTag: e1a2b3c4-d5e6-7890-abcd-ef1234567890
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Freight Cost (Est)' = ```
+
+			SUMX (
+			    FACT_SALES,
+			    VAR ShipMode = RELATED ( DIM_CHANNEL[SHIPPING_MODE] )
+			    RETURN
+			    SWITCH (
+			        ShipMode,
+			        "Same Day",    FACT_SALES[QUANTITY] * 8,
+			        "First Class", FACT_SALES[QUANTITY] * 5,
+			        "Second Class", FACT_SALES[QUANTITY] * 3,
+			        FACT_SALES[QUANTITY] * 1.5
+			    )
+			)
+
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: K. Cost-to-Serve
+		lineageTag: f2b3c4d5-e6f7-8901-bcde-f01234567891
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Cost-to-Serve' = [Handling Cost (ABC)] + [Freight Cost (Est)]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: K. Cost-to-Serve
+		lineageTag: a3c4d5e6-f7a8-9012-cdef-012345678912
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'CTS % of Net Sales' = DIVIDE ( [Total Cost-to-Serve], [Net Sales] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: K. Cost-to-Serve
+		lineageTag: b4d5e6f7-a8b9-0123-defa-123456789023
+
+	measure 'Net Commercial Margin' = [Profit] - [Total Cost-to-Serve]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: K. Cost-to-Serve
+		lineageTag: c5e6f7a8-b9c0-1234-efab-234567890134
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Net Commercial Margin %' = DIVIDE ( [Net Commercial Margin], [Net Sales] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: K. Cost-to-Serve
+		lineageTag: d6f7a8b9-c0d1-2345-fabc-345678901245
+
 	partition _Measures = m
 		mode: import
 		source =
