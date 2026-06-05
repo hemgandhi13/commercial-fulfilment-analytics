@@ -307,20 +307,32 @@ Edit `SemanticModel/definition/tables/_Measures.tmdl` directly.
 
 ---
 
-### Phase 2 — Upstream Engineering & Rigid Data Contracts 🔜 NEXT
-**Status:** About to begin
+### Phase 2 — Upstream Engineering & Rigid Data Contracts ✅ COMPLETE
+**Completed:** 2026-06-05
 
-**Goal:** Push all data cleaning and transformation logic out of Power Query and into Databricks (Python/PySpark or SQL), so Power BI receives only clean, pre-aggregated rows.
+#### 2.1 Power Query Debt Audit & Gold Layer Contract ✅
+**M code debt found and resolved (4 categories):**
 
-**Planned actions:**
-- Review `expressions.tmdl` (`fnLoadCsv`) and identify all column casting, string manipulation, and conditional logic currently running in Power Query.
-- Migrate that logic into `sql/gold/01_gold_build.sql` or new Databricks notebooks.
-- Lock down Gold layer output schemas so they map perfectly to the UPPERCASE TMDL table structures.
-- Validate that schema changes never break downstream relationship joins.
+| # | Location | Debt removed | Resolution |
+|---|---|---|---|
+| 1 | `fnLoadCsv` | `Text.Trim` on headers | Gold CSVs always have clean trimmed headers from PySpark |
+| 2 | Both fact partitions | `Table.TransformColumnNames(Text.Upper)` | Retained — only remaining M step; pure column-name remap, zero data mutation |
+| 3 | Both fact partitions | `KeyText` block — `Number.ToText(Number.RoundDown(…))` sci-notation guard on `GEO_KEY`, `CHANNEL_KEY`, `ORDER_ZIPCODE` | PySpark casts `xxhash64()` to `StringType()` before write; sci-notation impossible |
+| 4 | Both fact partitions | `Table.TransformColumnTypes` — 18-column explicit cast | Delta schema enforces types at write; M cast now a no-op (retained but inert) |
+
+#### 2.2 Data Contract Enforcement & M Code Strip ✅
+**Completed:** 2026-06-05
+
+- `KeyText` block removed from `FACT_SALES.tmdl` (10 lines deleted)
+- `KeyText` block removed from `FACT_FULFILMENT.tmdl` (11 lines deleted)
+- `sql/gold/01_gold_build.sql` deprecated with header comment (PySpark is authoritative)
+- `data-pipeline/01_gold_build.py` — PySpark Gold curation script with `CAST(xxhash64(…) AS StringType())` and post-write schema assertions
+
+**Commits:** `feat: standardize Gold ETL on PySpark and strip legacy M code scientific-notation guards`
 
 ---
 
-### Phase 3 — Advanced Commercial Semantic Modeling ⬜ PENDING
+### Phase 3 — Advanced Commercial Semantic Modeling 🔜 NEXT
 DAX: Activity-Based CTS measures, DIFOT financialization (penalty cost, Revenue at Risk), tiered rebate accrual logic.
 
 ### Phase 4 — Declarative UI/UX & What-If Planning ⬜ PENDING

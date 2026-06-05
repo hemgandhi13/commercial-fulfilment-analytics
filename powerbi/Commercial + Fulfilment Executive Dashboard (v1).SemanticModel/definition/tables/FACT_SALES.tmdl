@@ -258,18 +258,9 @@ table FACT_SALES
 				let
 				    Source = fnLoadCsv("fact_sales.csv"),
 				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
-				
-				    // Convert very-large numeric keys safely to TEXT (avoid scientific notation issues)
-				    KeyText = Table.TransformColumns(
-				        UpperHeaders,
-				        {
-				            {"GEO_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text},
-				            {"CHANNEL_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text}
-				        }
-				    ),
-				
+
 				    #"Changed Type" = Table.TransformColumnTypes(
-				        KeyText,
+				        UpperHeaders,
 				        {
 				            {"ORDER_ITEM_ID", Int64.Type},
 				            {"ORDER_ID", Int64.Type},
