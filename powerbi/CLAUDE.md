@@ -195,6 +195,9 @@ Canvas size: **1280 × 720** (16:9), `displayOption: FitToPage` on all pages.
 - `Net Sales % of Total`, `Product Rank (Net Sales)`, `Late Delivery Rate % (3M Rolling)`
 - `Shipping Gap (Days)`, `Revenue at Risk`
 
+### L. Supply Chain Risk & Trade Spend
+- `Revenue at Risk (Late SLA)`, `Estimated SLA Penalty`, `Retailer Rebate Accrual`, `True Net Profit (Post-Rebate)`
+
 ### K. Cost-to-Serve
 - `Handling Cost (ABC)`, `Freight Cost (Est)`, `Total Cost-to-Serve`
 - `CTS % of Net Sales`, `Net Commercial Margin`, `Net Commercial Margin %`
@@ -336,7 +339,7 @@ Edit `SemanticModel/definition/tables/_Measures.tmdl` directly.
 
 ---
 
-### Phase 3 — Advanced Commercial Semantic Modeling 🔄 IN PROGRESS
+### Phase 3 — Advanced Commercial Semantic Modeling ✅ COMPLETE
 
 #### 3.1 Activity-Based Cost-to-Serve (CTS) DAX Modeling ✅ COMPLETE
 **Completed:** 2026-06-05
@@ -349,10 +352,18 @@ New measure folder **K. Cost-to-Serve** added to `_Measures.tmdl`:
 - `Net Commercial Margin` = [Profit] - [Total Cost-to-Serve]
 - `Net Commercial Margin %` = DIVIDE([Net Commercial Margin], [Net Sales])
 
-#### 3.2 DIFOT Financialization & Rebate Accrual ⬜ PENDING
-DAX: DIFOT penalty cost, Revenue at Risk v2, tiered rebate accrual logic.
+#### 3.2 DIFOT Financialization & Rebate Accrual ✅ COMPLETE
+**Completed:** 2026-06-05
 
-### Phase 4 — Declarative UI/UX & What-If Planning ⬜ PENDING
+New measure folder **L. Supply Chain Risk & Trade Spend** added to `_Measures.tmdl`:
+- `Revenue at Risk (Late SLA)` — [Net Sales] filtered to orders where `FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1`, bridged via `ORDER_ID` set membership (no direct FK between fact tables)
+- `Estimated SLA Penalty` — `[Revenue at Risk (Late SLA)] * 0.03` (3% contractual penalty)
+- `Retailer Rebate Accrual` — tiered: >$5M → 5%, >$1M → 3%, else 1%; uses `SWITCH(TRUE(), ...)` pattern
+- `True Net Profit (Post-Rebate)` — `[Net Commercial Margin] - [Estimated SLA Penalty] - [Retailer Rebate Accrual]`
+
+**"Late" definition used:** `FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1` (binary int64 flag, consistent with existing F/G folder measures)
+
+### Phase 4 — Declarative UI/UX & What-If Planning 🔜 NEXT
 Field Parameters, Deneb Vega-Lite Margin Waterfall chart, Numeric Range scenario sliders.
 
 ### Phase 5 — QA & Performance Optimization ⬜ PENDING
