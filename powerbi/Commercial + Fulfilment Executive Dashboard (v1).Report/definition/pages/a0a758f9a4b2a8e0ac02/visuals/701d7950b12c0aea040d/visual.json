@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Net Sales"
+                  "Property": "Total Gross Sales"
                 }
               },
-              "queryRef": "_Measures.Net Sales",
-              "nativeQueryRef": "Net Sales"
+              "queryRef": "_Measures.Total Gross Sales",
+              "nativeQueryRef": "Total Gross Sales"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Net Sales"
+                "Property": "Total Gross Sales"
               }
             },
             "direction": "Descending"

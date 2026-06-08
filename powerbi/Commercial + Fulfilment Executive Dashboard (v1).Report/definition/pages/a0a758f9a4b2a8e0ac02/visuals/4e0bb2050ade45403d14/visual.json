@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Late Delivery Rate %"
+                  "Property": "Revenue at Risk (Late SLA)"
                 }
               },
-              "queryRef": "_Measures.Late Delivery Rate %",
-              "nativeQueryRef": "Late Delivery Rate %"
+              "queryRef": "_Measures.Revenue at Risk (Late SLA)",
+              "nativeQueryRef": "Revenue at Risk (Late SLA)"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Late Delivery Rate %"
+                "Property": "Revenue at Risk (Late SLA)"
               }
             },
             "direction": "Descending"

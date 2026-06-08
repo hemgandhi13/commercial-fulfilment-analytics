@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Orders"
+                  "Property": "Net Commercial Margin %"
                 }
               },
-              "queryRef": "_Measures.Orders",
-              "nativeQueryRef": "Orders"
+              "queryRef": "_Measures.Net Commercial Margin %",
+              "nativeQueryRef": "Net Commercial Margin %"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Orders"
+                "Property": "Net Commercial Margin %"
               }
             },
             "direction": "Descending"

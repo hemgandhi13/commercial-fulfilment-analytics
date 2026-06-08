@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Gross Margin %"
+                  "Property": "True Net Profit (Post-Rebate)"
                 }
               },
-              "queryRef": "_Measures.Gross Margin %",
-              "nativeQueryRef": "Gross Margin %"
+              "queryRef": "_Measures.True Net Profit (Post-Rebate)",
+              "nativeQueryRef": "True Net Profit (Post-Rebate)"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Gross Margin %"
+                "Property": "True Net Profit (Post-Rebate)"
               }
             },
             "direction": "Descending"
