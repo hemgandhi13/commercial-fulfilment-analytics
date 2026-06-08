@@ -18,11 +18,7 @@
             {
               "field": {
                 "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
+                  "Expression": { "SourceRef": { "Entity": "_Measures" } },
                   "Property": "Revenue at Risk (Late SLA)"
                 }
               },
@@ -37,11 +33,7 @@
           {
             "field": {
               "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "_Measures"
-                  }
-                },
+                "Expression": { "SourceRef": { "Entity": "_Measures" } },
                 "Property": "Revenue at Risk (Late SLA)"
               }
             },
@@ -55,219 +47,69 @@
       "value": [
         {
           "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "15D"
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "horizontalAlignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'left'"
-                }
-              }
+            "fontSize": { "expr": { "Literal": { "Value": "15D" } } },
+            "bold": { "expr": { "Literal": { "Value": "true" } } },
+            "horizontalAlignment": { "expr": { "Literal": { "Value": "'left'" } } },
+            "fontColor": {
+              "solid": { "color": { "expr": { "Literal": { "Value": "'#111827'" } } } }
             }
           },
-          "selector": {
-            "id": "default"
-          }
+          "selector": { "id": "default" }
         }
       ],
       "label": [
         {
           "properties": {
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "8D"
-                }
-              }
-            },
+            "bold": { "expr": { "Literal": { "Value": "false" } } },
+            "fontSize": { "expr": { "Literal": { "Value": "8D" } } },
             "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
-                    }
-                  }
-                }
-              }
+              "solid": { "color": { "expr": { "Literal": { "Value": "'#6B7280'" } } } }
             },
-            "heading": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Normal'"
-                }
-              }
-            },
-            "textWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'belowValue'"
-                }
-              }
-            },
-            "matchValueAlignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "horizontalAlignment": {
-              "expr": {
-                "Literal": {
-                  "Value": "'left'"
-                }
-              }
-            }
+            "heading": { "expr": { "Literal": { "Value": "'Normal'" } } },
+            "textWrap": { "expr": { "Literal": { "Value": "true" } } },
+            "position": { "expr": { "Literal": { "Value": "'belowValue'" } } },
+            "matchValueAlignment": { "expr": { "Literal": { "Value": "true" } } },
+            "horizontalAlignment": { "expr": { "Literal": { "Value": "'left'" } } }
           },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "shapeCustomRectangle": [
-        {
-          "properties": {
-            "tileShape": {
-              "expr": {
-                "Literal": {
-                  "Value": "'rectangle'"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "glowCustom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
+          "selector": { "id": "default" }
         }
       ],
       "layout": [
         {
           "properties": {
-            "calloutSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "50D"
-                }
-              }
-            }
+            "calloutSize": { "expr": { "Literal": { "Value": "50D" } } }
           }
         }
       ],
       "outline": [
         {
           "properties": {
-            "lineColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 1,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
+            "show": { "expr": { "Literal": { "Value": "false" } } }
           },
-          "selector": {
-            "id": "default"
-          }
+          "selector": { "id": "default" }
         }
       ],
-      "smallMultiplesBorder": [
+      "glowCustom": [
         {
           "properties": {
-            "gridlineShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
+            "show": { "expr": { "Literal": { "Value": "false" } } }
           },
-          "selector": {
-            "id": "default"
+          "selector": { "id": "default" }
+        }
+      ],
+      "fillCustom": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "false" } } }
           }
         }
       ],
       "spacing": [
         {
           "properties": {
-            "verticalSpacing": {
-              "expr": {
-                "Literal": {
-                  "Value": "2L"
-                }
-              }
-            }
+            "verticalSpacing": { "expr": { "Literal": { "Value": "2L" } } }
           },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "fillCustom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+          "selector": { "id": "default" }
         }
       ]
     },
@@ -275,25 +117,27 @@
       "title": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
+            "show": { "expr": { "Literal": { "Value": "true" } } }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "color": {
+              "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } }
+            },
+            "transparency": { "expr": { "Literal": { "Value": "0D" } } }
           }
         }
       ],
       "border": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "color": {
+              "solid": { "color": { "expr": { "Literal": { "Value": "'#E5E7EB'" } } } }
             }
           }
         }
@@ -301,13 +145,7 @@
       "spacing": [
         {
           "properties": {
-            "verticalSpacing": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            }
+            "verticalSpacing": { "expr": { "Literal": { "Value": "0D" } } }
           }
         }
       ]
