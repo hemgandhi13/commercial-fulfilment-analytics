@@ -1,0 +1,326 @@
+{
+  "name": "EnterpriseCommercial",
+  "dataColors": [
+    "#4472C4",
+    "#70A0C8",
+    "#8EA9DB",
+    "#B8CCE4",
+    "#C00000",
+    "#217346",
+    "#7030A0",
+    "#FF8C00"
+  ],
+  "background": "#F8F8F8",
+  "foreground": "#252423",
+  "foregroundNeutralSecondary": "#605E5C",
+  "backgroundLight": "#EDEBE9",
+  "foregroundNeutralTertiary": "#A19F9D",
+  "backgroundNeutral": "#C8C6C4",
+  "tableAccent": "#4472C4",
+  "maximum": "#217346",
+  "minimum": "#C00000",
+  "center": "#4472C4",
+  "bad": "#C00000",
+  "neutral": "#605E5C",
+  "good": "#217346",
+  "visualStyles": {
+    "*": {
+      "*": [
+        {
+          "background": [
+            {
+              "properties": {
+                "show": {
+                  "expr": { "Literal": { "Value": "false" } }
+                }
+              }
+            }
+          ],
+          "border": [
+            {
+              "properties": {
+                "show": {
+                  "expr": { "Literal": { "Value": "false" } }
+                }
+              }
+            }
+          ],
+          "general": [
+            {
+              "properties": {
+                "fontFamily": {
+                  "expr": { "Literal": { "Value": "'Segoe UI'" } }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "card": {
+      "*": [
+        {
+          "labels": [
+            {
+              "properties": {
+                "color": { "solid": { "color": "#252423" } },
+                "fontSize": 32,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ],
+          "categoryLabels": [
+            {
+              "properties": {
+                "color": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "bold": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "cardNew": {
+      "*": [
+        {
+          "calloutValue": [
+            {
+              "properties": {
+                "color": { "solid": { "color": "#252423" } },
+                "fontSize": 32,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ],
+          "referenceLabel": [
+            {
+              "properties": {
+                "color": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "barChart": {
+      "*": [
+        {
+          "categoryAxis": [
+            {
+              "properties": {
+                "labelColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ],
+          "valueAxis": [
+            {
+              "properties": {
+                "labelColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "gridlineColor": { "solid": { "color": "#EDEBE9" } }
+              }
+            }
+          ],
+          "title": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "fontSize": 13,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "columnChart": {
+      "*": [
+        {
+          "categoryAxis": [
+            {
+              "properties": {
+                "labelColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ],
+          "valueAxis": [
+            {
+              "properties": {
+                "labelColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "gridlineColor": { "solid": { "color": "#EDEBE9" } }
+              }
+            }
+          ],
+          "title": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "fontSize": 13,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "lineChart": {
+      "*": [
+        {
+          "categoryAxis": [
+            {
+              "properties": {
+                "labelColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ],
+          "valueAxis": [
+            {
+              "properties": {
+                "labelColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "gridlineColor": { "solid": { "color": "#EDEBE9" } }
+              }
+            }
+          ],
+          "title": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "fontSize": 13,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "tableEx": {
+      "*": [
+        {
+          "header": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "backColor": { "solid": { "color": "#EDEBE9" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ],
+          "values": [
+            {
+              "properties": {
+                "fontColorPrimary": { "solid": { "color": "#252423" } },
+                "backColorPrimary": { "solid": { "color": "#FFFFFF" } },
+                "fontColorSecondary": { "solid": { "color": "#252423" } },
+                "backColorSecondary": { "solid": { "color": "#F8F8F8" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "matrix": {
+      "*": [
+        {
+          "columnHeaders": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "backColor": { "solid": { "color": "#EDEBE9" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ],
+          "rowHeaders": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "backColor": { "solid": { "color": "#EDEBE9" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ],
+          "values": [
+            {
+              "properties": {
+                "fontColorPrimary": { "solid": { "color": "#252423" } },
+                "backColorPrimary": { "solid": { "color": "#FFFFFF" } },
+                "fontColorSecondary": { "solid": { "color": "#252423" } },
+                "backColorSecondary": { "solid": { "color": "#F8F8F8" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "slicer": {
+      "*": [
+        {
+          "items": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#252423" } },
+                "fontSize": 11,
+                "fontFamily": "Segoe UI"
+              }
+            }
+          ],
+          "header": [
+            {
+              "properties": {
+                "fontColor": { "solid": { "color": "#605E5C" } },
+                "fontSize": 10,
+                "fontFamily": "Segoe UI",
+                "bold": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "textbox": {
+      "*": [
+        {
+          "general": [
+            {
+              "properties": {
+                "fontFamily": {
+                  "expr": { "Literal": { "Value": "'Segoe UI'" } }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
