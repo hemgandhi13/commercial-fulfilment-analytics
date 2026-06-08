@@ -201,6 +201,58 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2049.4330854428053,
+            "y": 452.05162916704535
+          },
+          "nodeIndex": "CG_TimeIntelligence",
+          "nodeLineageTag": "e1a2b3c4-d5e6-7f89-ab01-cd23ef456789",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2283.4330854428053,
+            "y": 428.05162916704535
+          },
+          "nodeIndex": "Parameter_Dimensions",
+          "nodeLineageTag": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2567.4330854428053,
+            "y": 392.05162916704535
+          },
+          "nodeIndex": "Scenario_FreightSurcharge",
+          "nodeLineageTag": "e5f6a7b8-c9d0-1234-efab-234567890145",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2801.4330854428053,
+            "y": 440.05162916704535
+          },
+          "nodeIndex": "Waterfall_Bridge",
+          "nodeLineageTag": "c6d7e8f9-a0b1-2345-fabc-345678901234",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",

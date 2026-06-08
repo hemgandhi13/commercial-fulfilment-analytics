@@ -17,17 +17,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_DEPARTMENT"
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parameter_Dimensions"
+                        }
+                      },
+                      "Hierarchy": "Parameter Fields"
                     }
                   },
-                  "Property": "DEPARTMENT_NAME"
+                  "Level": "Parameter Fields"
                 }
               },
-              "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
-              "nativeQueryRef": "Count of DEPARTMENT_NAME",
+              "queryRef": "Parameter_Dimensions.Parameter Fields.Parameter Fields",
+              "nativeQueryRef": "Parameter Fields",
               "active": true
             }
           ]

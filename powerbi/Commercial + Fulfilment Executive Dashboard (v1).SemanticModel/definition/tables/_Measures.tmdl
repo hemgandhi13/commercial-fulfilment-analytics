@@ -630,7 +630,7 @@ table _Measures
 		lineageTag: d6f7a8b9-c0d1-2345-fabc-345678901245
 
 	measure 'Revenue at Risk (Late SLA)' = ```
-
+			
 			VAR LateOrderIDs =
 			    CALCULATETABLE (
 			        VALUES ( FACT_FULFILMENT[order_id] ),
@@ -638,7 +638,7 @@ table _Measures
 			    )
 			RETURN
 			CALCULATE ( [Net Sales], FACT_SALES[order_id] IN LateOrderIDs )
-
+			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: L. Supply Chain Risk & Trade Spend
@@ -654,14 +654,14 @@ table _Measures
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Retailer Rebate Accrual' = ```
-
+			
 			SWITCH (
 			    TRUE (),
 			    [Net Sales] > 5000000, [Net Sales] * 0.05,
 			    [Net Sales] > 1000000, [Net Sales] * 0.03,
 			    [Net Sales] * 0.01
 			)
-
+			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: L. Supply Chain Risk & Trade Spend
@@ -670,9 +670,9 @@ table _Measures
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'True Net Profit (Post-Rebate)' = ```
-
+			
 			[Net Commercial Margin] - [Estimated SLA Penalty] - [Retailer Rebate Accrual]
-
+			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: L. Supply Chain Risk & Trade Spend
@@ -681,7 +681,7 @@ table _Measures
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Margin Waterfall Step' = ```
-
+			
 			SWITCH (
 			    SELECTEDVALUE ( 'Waterfall_Bridge'[Sort Order] ),
 			    1, [Total Gross Sales],
@@ -691,7 +691,7 @@ table _Measures
 			    5, -[Retailer Rebate Accrual],
 			    BLANK ()
 			)
-
+			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: M. Waterfall

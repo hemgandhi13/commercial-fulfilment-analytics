@@ -258,7 +258,7 @@ table FACT_SALES
 				let
 				    Source = fnLoadCsv("fact_sales.csv"),
 				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
-
+				
 				    #"Changed Type" = Table.TransformColumnTypes(
 				        UpperHeaders,
 				        {
