@@ -37,6 +37,7 @@ ref table SEC_USER_MARKET
 ref table CG_TimeIntelligence
 ref table Parameter_Dimensions
 ref table Scenario_FreightSurcharge
+ref table Waterfall_Bridge
 
 ref role Executive
 ref role MarketManager

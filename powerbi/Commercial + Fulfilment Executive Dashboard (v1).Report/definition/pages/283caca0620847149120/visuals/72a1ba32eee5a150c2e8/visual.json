@@ -17,17 +17,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_CATEGORY"
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parameter_Dimensions"
+                        }
+                      },
+                      "Hierarchy": "Parameter Fields"
                     }
                   },
-                  "Property": "CATEGORY_NAME"
+                  "Level": "Parameter Fields"
                 }
               },
-              "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
-              "nativeQueryRef": "Count of CATEGORY_NAME",
+              "queryRef": "Parameter_Dimensions.Parameter Fields.Parameter Fields",
+              "nativeQueryRef": "Parameter Fields",
               "active": true
             }
           ]

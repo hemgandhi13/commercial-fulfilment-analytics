@@ -19,7 +19,9 @@
               "field": {
                 "Column": {
                   "Expression": {
-                    "SourceRef": { "Entity": "Waterfall_Bridge" }
+                    "SourceRef": {
+                      "Entity": "Waterfall_Bridge"
+                    }
                   },
                   "Property": "Financial Bucket"
                 }
@@ -36,7 +38,9 @@
               "field": {
                 "Measure": {
                   "Expression": {
-                    "SourceRef": { "Entity": "_Measures" }
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
                   },
                   "Property": "Margin Waterfall Step"
                 }
@@ -53,7 +57,9 @@
             "field": {
               "Column": {
                 "Expression": {
-                  "SourceRef": { "Entity": "Waterfall_Bridge" }
+                  "SourceRef": {
+                    "Entity": "Waterfall_Bridge"
+                  }
                 },
                 "Property": "Sort Order"
               }
@@ -70,35 +76,35 @@
             "increaseFill": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#10B981'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#10B981'"
+                    }
+                  }
                 }
               }
             },
             "decreaseFill": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#EF4444'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EF4444'"
+                    }
+                  }
                 }
               }
             },
             "totalFill": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#374151'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#374151'"
+                    }
+                  }
                 }
               }
-            }
-          }
-        }
-      ],
-      "total": [
-        {
-          "properties": {
-            "show": {
-              "expr": { "Literal": { "Value": "true" } }
-            },
-            "label": {
-              "expr": { "Literal": { "Value": "'True Net Profit'" } }
             }
           }
         }
@@ -107,7 +113,11 @@
         {
           "properties": {
             "showAxisTitle": {
-              "expr": { "Literal": { "Value": "false" } }
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         }
@@ -116,20 +126,36 @@
         {
           "properties": {
             "showAxisTitle": {
-              "expr": { "Literal": { "Value": "false" } }
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             },
             "gridlineShow": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "gridlineColor": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#EDEBE9'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EDEBE9'"
+                    }
+                  }
                 }
               }
             },
             "gridlineStyle": {
-              "expr": { "Literal": { "Value": "'dashed'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
             }
           }
         }
@@ -138,10 +164,18 @@
         {
           "properties": {
             "show": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "fontSize": {
-              "expr": { "Literal": { "Value": "9D" } }
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
             }
           }
         }
@@ -152,10 +186,18 @@
         {
           "properties": {
             "text": {
-              "expr": { "Literal": { "Value": "'Margin Waterfall: Gross Revenue → True Net Profit'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'Margin Waterfall: Gross Revenue → True Net Profit'"
+                }
+              }
             },
             "titleWrap": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           }
         }

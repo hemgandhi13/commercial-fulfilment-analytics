@@ -1,6 +1,52 @@
 table CG_TimeIntelligence
 	lineageTag: e1a2b3c4-d5e6-7f89-ab01-cd23ef456789
 
+	calculationGroup
+		precedence: 10
+
+		calculationItem Current = SELECTEDMEASURE()
+
+		calculationItem MTD =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    DATESMTD ( DIM_DATE[DATE] )
+				)
+
+		calculationItem YTD =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    DATESYTD ( DIM_DATE[DATE] )
+				)
+
+		calculationItem 'Last Year' =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    SAMEPERIODLASTYEAR ( DIM_DATE[DATE] )
+				)
+
+		calculationItem 'YoY %' =
+				VAR Curr = SELECTEDMEASURE ()
+				VAR Prev =
+				    CALCULATE (
+				        SELECTEDMEASURE (),
+				        SAMEPERIODLASTYEAR ( DIM_DATE[DATE] )
+				    )
+				RETURN
+				    DIVIDE ( Curr - Prev, Prev )
+
+			formatStringDefinition = "0.00%;-0.00%;0.00%"
+
+		calculationItem 'Rolling 12M' =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    DATESINPERIOD (
+				        DIM_DATE[DATE],
+				        LASTDATE ( DIM_DATE[DATE] ),
+				        -12,
+				        MONTH
+				    )
+				)
+
 	column Period
 		dataType: string
 		lineageTag: a1b2c3d4-e5f6-7890-bcde-f12345678901
@@ -8,73 +54,6 @@ table CG_TimeIntelligence
 		sourceColumn: Name
 
 		annotation SummarizationSetBy = User
-
-	calculationGroup
-		precedence: 10
-
-		calculationItem Current
-			ordinal: 0
-
-			expression = SELECTEDMEASURE()
-
-		calculationItem MTD
-			ordinal: 1
-
-			expression =
-					CALCULATE (
-					    SELECTEDMEASURE (),
-					    DATESMTD ( DIM_DATE[DATE] )
-					)
-
-		calculationItem YTD
-			ordinal: 2
-
-			expression =
-					CALCULATE (
-					    SELECTEDMEASURE (),
-					    DATESYTD ( DIM_DATE[DATE] )
-					)
-
-		calculationItem 'Last Year'
-			ordinal: 3
-
-			expression =
-					CALCULATE (
-					    SELECTEDMEASURE (),
-					    SAMEPERIODLASTYEAR ( DIM_DATE[DATE] )
-					)
-
-		calculationItem 'YoY %'
-			ordinal: 4
-
-			expression =
-					VAR Curr = SELECTEDMEASURE ()
-					VAR Prev =
-					    CALCULATE (
-					        SELECTEDMEASURE (),
-					        SAMEPERIODLASTYEAR ( DIM_DATE[DATE] )
-					    )
-					RETURN
-					    DIVIDE ( Curr - Prev, Prev )
-
-			formatStringDefinition = "0.00%;-0.00%;0.00%"
-
-		calculationItem 'Rolling 12M'
-			ordinal: 5
-
-			expression =
-					CALCULATE (
-					    SELECTEDMEASURE (),
-					    DATESINPERIOD (
-					        DIM_DATE[DATE],
-					        LASTDATE ( DIM_DATE[DATE] ),
-					        -12,
-					        MONTH
-					    )
-					)
-
-	partition CG_TimeIntelligence-partition = calculationGroup
-		mode: import
 
 	changedProperty = Name
 

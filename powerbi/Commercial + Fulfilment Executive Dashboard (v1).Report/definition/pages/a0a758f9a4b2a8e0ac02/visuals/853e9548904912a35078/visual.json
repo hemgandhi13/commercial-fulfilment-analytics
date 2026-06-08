@@ -13,19 +13,41 @@
     "visualType": "scatterChart",
     "query": {
       "queryState": {
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_MARKET"
+                    }
+                  },
+                  "Property": "MARKET"
+                }
+              },
+              "queryRef": "DIM_MARKET.MARKET",
+              "nativeQueryRef": "MARKET",
+              "active": true
+            }
+          ]
+        },
         "X": {
           "projections": [
             {
               "field": {
                 "Measure": {
                   "Expression": {
-                    "SourceRef": { "Entity": "_Measures" }
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
                   },
                   "Property": "Net Commercial Margin %"
                 }
               },
               "queryRef": "_Measures.Net Commercial Margin %",
-              "nativeQueryRef": "Net Commercial Margin %"
+              "nativeQueryRef": "Net Commercial Margin %",
+              "active": true
             }
           ]
         },
@@ -35,30 +57,15 @@
               "field": {
                 "Measure": {
                   "Expression": {
-                    "SourceRef": { "Entity": "_Measures" }
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
                   },
                   "Property": "Revenue at Risk (Late SLA)"
                 }
               },
               "queryRef": "_Measures.Revenue at Risk (Late SLA)",
               "nativeQueryRef": "Revenue at Risk (Late SLA)"
-            }
-          ]
-        },
-        "Details": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": { "Entity": "DIM_MARKET" }
-                  },
-                  "Property": "MARKET"
-                }
-              },
-              "queryRef": "DIM_MARKET.MARKET",
-              "nativeQueryRef": "MARKET",
-              "active": true
             }
           ]
         }
@@ -69,13 +76,18 @@
         {
           "properties": {
             "showAxisTitle": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "titleText": {
-              "expr": { "Literal": { "Value": "'Net Commercial Margin %'" } }
-            },
-            "labelDisplayUnits": {
-              "expr": { "Literal": { "Value": "0" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'Net Commercial Margin %'"
+                }
+              }
             }
           }
         }
@@ -84,23 +96,43 @@
         {
           "properties": {
             "showAxisTitle": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "titleText": {
-              "expr": { "Literal": { "Value": "'Revenue at Risk ($)'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue at Risk ($)'"
+                }
+              }
             },
             "gridlineShow": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "gridlineColor": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#EDEBE9'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EDEBE9'"
+                    }
+                  }
                 }
               }
             },
             "gridlineStyle": {
-              "expr": { "Literal": { "Value": "'dashed'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
             }
           }
         }
@@ -112,22 +144,21 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": { "ColorId": 0, "Percent": 0 }
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
                   }
                 }
               }
             },
             "showAllDataPoints": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
-          }
-        }
-      ],
-      "labels": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "fontSize": { "expr": { "Literal": { "Value": "9D" } } }
           }
         }
       ]
@@ -137,10 +168,18 @@
         {
           "properties": {
             "text": {
-              "expr": { "Literal": { "Value": "'Risk-Adjusted Profitability by Market'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'Risk-Adjusted Profitability by Market'"
+                }
+              }
             },
             "titleWrap": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           }
         }

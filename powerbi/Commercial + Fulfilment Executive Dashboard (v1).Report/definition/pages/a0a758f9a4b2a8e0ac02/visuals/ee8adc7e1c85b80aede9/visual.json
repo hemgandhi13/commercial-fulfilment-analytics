@@ -19,7 +19,9 @@
               "field": {
                 "Column": {
                   "Expression": {
-                    "SourceRef": { "Entity": "DIM_CATEGORY" }
+                    "SourceRef": {
+                      "Entity": "DIM_CATEGORY"
+                    }
                   },
                   "Property": "CATEGORY_NAME"
                 }
@@ -36,7 +38,9 @@
               "field": {
                 "Measure": {
                   "Expression": {
-                    "SourceRef": { "Entity": "_Measures" }
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
                   },
                   "Property": "CTS % of Net Sales"
                 }
@@ -53,7 +57,9 @@
             "field": {
               "Measure": {
                 "Expression": {
-                  "SourceRef": { "Entity": "_Measures" }
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
                 },
                 "Property": "CTS % of Net Sales"
               }
@@ -69,20 +75,36 @@
         {
           "properties": {
             "showAxisTitle": {
-              "expr": { "Literal": { "Value": "false" } }
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             },
             "gridlineShow": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "gridlineColor": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#EDEBE9'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EDEBE9'"
+                    }
+                  }
                 }
               }
             },
             "gridlineStyle": {
-              "expr": { "Literal": { "Value": "'dashed'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
+                }
+              }
             }
           }
         }
@@ -91,18 +113,9 @@
         {
           "properties": {
             "showAxisTitle": {
-              "expr": { "Literal": { "Value": "false" } }
-            }
-          }
-        }
-      ],
-      "dataColors": [
-        {
-          "properties": {
-            "defaultColor": {
-              "solid": {
-                "color": {
-                  "expr": { "Literal": { "Value": "'#C00000'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -112,10 +125,34 @@
       "labels": [
         {
           "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "labelPosition": { "expr": { "Literal": { "Value": "'InsideEnd'" } } },
-            "bold": { "expr": { "Literal": { "Value": "true" } } },
-            "fontSize": { "expr": { "Literal": { "Value": "9D" } } }
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelPosition": {
+              "expr": {
+                "Literal": {
+                  "Value": "'InsideEnd'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
           }
         }
       ]
@@ -125,10 +162,18 @@
         {
           "properties": {
             "text": {
-              "expr": { "Literal": { "Value": "'Margin Erosion Drivers: CTS % by Category'" } }
+              "expr": {
+                "Literal": {
+                  "Value": "'Margin Erosion Drivers: CTS % by Category'"
+                }
+              }
             },
             "titleWrap": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           }
         }

@@ -17,17 +17,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "HierarchyLevel": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_CHANNEL"
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parameter_Dimensions"
+                        }
+                      },
+                      "Hierarchy": "Parameter Fields"
                     }
                   },
-                  "Property": "MARKET"
+                  "Level": "Parameter Fields"
                 }
               },
-              "queryRef": "DIM_CHANNEL.MARKET",
-              "nativeQueryRef": "MARKET",
+              "queryRef": "Parameter_Dimensions.Parameter Fields.Parameter Fields",
+              "nativeQueryRef": "Parameter Fields",
               "active": true
             }
           ]
