@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "853e9548904912a35078",
   "position": {
-    "x": 704,
-    "y": 184,
+    "x": 728,
+    "y": 194,
     "z": 1000,
-    "height": 256,
-    "width": 576,
+    "height": 320,
+    "width": 688,
     "tabOrder": 1000
   },
   "visual": {
@@ -120,7 +120,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#EDEBE9'"
+                      "Value": "'#E2E8F0'"
                     }
                   }
                 }
@@ -487,17 +487,29 @@
         {
           "properties": {
             "show": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "color": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#FFFFFF'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
                 }
               }
             },
             "transparency": {
-              "expr": { "Literal": { "Value": "0D" } }
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
             }
           }
         }
@@ -506,12 +518,20 @@
         {
           "properties": {
             "show": {
-              "expr": { "Literal": { "Value": "true" } }
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             },
             "color": {
               "solid": {
                 "color": {
-                  "expr": { "Literal": { "Value": "'#E2E8F0'" } }
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F0'"
+                    }
+                  }
                 }
               }
             }

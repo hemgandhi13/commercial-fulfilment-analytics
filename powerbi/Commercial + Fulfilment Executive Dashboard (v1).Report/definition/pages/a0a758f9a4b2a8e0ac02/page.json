@@ -3,8 +3,8 @@
   "name": "a0a758f9a4b2a8e0ac02",
   "displayName": "01 Executive Overview",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280,
+  "height": 900,
+  "width": 1440,
   "filterConfig": {
     "filters": [
       {
@@ -103,7 +103,7 @@
               "color": {
                 "expr": {
                   "Literal": {
-                    "Value": "'#F8F8F8'"
+                    "Value": "'#F8F9FA'"
                   }
                 }
               }
