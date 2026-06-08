@@ -82,6 +82,11 @@
       }
     ]
   },
+  "pageBinding": {
+    "name": "865cd0b403070b260994",
+    "type": "Default",
+    "parameters": []
+  },
   "objects": {
     "background": [
       {
