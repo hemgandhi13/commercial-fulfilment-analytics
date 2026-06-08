@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
   "name": "ee8adc7e1c85b80aede9",
   "position": {
-    "x": 992,
-    "y": 176,
+    "x": 704,
+    "y": 440,
     "z": 3000,
-    "height": 240,
-    "width": 288,
+    "height": 280,
+    "width": 576,
     "tabOrder": 2000
   },
   "visual": {
@@ -19,9 +19,7 @@
               "field": {
                 "Column": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_CATEGORY"
-                    }
+                    "SourceRef": { "Entity": "DIM_CATEGORY" }
                   },
                   "Property": "CATEGORY_NAME"
                 }
@@ -38,15 +36,13 @@
               "field": {
                 "Measure": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
+                    "SourceRef": { "Entity": "_Measures" }
                   },
-                  "Property": "Profit"
+                  "Property": "CTS % of Net Sales"
                 }
               },
-              "queryRef": "_Measures.Profit",
-              "nativeQueryRef": "Profit"
+              "queryRef": "_Measures.CTS % of Net Sales",
+              "nativeQueryRef": "CTS % of Net Sales"
             }
           ]
         }
@@ -57,11 +53,9 @@
             "field": {
               "Measure": {
                 "Expression": {
-                  "SourceRef": {
-                    "Entity": "_Measures"
-                  }
+                  "SourceRef": { "Entity": "_Measures" }
                 },
-                "Property": "Profit"
+                "Property": "CTS % of Net Sales"
               }
             },
             "direction": "Descending"
@@ -74,42 +68,41 @@
       "valueAxis": [
         {
           "properties": {
+            "showAxisTitle": {
+              "expr": { "Literal": { "Value": "false" } }
+            },
             "gridlineShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
+              "expr": { "Literal": { "Value": "true" } }
             },
             "gridlineColor": {
               "solid": {
                 "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#C8C6C4'"
-                    }
-                  }
-                }
-              }
-            },
-            "gridlineTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "expr": { "Literal": { "Value": "'#EDEBE9'" } }
                 }
               }
             },
             "gridlineStyle": {
-              "expr": {
-                "Literal": {
-                  "Value": "'dashed'"
-                }
-              }
-            },
+              "expr": { "Literal": { "Value": "'dashed'" } }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
             "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+              "expr": { "Literal": { "Value": "false" } }
+            }
+          }
+        }
+      ],
+      "dataColors": [
+        {
+          "properties": {
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": { "Literal": { "Value": "'#C00000'" } }
                 }
               }
             }
@@ -119,53 +112,10 @@
       "labels": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "labelPosition": {
-              "expr": {
-                "Literal": {
-                  "Value": "'InsideEnd'"
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "zoom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "labelPosition": { "expr": { "Literal": { "Value": "'InsideEnd'" } } },
+            "bold": { "expr": { "Literal": { "Value": "true" } } },
+            "fontSize": { "expr": { "Literal": { "Value": "9D" } } }
           }
         }
       ]
@@ -174,179 +124,16 @@
       "title": [
         {
           "properties": {
-            "titleWrap": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
             "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Profitability Leaders (Top 5)'"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "background": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
+              "expr": { "Literal": { "Value": "'Margin Erosion Drivers: CTS % by Category'" } }
             },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "border": [
-        {
-          "properties": {
-            "width": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
+            "titleWrap": {
+              "expr": { "Literal": { "Value": "true" } }
             }
           }
         }
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "eb1c1201e09a5d28ce2c",
-        "ordinal": 0,
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_CATEGORY"
-              }
-            },
-            "Property": "CATEGORY_NAME"
-          }
-        },
-        "type": "TopN",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "subquery",
-              "Expression": {
-                "Subquery": {
-                  "Query": {
-                    "Version": 2,
-                    "From": [
-                      {
-                        "Name": "d",
-                        "Entity": "DIM_CATEGORY",
-                        "Type": 0
-                      },
-                      {
-                        "Name": "_",
-                        "Entity": "_Measures",
-                        "Type": 0
-                      }
-                    ],
-                    "Select": [
-                      {
-                        "Column": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Source": "d"
-                            }
-                          },
-                          "Property": "CATEGORY_NAME"
-                        },
-                        "Name": "field"
-                      }
-                    ],
-                    "OrderBy": [
-                      {
-                        "Direction": 2,
-                        "Expression": {
-                          "Measure": {
-                            "Expression": {
-                              "SourceRef": {
-                                "Source": "_"
-                              }
-                            },
-                            "Property": "Profit"
-                          }
-                        }
-                      }
-                    ],
-                    "Top": 5
-                  }
-                }
-              },
-              "Type": 2
-            },
-            {
-              "Name": "d",
-              "Entity": "DIM_CATEGORY",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "d"
-                          }
-                        },
-                        "Property": "CATEGORY_NAME"
-                      }
-                    }
-                  ],
-                  "Table": {
-                    "SourceRef": {
-                      "Source": "subquery"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      {
-        "name": "0e858efc186571570a13",
-        "ordinal": 1,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Profit"
-          }
-        },
-        "type": "Advanced"
-      }
-    ],
-    "filterSortOrder": "Custom"
   }
 }
