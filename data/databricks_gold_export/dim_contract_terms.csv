@@ -1,0 +1,10 @@
+customer_segment,tier_label,annual_spend_min_usd,annual_spend_max_usd,rebate_pct,payment_terms_days,sla_service_level_target_pct,sla_penalty_pct_per_day,grace_period_hours
+Consumer,Bronze,0,100000,0.01,30,0.9,0.02,24
+Consumer,Silver,100000,500000,0.02,30,0.92,0.02,24
+Consumer,Gold,500000,9999999,0.03,45,0.95,0.02,24
+Corporate,Bronze,0,200000,0.02,30,0.92,0.02,24
+Corporate,Silver,200000,1000000,0.03,45,0.95,0.02,24
+Corporate,Gold,1000000,9999999,0.05,60,0.98,0.02,24
+Home Office,Bronze,0,50000,0.01,30,0.9,0.02,24
+Home Office,Silver,50000,200000,0.02,30,0.92,0.02,24
+Home Office,Gold,200000,9999999,0.03,45,0.95,0.02,24
