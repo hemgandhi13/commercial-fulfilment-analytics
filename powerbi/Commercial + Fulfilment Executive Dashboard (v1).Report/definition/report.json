@@ -11,7 +11,7 @@
       "type": "SharedResources"
     },
     "customTheme": {
-      "name": "AccessibleDefault",
+      "name": "EnterpriseCommercial",
       "reportVersionAtImport": {
         "visual": "2.5.0",
         "report": "3.1.0",
@@ -131,8 +131,8 @@
       "type": "SharedResources",
       "items": [
         {
-          "name": "AccessibleDefault",
-          "path": "BuiltInThemes/AccessibleDefault.json",
+          "name": "EnterpriseCommercial",
+          "path": "BuiltInThemes/EnterpriseCommercial.json",
           "type": "CustomTheme"
         },
         {
