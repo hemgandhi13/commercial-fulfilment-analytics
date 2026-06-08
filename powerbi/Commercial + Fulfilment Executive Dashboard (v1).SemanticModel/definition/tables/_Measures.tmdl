@@ -581,7 +581,7 @@ table _Measures
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Freight Cost (Est)' = ```
-
+			
 			VAR BaseFreight =
 			    SUMX (
 			        FACT_SALES,
@@ -597,7 +597,7 @@ table _Measures
 			    )
 			RETURN
 			BaseFreight * ( 1 + [Selected Freight Surcharge %] )
-
+			
 			```
 		formatString: \$#,0;(\$#,0);\$#,0
 		displayFolder: K. Cost-to-Serve
@@ -628,6 +628,76 @@ table _Measures
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: K. Cost-to-Serve
 		lineageTag: d6f7a8b9-c0d1-2345-fabc-345678901245
+
+	measure 'Revenue at Risk (Late SLA)' = ```
+
+			VAR LateOrderIDs =
+			    CALCULATETABLE (
+			        VALUES ( FACT_FULFILMENT[order_id] ),
+			        FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1
+			    )
+			RETURN
+			CALCULATE ( [Net Sales], FACT_SALES[order_id] IN LateOrderIDs )
+
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: L. Supply Chain Risk & Trade Spend
+		lineageTag: d1e2f3a4-b5c6-7890-abcd-ef0123456789
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Estimated SLA Penalty' = [Revenue at Risk (Late SLA)] * 0.03
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: L. Supply Chain Risk & Trade Spend
+		lineageTag: e2f3a4b5-c6d7-8901-bcde-f01234567890
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Retailer Rebate Accrual' = ```
+
+			SWITCH (
+			    TRUE (),
+			    [Net Sales] > 5000000, [Net Sales] * 0.05,
+			    [Net Sales] > 1000000, [Net Sales] * 0.03,
+			    [Net Sales] * 0.01
+			)
+
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: L. Supply Chain Risk & Trade Spend
+		lineageTag: f3a4b5c6-d7e8-9012-cdef-012345678901
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'True Net Profit (Post-Rebate)' = ```
+
+			[Net Commercial Margin] - [Estimated SLA Penalty] - [Retailer Rebate Accrual]
+
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: L. Supply Chain Risk & Trade Spend
+		lineageTag: a4b5c6d7-e8f9-0123-defa-123456789012
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Margin Waterfall Step' = ```
+
+			SWITCH (
+			    SELECTEDVALUE ( 'Waterfall_Bridge'[Sort Order] ),
+			    1, [Total Gross Sales],
+			    2, -[Discount Amount],
+			    3, -[Total Cost-to-Serve],
+			    4, -[Estimated SLA Penalty],
+			    5, -[Retailer Rebate Accrual],
+			    BLANK ()
+			)
+
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: M. Waterfall
+		lineageTag: b5c6d7e8-f9a0-1234-efab-234567890123
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	partition _Measures = m
 		mode: import
