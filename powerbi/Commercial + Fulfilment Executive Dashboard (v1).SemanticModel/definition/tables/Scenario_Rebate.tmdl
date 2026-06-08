@@ -1,0 +1,20 @@
+table Scenario_Rebate
+	lineageTag: f1e2d3c4-b5a6-4789-0abc-def012345678
+
+	column Rebate_Shift_Pct
+		dataType: double
+		formatString: 0.00%
+		lineageTag: a2b3c4d5-e6f7-4890-1bcd-ef0123456789
+		summarizeBy: none
+		sourceColumn: [Value]
+
+	partition Scenario_Rebate = calculated
+		mode: import
+		source = GENERATESERIES ( 0, 0.05, 0.005 )
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation ParameterMetadata = {"version":3,"kind":"Numeric"}
+

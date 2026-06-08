@@ -1,0 +1,20 @@
+table Scenario_MOQ
+	lineageTag: 3a7f2b91-e4d5-4c06-b8e1-9f0a2c3d4e5f
+
+	column MOQ_Threshold
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d9e1f3a-b2c4-4806-d3e2-1f0a9b8c7d6e
+		summarizeBy: none
+		sourceColumn: [Value]
+
+	partition Scenario_MOQ = calculated
+		mode: import
+		source = GENERATESERIES ( 0, 100, 5 )
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation ParameterMetadata = {"version":3,"kind":"Numeric"}
+
