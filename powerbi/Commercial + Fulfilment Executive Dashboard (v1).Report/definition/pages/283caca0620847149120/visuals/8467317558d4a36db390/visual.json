@@ -14,7 +14,23 @@
     "query": {
       "queryState": {
         "Category": {
-          "projections": []
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parameter_Dimensions"
+                    }
+                  },
+                  "Property": "Parameter"
+                }
+              },
+              "queryRef": "Parameter_Dimensions.Parameter",
+              "nativeQueryRef": "Parameter",
+              "active": true
+            }
+          ]
         },
         "Y": {
           "projections": [

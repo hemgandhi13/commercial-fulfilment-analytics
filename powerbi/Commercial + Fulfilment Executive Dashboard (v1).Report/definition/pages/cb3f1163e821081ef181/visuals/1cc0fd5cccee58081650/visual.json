@@ -86,11 +86,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Revenue at Risk"
+                  "Property": "Revenue at Risk (Late SLA)"
                 }
               },
-              "queryRef": "_Measures.Revenue at Risk",
-              "nativeQueryRef": "Revenue at Risk"
+              "queryRef": "_Measures.Revenue at Risk (Late SLA)",
+              "nativeQueryRef": "Revenue at Risk (Late SLA)"
             },
             {
               "field": {

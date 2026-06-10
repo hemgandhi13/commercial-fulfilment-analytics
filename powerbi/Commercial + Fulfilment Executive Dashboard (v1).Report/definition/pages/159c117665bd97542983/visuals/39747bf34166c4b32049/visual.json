@@ -14,7 +14,23 @@
     "query": {
       "queryState": {
         "Category": {
-          "projections": []
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_MARKET"
+                    }
+                  },
+                  "Property": "MARKET"
+                }
+              },
+              "queryRef": "DIM_MARKET.MARKET",
+              "nativeQueryRef": "MARKET",
+              "active": true
+            }
+          ]
         },
         "Tooltips": {
           "projections": [
