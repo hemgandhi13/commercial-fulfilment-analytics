@@ -3,10 +3,10 @@
   "name": "710ebe3855c91e8b981d",
   "position": {
     "x": 128,
-    "y": 496,
+    "y": 464,
     "z": 5000,
-    "height": 224,
-    "width": 592,
+    "height": 256,
+    "width": 576,
     "tabOrder": 4000
   },
   "visual": {
@@ -120,6 +120,7 @@
         ]
       }
     },
+    "objects": {},
     "visualContainerObjects": {
       "title": [
         {
