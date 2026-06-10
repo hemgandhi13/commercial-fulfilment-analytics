@@ -388,8 +388,28 @@ New calculated table `Scenario_FreightSurcharge` added:
 - `Freight Cost (Est)` measure updated: wraps base SUMX result in `* (1 + [Selected Freight Surcharge %])` so all CTS/margin measures cascade automatically.
 - Annotated with `ParameterMetadata = {"version":3,"kind":"Numeric"}`.
 
-#### 4.3 Global 9-Page Report UI/UX Redesign & Custom Deneb Waterfall Chart ⏸️ PARKED
-*Parked to focus on high-value semantic model engineering and predictive modeling.*
+#### 4.3 Global 9-Page Report UI/UX Redesign 🔄 IN PROGRESS (resumed 2026-06-10)
+*Executing per `Docs/V2_Report_Pages_Upgrade_Plan.md` in 9 batches, one commit each.*
+
+**Batch log:**
+
+- [x] **Batch 1 — Field-parameter repair + measure hygiene** (commit `c630579`)
+  - `Parameter_Dimensions.tmdl` rebuilt in proper field-parameter shape (named columns, column-level `ParameterMetadata` extendedProperty kind 2, `groupByColumn`, `sortByColumn`). Root cause found: the old table had auto-inferred `Value1/2/3` columns, so Desktop stripped every visual binding that referenced `Parameter Fields`.
+  - Page 02 charts `84673175`/`72a1ba32`: Category axis re-added, bound to `Parameter_Dimensions[Parameter]`.
+  - Page 05 bar `39747bf3`: Category re-bound to `DIM_MARKET[MARKET]`.
+  - Page 07 treemap `468088c9` + pivot `1cc0fd5c`: legacy `[Revenue at Risk]` → `[Revenue at Risk (Late SLA)]` (zero legacy bindings remain report-wide).
+  - **Manual verify (BLOCKING for Batch 3+):** open the `.pbip` in Desktop and confirm (1) model loads with no Parameter_Dimensions errors; (2) Page 02 Parameter slicer swaps both chart axes across the 4 dimensions; (3) Page 02 charts render with an axis again; (4) Page 07 treemap/pivot show Revenue at Risk (Late SLA) values. If Desktop strips the bindings again on save, STOP and report.
+
+- [x] **Batch 2 — Page 01 gap fixes** (commit `71728a1`)
+  - STATE slicer `0f1debf0` rebound to `DIM_CHANNEL[SHIPPING_MODE]`.
+  - NEW visuals: `7b4e2f9a…` Freight Surcharge % slider, `9c1d5a3e…` Rebate Shift % slider (both range mode, Mid-Blue), `3f8a1c5e…` "WHAT-IF MODE" gold badge.
+  - CTS % bar `ee8adc7e`: `xAxisReferenceLine` at 0.12, red dashed, label "CTS Target < 12%".
+  - Cards: True Net Profit value Gold `#D4A843` (was green), Revenue at Risk value `#C0392B` (token-normalized). Kept the committed white-minimalist card design — the navy-card spec in `pbi_page01_instructions_by_entity.md` is an older design iteration, intentionally not applied.
+  - **Manual steps needed:**
+    1. **Reposition the 3 new visuals** — they overlay the CTS bar's right edge at (1186, 540–726). Page 01 canvas (1440×900) is full; drag them wherever you want the What-If panel (or shrink the scatter). Positions are out of JSON scope by design.
+    2. Drag the Freight slider → waterfall CTS step, NCM % card, True Net Profit card and CTS bars must move live. Drag Rebate slider → only True Net Profit moves.
+    3. Check the red dashed CTS target line renders at 12% — if invisible, the object name `xAxisReferenceLine` didn't take on your Desktop version; report back and I'll try the alternate (`referenceLineX`).
+    4. Confirm the 12% threshold with the business before any exec review.
 
 #### 4.4 Predictive Scenario Simulation (Additional Sliders) ✅ COMPLETE
 **Completed:** 2026-06-08
