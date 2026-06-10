@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "39747bf34166c4b32049",
   "position": {
     "x": 768,
@@ -14,28 +14,7 @@
     "query": {
       "queryState": {
         "Category": {
-          "projections": [
-            {
-              "field": {
-                "HierarchyLevel": {
-                  "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Parameter_Dimensions"
-                        }
-                      },
-                      "Hierarchy": "Parameter Fields"
-                    }
-                  },
-                  "Level": "Parameter Fields"
-                }
-              },
-              "queryRef": "Parameter_Dimensions.Parameter Fields.Parameter Fields",
-              "nativeQueryRef": "Parameter Fields",
-              "active": true
-            }
-          ]
+          "projections": []
         },
         "Tooltips": {
           "projections": [
