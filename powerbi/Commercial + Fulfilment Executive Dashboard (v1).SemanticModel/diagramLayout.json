@@ -253,6 +253,32 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3035.4330854428053,
+            "y": 404.05162916704535
+          },
+          "nodeIndex": "Scenario_MOQ",
+          "nodeLineageTag": "3a7f2b91-e4d5-4c06-b8e1-9f0a2c3d4e5f",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3319.4330854428053,
+            "y": 404.05162916704535
+          },
+          "nodeIndex": "Scenario_Rebate",
+          "nodeLineageTag": "f1e2d3c4-b5a6-4789-0abc-def012345678",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
