@@ -433,7 +433,17 @@ New calculated table `Scenario_FreightSurcharge` added:
   - All four Parameter slicers (`a1b2c3d4` p02, `b2c3d4e5` p03, `c3d4e5f6` p04, `d4e5f601` p05): single-select enforced, "View By" 9pt header, white bg, `#E2E8F0` border. Positions untouched (p02 in left rail, p03–05 top-right).
   - **Manual verify (gates Batch 4):** reload .pbip, then on each of pages 03/04/05 use the "View By" slicer: p03 scatter dots regroup, p04 scatter regroups, p05 table's first column swaps between Category/Department/Shipping Mode/Region. With nothing selected all default to Product Category. Check the p05 table still shows its 4 measure columns after the swap.
 
-**Batch 3 done → NEXT: Batch 4** (wire field parameter into pages 03/04/05 main charts + pill-style the Parameter slicers) per `Docs/V2_Report_Pages_Upgrade_Plan.md` §1 WS-1 and the batch list in §11. Use the materialized fieldParameters pattern from Page 02 visuals `8467317558d4a36db390` / `72a1ba32eee5a150c2e8` (post-Desktop-save state). Then Batches 4–9 in order, one commit per batch, Desktop verify between. Remaining business input: ~30% SLA-breach threshold (Batch 7) still unconfirmed.
+- [x] **Batch 3 verified by user ✅** — user also added Desktop polish (leakage data bars, margin colour scale, p03 scatter break-even reference lines), committed in `df98e92`.
+
+- [x] **Batch 4 — Page 02 NCM surfaces + KPI strip** (commit `984df45`)
+  - NEW KPI cards `b4a2c8e1`/`c5b3d9f2`/`d6c4eaf3`/`e7d5fb04`: Net Sales, Profit, Gross Margin %, **Net Commercial Margin % (gold)** — temp overlay strip at y100, x128–1244, 270×84 each.
+  - `72a1ba32` margin chart: `[Net Commercial Margin %]` second series, retitled "Gross vs Net Commercial Margin % (post-CTS)".
+  - `59621fea`: `[Net Commercial Margin]` second series, retitled "Profit vs Net Commercial Margin by Department".
+  - `710ebe38` Top 10 Products: `[Total Cost-to-Serve]` + `[Net Commercial Margin]` columns appended.
+  - `84673175` retitled "Net Sales by Selected Dimension".
+  - **Manual steps:** (1) reposition the 4 new KPI cards — they overlay the top of both big charts; make room by shrinking charts or arranging the strip between title and charts; (2) verify both margin/profit charts show two series with a legend and the gap between gross and NCM bars reads clearly; (3) Top-10 table shows 6 columns; widen the visual if cramped; (4) optional: add red-tint conditional formatting on the Net Commercial Margin column via Desktop UI (Format → Cell elements → Background color rules) — rule-based fills are best authored in Desktop.
+
+**Batch 4 done → NEXT: Batch 5** (Page 03 CTS diagnostic: KPI rebinds to CTS measures, scatter Y → NCM + Profitability Flag colours, CTS composition bar, freight slider) (wire field parameter into pages 03/04/05 main charts + pill-style the Parameter slicers) per `Docs/V2_Report_Pages_Upgrade_Plan.md` §1 WS-1 and the batch list in §11. Use the materialized fieldParameters pattern from Page 02 visuals `8467317558d4a36db390` / `72a1ba32eee5a150c2e8` (post-Desktop-save state). Then Batches 4–9 in order, one commit per batch, Desktop verify between. Remaining business input: ~30% SLA-breach threshold (Batch 7) still unconfirmed.
 
 #### 4.4 Predictive Scenario Simulation (Additional Sliders) ✅ COMPLETE
 **Completed:** 2026-06-08
