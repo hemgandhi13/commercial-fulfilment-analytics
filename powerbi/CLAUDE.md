@@ -443,6 +443,13 @@ New calculated table `Scenario_FreightSurcharge` added:
   - `84673175` retitled "Net Sales by Selected Dimension".
   - **Manual steps:** (1) reposition the 4 new KPI cards — they overlay the top of both big charts; make room by shrinking charts or arranging the strip between title and charts; (2) verify both margin/profit charts show two series with a legend and the gap between gross and NCM bars reads clearly; (3) Top-10 table shows 6 columns; widen the visual if cramped; (4) optional: add red-tint conditional formatting on the Net Commercial Margin column via Desktop UI (Format → Cell elements → Background color rules) — rule-based fills are best authored in Desktop.
 
+- [x] **Batch 4.1 — verification feedback fixes** (commit `186d915`)
+  - p02 KPI cards recoloured `#0F172A` to match Page 01 standard (colour rule: ink `#0F172A` for all standard measures, Gold `#D4A843` only for True Net Profit, Red `#C0392B` only for Revenue at Risk / SLA Penalty).
+  - All 4 View By slicers: baked-in default selection "Product Category" via `general.filter` In-condition — clearing the slicer now returns charts to the default dimension.
+  - Top 10 table: removed accidental Net Sales background gradient (user's conditional-format attempt saved as gradient on wrong field).
+  - **Clarified behaviours (by design, not bugs):** only the 2 "Selected Dimension" charts swap on p02 (Profit by Department + Top 10 are intentional static anchors); KPI cards never react to the View By slicer because field parameters swap grouping axes, they do not filter data.
+  - **Outstanding manual step:** re-author the negative-NCM rule in Desktop — select Top 10 table → Format → Cell elements → series **Net Commercial Margin** → Background color → Rules → base it on **Net Commercial Margin**, rule `>= Min(0 Percent) and < 0 (Number) → #C0392B-tinted red`. The user's rule bounds were correct; only the base field was wrong. After saving, capture the serialization as the rules-template for pages 05/07/08.
+
 **Batch 4 done → NEXT: Batch 5** (Page 03 CTS diagnostic: KPI rebinds to CTS measures, scatter Y → NCM + Profitability Flag colours, CTS composition bar, freight slider) (wire field parameter into pages 03/04/05 main charts + pill-style the Parameter slicers) per `Docs/V2_Report_Pages_Upgrade_Plan.md` §1 WS-1 and the batch list in §11. Use the materialized fieldParameters pattern from Page 02 visuals `8467317558d4a36db390` / `72a1ba32eee5a150c2e8` (post-Desktop-save state). Then Batches 4–9 in order, one commit per batch, Desktop verify between. Remaining business input: ~30% SLA-breach threshold (Batch 7) still unconfirmed.
 
 #### 4.4 Predictive Scenario Simulation (Additional Sliders) ✅ COMPLETE
