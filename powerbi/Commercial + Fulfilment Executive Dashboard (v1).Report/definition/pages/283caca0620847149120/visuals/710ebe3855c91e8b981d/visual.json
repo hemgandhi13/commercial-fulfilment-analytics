@@ -70,6 +70,34 @@
               },
               "queryRef": "_Measures.Gross Margin %",
               "nativeQueryRef": "Gross Margin %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Cost-to-Serve"
+                }
+              },
+              "queryRef": "_Measures.Total Cost-to-Serve",
+              "nativeQueryRef": "Total Cost-to-Serve"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin",
+              "nativeQueryRef": "Net Commercial Margin"
             }
           ]
         }

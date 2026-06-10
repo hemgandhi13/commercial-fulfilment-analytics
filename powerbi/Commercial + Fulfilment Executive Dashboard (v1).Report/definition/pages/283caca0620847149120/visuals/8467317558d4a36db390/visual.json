@@ -236,7 +236,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Net Sales by Department'"
+                  "Value": "'Net Sales by Selected Dimension'"
                 }
               }
             }

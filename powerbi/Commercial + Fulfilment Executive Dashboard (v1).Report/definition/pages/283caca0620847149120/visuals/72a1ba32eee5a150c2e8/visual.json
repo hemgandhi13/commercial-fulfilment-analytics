@@ -112,6 +112,20 @@
               },
               "queryRef": "_Measures.Gross Margin %",
               "nativeQueryRef": "Gross Margin %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin %"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin %",
+              "nativeQueryRef": "Net Commercial Margin %"
             }
           ]
         }
@@ -197,7 +211,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Gross Margin % by Category'"
+                  "Value": "'Gross vs Net Commercial Margin % (post-CTS)'"
                 }
               }
             }
