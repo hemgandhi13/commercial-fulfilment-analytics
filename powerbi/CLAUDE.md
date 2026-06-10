@@ -411,6 +411,13 @@ New calculated table `Scenario_FreightSurcharge` added:
     3. Check the red dashed CTS target line renders at 12% — if invisible, the object name `xAxisReferenceLine` didn't take on your Desktop version; report back and I'll try the alternate (`referenceLineX`).
     4. Confirm the 12% threshold with the business before any exec review.
 
+- [x] **Batch 2.1 — What-If hotfix after first Desktop verification round** (commit `47b4a23`)
+  - Verification round 1 results: model loads ✅; Parameter slicer renders ✅ but **axis substitution NOT firing** (charts group by the parameter's literal label); sliders render but **affect nothing**; CTS reference line **not rendering**.
+  - Slider root cause FIXED: `ParameterMetadata` was a table-level *annotation* on all 3 scenario tables — Power BI only honors it as a **column-level `extendedProperty`** (`{"version":0,"kind":1}` for numeric). Added to `Scenario_FreightSurcharge[Value]`, `Scenario_MOQ[MOQ_Threshold]`, `Scenario_Rebate[Rebate_Shift_Pct]`. All 4 scenario slicers switched to `'SingleValue'` mode (multi/range selection made `SELECTEDVALUE()` return 0 — that's why nothing moved).
+  - Reference line: removed the schema-valid-but-not-rendering `xAxisReferenceLine` block; plan is to clone Desktop's own serialization after the user adds one constant line via the Analytics pane.
+  - Field parameter substitution: TMDL survived the Desktop round-trip intact (extendedProperty + groupByColumn present). Open question is whether the metadata registers — decided by the manual test below.
+  - **Manual verify round 2:** (1) reload .pbip; (2) sliders should now be single-handle sliders — set Freight to 25% on Page 01 and watch True Net Profit / NCM % / CTS bars move; (3) NEW BLANK column chart test on Page 02: drag `Parameter_Dimensions[Parameter]` to X-axis + `Net Sales` to Y — if the slicer swaps its axis, model is healthy and only the existing charts' JSON shape needs cloning from this test visual; if not, the field parameter must be recreated via Desktop UI (Modeling → New parameter → Fields) and visuals rewired to it; (4) add X-axis constant line 0.12 on the CTS bar via Analytics pane, save, leave the test visuals in place for capture.
+
 #### 4.4 Predictive Scenario Simulation (Additional Sliders) ✅ COMPLETE
 **Completed:** 2026-06-08
 
