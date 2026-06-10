@@ -428,7 +428,12 @@ New calculated table `Scenario_FreightSurcharge` added:
   - **User decisions locked in:** CTS target stays at **12%** (portfolio weighted avg is 4.20%; category range 11–56%; 12% = stretch target near efficient categories). Scenario slicers stay **Dropdown** style. WHAT-IF badge textbox removed by user.
   - Page 02 test chart `de197928e9dd6a8eab08` was deleted by the user in Desktop after verification (its captured pattern lives on in the two rewired charts and commit `3dbb323`).
 
-**▶ NEXT SESSION — START HERE: Batch 3** (wire field parameter into pages 03/04/05 main charts + pill-style the Parameter slicers) per `Docs/V2_Report_Pages_Upgrade_Plan.md` §1 WS-1 and the batch list in §11. Use the materialized fieldParameters pattern from Page 02 visuals `8467317558d4a36db390` / `72a1ba32eee5a150c2e8` (post-Desktop-save state). Then Batches 4–9 in order, one commit per batch, Desktop verify between. Remaining business input: ~30% SLA-breach threshold (Batch 7) still unconfirmed.
+- [x] **Batch 3 — Field-parameter wiring pages 03–05** (commit `62b642e`)
+  - Materialized fieldParameters pattern applied to: Page 03 scatter `d7870ff2` (Category), Page 04 discount-efficiency scatter `6cc9f387` (Category), Page 05 leakage table `9a9e6bca` (first Values column). Default field = Product Category, all 4 fields listed with active flags.
+  - All four Parameter slicers (`a1b2c3d4` p02, `b2c3d4e5` p03, `c3d4e5f6` p04, `d4e5f601` p05): single-select enforced, "View By" 9pt header, white bg, `#E2E8F0` border. Positions untouched (p02 in left rail, p03–05 top-right).
+  - **Manual verify (gates Batch 4):** reload .pbip, then on each of pages 03/04/05 use the "View By" slicer: p03 scatter dots regroup, p04 scatter regroups, p05 table's first column swaps between Category/Department/Shipping Mode/Region. With nothing selected all default to Product Category. Check the p05 table still shows its 4 measure columns after the swap.
+
+**Batch 3 done → NEXT: Batch 4** (wire field parameter into pages 03/04/05 main charts + pill-style the Parameter slicers) per `Docs/V2_Report_Pages_Upgrade_Plan.md` §1 WS-1 and the batch list in §11. Use the materialized fieldParameters pattern from Page 02 visuals `8467317558d4a36db390` / `72a1ba32eee5a150c2e8` (post-Desktop-save state). Then Batches 4–9 in order, one commit per batch, Desktop verify between. Remaining business input: ~30% SLA-breach threshold (Batch 7) still unconfirmed.
 
 #### 4.4 Predictive Scenario Simulation (Additional Sliders) ✅ COMPLETE
 **Completed:** 2026-06-08
