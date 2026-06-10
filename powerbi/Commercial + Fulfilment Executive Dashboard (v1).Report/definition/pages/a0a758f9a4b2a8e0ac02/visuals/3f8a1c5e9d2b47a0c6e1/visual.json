@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "3f8a1c5e9d2b47a0c6e1",
   "position": {
-    "x": 1186,
-    "y": 540,
+    "x": 672,
+    "y": 0,
     "z": 7000,
-    "height": 22,
-    "width": 246,
+    "height": 112,
+    "width": 160,
     "tabOrder": 10000
   },
   "visual": {
@@ -22,8 +22,8 @@
                     "value": "WHAT-IF MODE · SIMULATION INPUTS",
                     "textStyle": {
                       "fontWeight": "bold",
-                      "fontSize": "8pt",
-                      "color": "#D4A843"
+                      "fontSize": "14pt",
+                      "color": "#d4a843"
                     }
                   }
                 ]

@@ -7,9 +7,17 @@ table Scenario_FreightSurcharge
 		lineageTag: a7b8c9d0-e1f2-3456-abcd-456789012367
 
 	column Value
+		formatString: 0%
 		lineageTag: 8c2f7672-31f7-4e94-8c4f-4d6d62d6ffdd
+		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0,
+				  "kind": 1
+				}
 
 	partition Scenario_FreightSurcharge = calculated
 		mode: import

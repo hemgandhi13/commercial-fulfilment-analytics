@@ -8,6 +8,12 @@ table Scenario_Rebate
 		summarizeBy: none
 		sourceColumn: [Value]
 
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0,
+				  "kind": 1
+				}
+
 	partition Scenario_Rebate = calculated
 		mode: import
 		source = GENERATESERIES ( 0, 0.05, 0.005 )
