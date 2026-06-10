@@ -3,9 +3,9 @@
   "name": "72a1ba32eee5a150c2e8",
   "position": {
     "x": 720,
-    "y": 496,
+    "y": 480,
     "z": 3000,
-    "height": 224,
+    "height": 240,
     "width": 560,
     "tabOrder": 2000
   },
@@ -170,7 +170,7 @@
             "labelPosition": {
               "expr": {
                 "Literal": {
-                  "Value": "'InsideEnd'"
+                  "Value": "'OutsideEnd'"
                 }
               }
             }
