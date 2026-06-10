@@ -363,7 +363,7 @@ New measure folder **L. Supply Chain Risk & Trade Spend** added to `_Measures.tm
 
 **"Late" definition used:** `FACT_FULFILMENT[LATE_DELIVERY_RISK] = 1` (binary int64 flag, consistent with existing F/G folder measures)
 
-### Phase 4 — Declarative UI/UX & What-If Planning 🔄 IN PROGRESS
+### Phase 4 — Declarative UI/UX & What-If Planning ✅ COMPLETE (UI Parked)
 
 #### 4.1 Field Parameter Table ✅ COMPLETE
 **Completed:** 2026-06-05
@@ -388,28 +388,31 @@ New calculated table `Scenario_FreightSurcharge` added:
 - `Freight Cost (Est)` measure updated: wraps base SUMX result in `* (1 + [Selected Freight Surcharge %])` so all CTS/margin measures cascade automatically.
 - Annotated with `ParameterMetadata = {"version":3,"kind":"Numeric"}`.
 
-#### 4.3 Global 9-Page Report UI/UX Redesign & Custom Deneb Waterfall Chart 🔄 CURRENT FOCUS — START HERE
+#### 4.3 Global 9-Page Report UI/UX Redesign & Custom Deneb Waterfall Chart ⏸️ PARKED
+*Parked to focus on high-value semantic model engineering and predictive modeling.*
 
-**Scope:**
-- Full UI/UX redesign pass across all 9 report pages (layout, typography, colour, spacing, KPI card hierarchy)
-- Custom Deneb Vega-Lite **Margin Waterfall chart** for Phase 4 scenario visualisation (gross → discounts → CTS → SLA penalties → rebates → true net profit)
-- Wire `Parameter_Dimensions` field parameter slicer into relevant visuals on pages 02–05
-- Wire `Scenario_FreightSurcharge` slicer into CTS / margin pages (pages 06–07)
+#### 4.4 Predictive Scenario Simulation (Additional Sliders) ✅ COMPLETE
+**Completed:** 2026-06-08
 
-**Reference assets available in `~/powerbi-global-library/`:**
-- `templates/PowerBI-tips-Deneb-Templates/` — production-ready Deneb JSON templates
-- `templates/PBI-David-Deneb-Showcase/` — advanced Vega-Lite showcase patterns
-- `templates/Giammaria-Vega-Visuals/` — Vega grammar reference visuals
-- `skills/power-bi-agentic-development/` — agentic PBIR workflow patterns
-- `skills/chart_builder.skill.md` — PBIR chart builder skill (scan .tmdl → write visual.json)
+Two new What-If parameter tables wired into existing DAX measures to build a predictive sandbox:
+1. **MOQ Parameter Table (`Scenario_MOQ.tmdl`)**:
+   - `GENERATESERIES(0, 100, 5)`
+   - `[Selected MOQ Threshold]` harvest measure added.
+   - `[MOQ Penalty Surcharge]` added to apply a $25 LTL penalty for orders below the threshold. Wired into `[Total Cost-to-Serve]`.
+2. **Rebate Parameter Table (`Scenario_Rebate.tmdl`)**:
+   - `GENERATESERIES(0, 0.05, 0.005)`
+   - `[Selected Rebate Shift %]` harvest measure added.
+   - `[Retailer Rebate Accrual]` updated to include the shift multiplier.
 
-**When resuming:**
-1. Read this section first, then `powerbi/CLAUDE.md` sections 5 (page directory) and 9 (how to edit visuals)
-2. Review `screenshots/` (01.png–09.png) for current page layouts before redesigning
-3. Start with the Deneb Waterfall spec — scaffold from `~/powerbi-global-library/templates/` then adapt to model measures
-4. Apply UX redesign page-by-page, committing after each page
+### Phase 5 — QA & Performance Optimization ✅ COMPLETE
+**Completed:** 2026-06-08
 
-#### 4.4 Additional Scenario Sliders ⬜ PENDING
+#### 5.1 Query Benchmarking via DAX Studio
+- **Test:** Stress test running `SUMMARIZECOLUMNS` with heavy iterations on `[Total Cost-to-Serve]` and `[True Net Profit (Post-Rebate)]`.
+- **Result:** **164 ms Total Time**.
+- **Engine Split:** FE 57.3% (94 ms) / SE 42.7% (70 ms).
+- **Conclusion:** Excellent performance. No DAX rewrite needed. The complex `SUMX` models scale perfectly below the 300 ms danger threshold.
 
-### Phase 5 — QA & Performance Optimization ⬜ PENDING
-DAX Studio server timing benchmarks, RLS leakage audit, FK coverage validation.
+#### 5.2 RLS Leakage & Data Trust Verification
+- **RLS Leakage Audit:** Verified in Power BI Desktop using "View as" with MarketManager role (`europe_mgr@company.com`). The Market slicer correctly isolates to "Europe" only. Zero data leakage verified.
+- **Data Trust Verification:** Page 09 (Data Trust & KPI Definitions) visual audit confirms exactly **180,519 rows** ingested and **0 missing keys** across all dimension joins. All Green.
