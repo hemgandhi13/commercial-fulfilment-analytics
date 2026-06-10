@@ -1,12 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "0f1debf04c37b059e186",
+  "name": "9c1d5a3e7f2b80c4d6a9",
   "position": {
-    "x": 0,
-    "y": 319.304347826087,
-    "z": 3000,
-    "height": 112.69565217391305,
-    "width": 128
+    "x": 1186,
+    "y": 650,
+    "z": 7200,
+    "height": 76,
+    "width": 246,
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "slicer",
@@ -19,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_CHANNEL"
+                      "Entity": "Scenario_Rebate"
                     }
                   },
-                  "Property": "SHIPPING_MODE"
+                  "Property": "Rebate_Shift_Pct"
                 }
               },
-              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
-              "nativeQueryRef": "SHIPPING_MODE",
+              "queryRef": "Scenario_Rebate.Rebate_Shift_Pct",
+              "nativeQueryRef": "Rebate_Shift_Pct",
               "active": true
             }
           ]
@@ -40,32 +41,24 @@
             "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dropdown'"
+                  "Value": "'Between'"
                 }
               }
             }
           }
         }
       ],
-      "general": [
-        {
-          "properties": {}
-        }
-      ],
-      "selection": [
+      "slider": [
         {
           "properties": {
-            "singleSelect": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "selectAllCheckboxEnabled": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2960A8'"
+                    }
+                  }
                 }
               }
             }
@@ -81,6 +74,31 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Rebate Shift %'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1A2B4A'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
                 }
               }
             }
@@ -144,6 +162,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "parentGroupName": "1ca1ca485441416264e0"
+  }
 }
