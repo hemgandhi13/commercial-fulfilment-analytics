@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "d7870ff20e8d59bd0e45",
   "position": {
     "x": 128,
@@ -28,7 +28,7 @@
               },
               "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
               "nativeQueryRef": "Product Category",
-              "active": true,
+              "active": false,
               "displayName": "Product Category"
             },
             {
@@ -44,7 +44,7 @@
               },
               "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
               "nativeQueryRef": "Product Department",
-              "active": false,
+              "active": true,
               "displayName": "Product Department"
             },
             {

@@ -6351,6 +6351,16 @@ cultureInfo en-AU
 			            },
 			            "Weight": 0.714
 			          }
+			        },
+			        {
+			          "Market Region": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
 			        }
 			      ]
 			    },

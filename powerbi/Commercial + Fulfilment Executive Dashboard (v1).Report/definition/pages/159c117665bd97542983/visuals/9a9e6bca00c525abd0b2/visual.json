@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "9a9e6bca00c525abd0b2",
   "position": {
     "x": 128,
@@ -28,7 +28,6 @@
               },
               "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
               "nativeQueryRef": "Product Category",
-              "active": true,
               "displayName": "Product Category"
             },
             {
@@ -44,7 +43,6 @@
               },
               "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
               "nativeQueryRef": "Product Department",
-              "active": false,
               "displayName": "Product Department"
             },
             {
@@ -60,7 +58,6 @@
               },
               "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
               "nativeQueryRef": "Shipping Mode",
-              "active": false,
               "displayName": "Shipping Mode"
             },
             {
@@ -75,8 +72,7 @@
                 }
               },
               "queryRef": "DIM_CHANNEL.ORDER_REGION",
-              "nativeQueryRef": "Market Region",
-              "active": false,
+              "nativeQueryRef": "ORDER_REGION",
               "displayName": "Market Region"
             },
             {
@@ -353,81 +349,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "9fcbddcaec22a3d484c4",
-        "ordinal": 1,
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_CATEGORY"
-              }
-            },
-            "Property": "CATEGORY_NAME"
-          }
-        },
-        "type": "TopN"
-      },
-      {
-        "name": "7f1ec89ddf3bbdf93ae1",
-        "ordinal": 2,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Discount Amount"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "40db0216c5ab24de4d29",
-        "ordinal": 3,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Discount Rate % (Effective)"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "c31d51683cc6eab2f120",
-        "ordinal": 4,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Gross Margin %"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "08e5c3ab6ddfe4c43431",
-        "ordinal": 5,
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Net Sales"
-          }
-        },
-        "type": "Advanced"
       }
     ],
     "filterSortOrder": "Custom"
