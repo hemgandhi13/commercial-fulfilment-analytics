@@ -20,6 +20,22 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
+                      "Entity": "DIM_CATEGORY"
+                    }
+                  },
+                  "Property": "CATEGORY_NAME"
+                }
+              },
+              "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
+              "nativeQueryRef": "Product Category",
+              "active": true,
+              "displayName": "Product Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
                       "Entity": "DIM_DEPARTMENT"
                     }
                   },
@@ -28,8 +44,40 @@
               },
               "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
               "nativeQueryRef": "Product Department",
-              "active": true,
+              "active": false,
               "displayName": "Product Department"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CHANNEL"
+                    }
+                  },
+                  "Property": "SHIPPING_MODE"
+                }
+              },
+              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
+              "nativeQueryRef": "Shipping Mode",
+              "active": false,
+              "displayName": "Shipping Mode"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CHANNEL"
+                    }
+                  },
+                  "Property": "ORDER_REGION"
+                }
+              },
+              "queryRef": "DIM_CHANNEL.ORDER_REGION",
+              "nativeQueryRef": "Market Region",
+              "active": false,
+              "displayName": "Market Region"
             }
           ],
           "fieldParameters": [
@@ -45,7 +93,7 @@
                 }
               },
               "index": 0,
-              "length": 1
+              "length": 4
             }
           ]
         },
@@ -72,16 +120,55 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Measures"
+                    "Entity": "DIM_CATEGORY"
                   }
                 },
-                "Property": "Net Sales"
+                "Property": "CATEGORY_NAME"
               }
             },
-            "direction": "Descending"
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_DEPARTMENT"
+                  }
+                },
+                "Property": "DEPARTMENT_NAME"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_CHANNEL"
+                  }
+                },
+                "Property": "SHIPPING_MODE"
+              }
+            },
+            "direction": "Ascending"
+          },
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_CHANNEL"
+                  }
+                },
+                "Property": "ORDER_REGION"
+              }
+            },
+            "direction": "Ascending"
           }
         ],
         "isDefaultSort": true
