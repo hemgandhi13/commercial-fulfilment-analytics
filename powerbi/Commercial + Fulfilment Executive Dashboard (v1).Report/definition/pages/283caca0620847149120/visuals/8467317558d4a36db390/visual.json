@@ -28,7 +28,7 @@
               },
               "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
               "nativeQueryRef": "Product Category",
-              "active": true,
+              "active": false,
               "displayName": "Product Category"
             },
             {
@@ -76,7 +76,7 @@
               },
               "queryRef": "DIM_CHANNEL.ORDER_REGION",
               "nativeQueryRef": "Market Region",
-              "active": false,
+              "active": true,
               "displayName": "Market Region"
             }
           ],
