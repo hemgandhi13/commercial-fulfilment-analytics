@@ -47,6 +47,20 @@
               },
               "queryRef": "_Measures.Profit",
               "nativeQueryRef": "Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin",
+              "nativeQueryRef": "Net Commercial Margin"
             }
           ]
         }
@@ -139,7 +153,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Profit by Department'"
+                  "Value": "'Profit vs Net Commercial Margin by Department'"
                 }
               }
             }
