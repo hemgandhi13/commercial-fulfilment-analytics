@@ -8,6 +8,12 @@ table Scenario_MOQ
 		summarizeBy: none
 		sourceColumn: [Value]
 
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0,
+				  "kind": 1
+				}
+
 	partition Scenario_MOQ = calculated
 		mode: import
 		source = GENERATESERIES ( 0, 100, 5 )

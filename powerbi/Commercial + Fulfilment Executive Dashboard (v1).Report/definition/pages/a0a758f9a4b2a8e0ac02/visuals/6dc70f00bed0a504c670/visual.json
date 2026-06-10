@@ -3,9 +3,9 @@
   "name": "6dc70f00bed0a504c670",
   "position": {
     "x": 0,
-    "y": 106.43478260869567,
+    "y": 102.49275362318842,
     "z": 1000,
-    "height": 112.69565217391305,
+    "height": 108.52173913043478,
     "width": 128
   },
   "visual": {
@@ -41,6 +41,13 @@
               "expr": {
                 "Literal": {
                   "Value": "'Dropdown'"
+                }
+              }
+            },
+            "isInvertedSelectionMode": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
                 }
               }
             }
