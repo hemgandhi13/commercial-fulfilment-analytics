@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "72a1ba32eee5a150c2e8",
   "position": {
-    "x": 704,
+    "x": 720,
     "y": 496,
     "z": 3000,
     "height": 224,
-    "width": 576,
+    "width": 560,
     "tabOrder": 2000
   },
   "visual": {
@@ -30,6 +30,54 @@
               "nativeQueryRef": "Product Category",
               "active": true,
               "displayName": "Product Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_DEPARTMENT"
+                    }
+                  },
+                  "Property": "DEPARTMENT_NAME"
+                }
+              },
+              "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
+              "nativeQueryRef": "Product Department",
+              "active": false,
+              "displayName": "Product Department"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CHANNEL"
+                    }
+                  },
+                  "Property": "SHIPPING_MODE"
+                }
+              },
+              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
+              "nativeQueryRef": "Shipping Mode",
+              "active": false,
+              "displayName": "Shipping Mode"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CHANNEL"
+                    }
+                  },
+                  "Property": "ORDER_REGION"
+                }
+              },
+              "queryRef": "DIM_CHANNEL.ORDER_REGION",
+              "nativeQueryRef": "Market Region",
+              "active": false,
+              "displayName": "Market Region"
             }
           ],
           "fieldParameters": [
@@ -45,7 +93,7 @@
                 }
               },
               "index": 0,
-              "length": 1
+              "length": 4
             }
           ]
         },
