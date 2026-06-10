@@ -4,10 +4,10 @@
   "position": {
     "x": 704,
     "y": 496,
-    "z": 4000,
+    "z": 3000,
     "height": 224,
     "width": 576,
-    "tabOrder": 3000
+    "tabOrder": 2000
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -20,15 +20,32 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
+                      "Entity": "DIM_CATEGORY"
+                    }
+                  },
+                  "Property": "CATEGORY_NAME"
+                }
+              },
+              "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
+              "nativeQueryRef": "Product Category",
+              "active": true,
+              "displayName": "Product Category"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
                       "Entity": "Parameter_Dimensions"
                     }
                   },
                   "Property": "Parameter"
                 }
               },
-              "queryRef": "Parameter_Dimensions.Parameter",
-              "nativeQueryRef": "Parameter",
-              "active": true
+              "index": 0,
+              "length": 1
             }
           ]
         },

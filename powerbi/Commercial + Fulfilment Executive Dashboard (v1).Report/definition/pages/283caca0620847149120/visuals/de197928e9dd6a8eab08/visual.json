@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "8467317558d4a36db390",
+  "name": "de197928e9dd6a8eab08",
   "position": {
-    "x": 128,
+    "x": 816,
     "y": 80,
-    "z": 2000,
+    "z": 6001,
     "height": 416,
-    "width": 576,
-    "tabOrder": 1000
+    "width": 400,
+    "tabOrder": 5001
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,16 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_DEPARTMENT"
+                      "Entity": "DIM_CHANNEL"
                     }
                   },
-                  "Property": "DEPARTMENT_NAME"
+                  "Property": "SHIPPING_MODE"
                 }
               },
-              "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
-              "nativeQueryRef": "Product Department",
+              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
+              "nativeQueryRef": "Shipping Mode",
               "active": true,
-              "displayName": "Product Department"
+              "displayName": "Shipping Mode"
             }
           ],
           "fieldParameters": [
@@ -86,76 +86,6 @@
         ],
         "isDefaultSort": true
       }
-    },
-    "objects": {
-      "categoryAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "maxMarginFactor": {
-              "expr": {
-                "Literal": {
-                  "Value": "50L"
-                }
-              }
-            },
-            "concatenateLabels": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "valueAxis": [
-        {
-          "properties": {
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "labels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Net Sales by Department'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }
