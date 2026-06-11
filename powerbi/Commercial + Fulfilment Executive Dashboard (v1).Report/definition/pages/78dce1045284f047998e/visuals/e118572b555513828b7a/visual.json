@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "e118572b555513828b7a",
   "position": {
     "x": 128,
@@ -239,13 +239,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Retention by Segment — red = below 65% (portfolio avg 69%)'"
-                }
-              },
-              "titleWrap": {
-                "expr": {
-                  "Literal": {
-                    "Value": "true"
-                  }
                 }
               }
             }
