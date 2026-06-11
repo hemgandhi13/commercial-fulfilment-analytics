@@ -115,6 +115,24 @@
             }
           ]
         },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin %"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin %",
+              "nativeQueryRef": "Net Commercial Margin %"
+            }
+          ]
+        },
         "X": {
           "projections": [
             {
@@ -168,7 +186,7 @@
             "displayName": {
               "expr": {
                 "Literal": {
-                  "Value": "'Average Line X-axis'"
+                  "Value": "'Portfolio Avg Discount Rate'"
                 }
               }
             },
@@ -181,6 +199,24 @@
                     }
                   },
                   "Function": 1
+                }
+              }
+            },
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D4A843'"
+                    }
+                  }
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
                 }
               }
             }
