@@ -350,14 +350,14 @@
             "displayName": {
               "expr": {
                 "Literal": {
-                  "Value": "'SLA Threshold (30%)'"
+                  "Value": "'Target: Best-Mode Baseline (45%)'"
                 }
               }
             },
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "0.3D"
+                  "Value": "0.45D"
                 }
               }
             },
@@ -413,7 +413,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Late Delivery Rate Trend vs SLA Threshold'"
+                  "Value": "'Late Delivery Rate Trend vs 45% Best-Mode Target'"
                 }
               }
             }
