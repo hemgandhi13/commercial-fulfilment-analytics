@@ -98,7 +98,7 @@
                               },
                               "Right": {
                                 "Literal": {
-                                  "Value": "0.2D"
+                                  "Value": "0.125D"
                                 }
                               }
                             }
@@ -125,7 +125,7 @@
                               },
                               "Right": {
                                 "Literal": {
-                                  "Value": "0.125D"
+                                  "Value": "0.1D"
                                 }
                               }
                             }
@@ -152,7 +152,7 @@
                               },
                               "Right": {
                                 "Literal": {
-                                  "Value": "0.125D"
+                                  "Value": "0.1D"
                                 }
                               }
                             }
