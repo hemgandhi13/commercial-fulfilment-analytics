@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "13b8f40ae1c4bca71836",
   "position": {
     "x": 128,
@@ -47,11 +47,7 @@
               },
               "queryRef": "_Measures.Late Delivery Rate %",
               "nativeQueryRef": "Late Delivery Rate %"
-            }
-          ]
-        },
-        "Y2": {
-          "projections": [
+            },
             {
               "field": {
                 "Measure": {
@@ -223,13 +219,19 @@
                 }
               }
             },
+            "dataLabelShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
             "lineColor": {
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#6B7280'"
                     }
                   }
                 }
@@ -283,6 +285,17 @@
           },
           "selector": {
             "metadata": "_Measures.Late Delivery Rate % (3M Rolling)"
+          }
+        },
+        {
+          "properties": {
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ],
@@ -376,6 +389,19 @@
           },
           "selector": {
             "id": "2"
+          }
+        }
+      ],
+      "seriesLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]
