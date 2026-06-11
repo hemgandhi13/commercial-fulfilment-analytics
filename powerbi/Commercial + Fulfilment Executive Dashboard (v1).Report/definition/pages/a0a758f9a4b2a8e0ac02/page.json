@@ -3,8 +3,8 @@
   "name": "a0a758f9a4b2a8e0ac02",
   "displayName": "01 Executive Overview",
   "displayOption": "FitToPage",
-  "height": 720,
-  "width": 1280,
+  "height": 900,
+  "width": 1440,
   "filterConfig": {
     "filters": [
       {
@@ -82,6 +82,11 @@
       }
     ]
   },
+  "pageBinding": {
+    "name": "865cd0b403070b260994",
+    "type": "Default",
+    "parameters": []
+  },
   "objects": {
     "background": [
       {
@@ -98,7 +103,7 @@
               "color": {
                 "expr": {
                   "Literal": {
-                    "Value": "'#FFFFFF'"
+                    "Value": "'#F8F9FA'"
                   }
                 }
               }

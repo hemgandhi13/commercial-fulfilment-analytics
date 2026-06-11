@@ -1,0 +1,39 @@
+table Waterfall_Bridge
+	lineageTag: c6d7e8f9-a0b1-2345-fabc-345678901234
+
+	column 'Sort Order'
+		dataType: int64
+		lineageTag: d7e8f9a0-b1c2-3456-abcd-456789012345
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Sort Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Financial Bucket'
+		dataType: string
+		lineageTag: e8f9a0b1-c2d3-4567-bcde-567890123456
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Financial Bucket]
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Waterfall_Bridge = calculated
+		mode: import
+		source =
+				DATATABLE (
+				    "Sort Order", INTEGER,
+				    "Financial Bucket", STRING,
+				    {
+				        { 1, "Gross Revenue" },
+				        { 2, "Discounts" },
+				        { 3, "Cost to Serve" },
+				        { 4, "SLA Penalties" },
+				        { 5, "Rebates" }
+				    }
+				)
+
+	annotation PBI_ResultType = Table
+

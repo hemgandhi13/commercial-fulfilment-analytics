@@ -47,6 +47,20 @@
               },
               "queryRef": "_Measures.Discount Amount",
               "nativeQueryRef": "Discount Amount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Retailer Rebate Accrual"
+                }
+              },
+              "queryRef": "_Measures.Retailer Rebate Accrual",
+              "nativeQueryRef": "Retailer Rebate Accrual"
             }
           ]
         }
@@ -156,9 +170,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#2960A8'"
                     }
                   }
                 }
@@ -167,6 +180,44 @@
           },
           "selector": {
             "metadata": "_Measures.Discount Amount"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D4A843'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Retailer Rebate Accrual"
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top'"
+                }
+              }
+            }
           }
         }
       ],
@@ -183,93 +234,7 @@
             "displayName": {
               "expr": {
                 "Literal": {
-                  "Value": "'Max line 1'"
-                }
-              }
-            },
-            "value": {
-              "expr": {
-                "Aggregation": {
-                  "Expression": {
-                    "SelectRef": {
-                      "ExpressionName": "_Measures.Discount Amount"
-                    }
-                  },
-                  "Function": 4
-                }
-              }
-            },
-            "dataLabelShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "lineColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 1,
-                      "Percent": 0.2
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "25D"
-                }
-              }
-            },
-            "dataLabelColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 1,
-                      "Percent": 0.1
-                    }
-                  }
-                }
-              }
-            },
-            "dataLabelVerticalPosition": {
-              "expr": {
-                "Literal": {
-                  "Value": "'under'"
-                }
-              }
-            },
-            "dataLabelHorizontalPosition": {
-              "expr": {
-                "Literal": {
-                  "Value": "'right'"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Discount Amount",
-            "id": "1"
-          }
-        },
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "displayName": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Average line 1'"
+                  "Value": "'Avg Monthly Discounts'"
                 }
               }
             },
@@ -349,10 +314,17 @@
       "title": [
         {
           "properties": {
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Monthly Discount Leakage'"
+                  "Value": "'Monthly Trade Spend: Discounts (blue) + Rebate Accrual (gold)'"
                 }
               }
             }

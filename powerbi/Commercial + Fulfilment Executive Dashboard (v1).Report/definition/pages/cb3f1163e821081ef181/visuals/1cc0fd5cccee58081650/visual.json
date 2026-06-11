@@ -35,21 +35,6 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_GEO"
-                    }
-                  },
-                  "Property": "STATE"
-                }
-              },
-              "queryRef": "DIM_GEO.STATE",
-              "nativeQueryRef": "STATE",
-              "active": false
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
                       "Entity": "FACT_FULFILMENT"
                     }
                   },
@@ -86,11 +71,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Revenue at Risk"
+                  "Property": "Revenue at Risk (Late SLA)"
                 }
               },
-              "queryRef": "_Measures.Revenue at Risk",
-              "nativeQueryRef": "Revenue at Risk"
+              "queryRef": "_Measures.Revenue at Risk (Late SLA)",
+              "nativeQueryRef": "Revenue at Risk (Late SLA)"
             },
             {
               "field": {
@@ -133,6 +118,34 @@
               },
               "queryRef": "_Measures.Avg Shipping Variance",
               "nativeQueryRef": "Avg Shipping Variance"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Freight Cost (Est)"
+                }
+              },
+              "queryRef": "_Measures.Freight Cost (Est)",
+              "nativeQueryRef": "Freight Cost (Est)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Estimated SLA Penalty"
+                }
+              },
+              "queryRef": "_Measures.Estimated SLA Penalty",
+              "nativeQueryRef": "Estimated SLA Penalty"
             }
           ]
         }
@@ -148,19 +161,6 @@
                   }
                 },
                 "Property": "MARKET"
-              }
-            },
-            "direction": "Ascending"
-          },
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "DIM_GEO"
-                  }
-                },
-                "Property": "STATE"
               }
             },
             "direction": "Ascending"
@@ -208,25 +208,6 @@
           },
           {
             "queryRefs": [
-              "DIM_GEO.STATE"
-            ],
-            "isCollapsed": true,
-            "identityKeys": [
-              {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_GEO"
-                    }
-                  },
-                  "Property": "STATE"
-                }
-              }
-            ],
-            "isPinned": true
-          },
-          {
-            "queryRefs": [
               "FACT_FULFILMENT.SHIPPING_MODE"
             ],
             "isCollapsed": true,
@@ -246,6 +227,33 @@
                   "expr": {
                     "Conditional": {
                       "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Late Delivery Rate %"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.6D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#C0392B'"
+                            }
+                          }
+                        },
                         {
                           "Condition": {
                             "Comparison": {

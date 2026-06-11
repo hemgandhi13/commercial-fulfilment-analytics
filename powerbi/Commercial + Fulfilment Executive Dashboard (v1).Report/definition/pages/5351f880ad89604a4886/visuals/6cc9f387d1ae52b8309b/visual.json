@@ -27,8 +27,73 @@
                 }
               },
               "queryRef": "DIM_CATEGORY.CATEGORY_NAME",
-              "nativeQueryRef": "CATEGORY_NAME",
-              "active": true
+              "nativeQueryRef": "Product Category",
+              "active": true,
+              "displayName": "Product Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_DEPARTMENT"
+                    }
+                  },
+                  "Property": "DEPARTMENT_NAME"
+                }
+              },
+              "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
+              "nativeQueryRef": "Product Department",
+              "active": false,
+              "displayName": "Product Department"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CHANNEL"
+                    }
+                  },
+                  "Property": "SHIPPING_MODE"
+                }
+              },
+              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
+              "nativeQueryRef": "Shipping Mode",
+              "active": false,
+              "displayName": "Shipping Mode"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_CHANNEL"
+                    }
+                  },
+                  "Property": "ORDER_REGION"
+                }
+              },
+              "queryRef": "DIM_CHANNEL.ORDER_REGION",
+              "nativeQueryRef": "Market Region",
+              "active": false,
+              "displayName": "Market Region"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parameter_Dimensions"
+                    }
+                  },
+                  "Property": "Parameter"
+                }
+              },
+              "index": 0,
+              "length": 4
             }
           ]
         },
@@ -47,6 +112,24 @@
               },
               "queryRef": "_Measures.Net Sales",
               "nativeQueryRef": "Net Sales"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin %"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin %",
+              "nativeQueryRef": "Net Commercial Margin %"
             }
           ]
         },
@@ -103,7 +186,7 @@
             "displayName": {
               "expr": {
                 "Literal": {
-                  "Value": "'Average Line X-axis'"
+                  "Value": "'Portfolio Avg Discount Rate'"
                 }
               }
             },
@@ -116,6 +199,24 @@
                     }
                   },
                   "Function": 1
+                }
+              }
+            },
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D4A843'"
+                    }
+                  }
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dashed'"
                 }
               }
             }

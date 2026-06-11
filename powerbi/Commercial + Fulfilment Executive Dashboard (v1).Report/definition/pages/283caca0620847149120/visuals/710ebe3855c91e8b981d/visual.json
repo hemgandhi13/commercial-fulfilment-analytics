@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "710ebe3855c91e8b981d",
   "position": {
-    "x": 0,
-    "y": 512,
-    "z": 6000,
-    "height": 208,
-    "width": 704,
-    "tabOrder": 5000
+    "x": 128,
+    "y": 464,
+    "z": 5000,
+    "height": 256,
+    "width": 560,
+    "tabOrder": 4000
   },
   "visual": {
     "visualType": "tableEx",
@@ -70,10 +70,112 @@
               },
               "queryRef": "_Measures.Gross Margin %",
               "nativeQueryRef": "Gross Margin %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Cost-to-Serve"
+                }
+              },
+              "queryRef": "_Measures.Total Cost-to-Serve",
+              "nativeQueryRef": "Total Cost-to-Serve"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin",
+              "nativeQueryRef": "Net Commercial Margin"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DIM_PRODUCT"
+                  }
+                },
+                "Property": "PRODUCT_NAME"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
       }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Net Commercial Margin"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#EF4444'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Net Commercial Margin"
+          }
+        }
+      ]
     },
     "visualContainerObjects": {
       "title": [

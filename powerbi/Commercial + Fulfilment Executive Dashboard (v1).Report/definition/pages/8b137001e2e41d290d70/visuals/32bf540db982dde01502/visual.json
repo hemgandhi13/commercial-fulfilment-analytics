@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Discount Rate % (Effective)"
+                  "Property": "CTS % of Net Sales"
                 }
               },
-              "queryRef": "_Measures.Discount Rate % (Effective)",
-              "nativeQueryRef": "Discount Rate % (Effective)"
+              "queryRef": "_Measures.CTS % of Net Sales",
+              "nativeQueryRef": "CTS % of Net Sales"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Discount Rate % (Effective)"
+                "Property": "CTS % of Net Sales"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,99 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 1,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "CTS % of Net Sales"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.12D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#C0392B'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "CTS % of Net Sales"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.09D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#D4A843'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "CTS % of Net Sales"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.09D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#0F172A'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }

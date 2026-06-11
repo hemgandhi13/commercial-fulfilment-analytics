@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "On-Time Delivery Rate %"
+                  "Property": "Revenue at Risk (Late SLA)"
                 }
               },
-              "queryRef": "_Measures.On-Time Delivery Rate %",
-              "nativeQueryRef": "On-Time Delivery Rate %"
+              "queryRef": "_Measures.Revenue at Risk (Late SLA)",
+              "nativeQueryRef": "Revenue at Risk (Late SLA)"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "On-Time Delivery Rate %"
+                "Property": "Revenue at Risk (Late SLA)"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C0392B'"
+                    }
+                  }
                 }
               }
             }

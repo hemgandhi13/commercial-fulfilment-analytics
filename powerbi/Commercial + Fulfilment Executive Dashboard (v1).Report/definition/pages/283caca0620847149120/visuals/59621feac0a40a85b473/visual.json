@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "59621feac0a40a85b473",
   "position": {
     "x": 704,
-    "y": 80,
-    "z": 5000,
-    "height": 432,
+    "y": 176,
+    "z": 4000,
+    "height": 304,
     "width": 576,
-    "tabOrder": 4000
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -47,6 +47,20 @@
               },
               "queryRef": "_Measures.Profit",
               "nativeQueryRef": "Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin",
+              "nativeQueryRef": "Net Commercial Margin"
             }
           ]
         }
@@ -139,7 +153,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Profit by Department'"
+                  "Value": "'Profit vs Net Commercial Margin by Department'"
                 }
               }
             }

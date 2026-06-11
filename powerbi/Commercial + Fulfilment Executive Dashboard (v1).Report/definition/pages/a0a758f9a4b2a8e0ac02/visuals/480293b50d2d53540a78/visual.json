@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "480293b50d2d53540a78",
   "position": {
-    "x": 236.71232876712335,
+    "x": 264.85057471264366,
     "y": 0,
     "z": 6000,
-    "height": 85.714285714285708,
-    "width": 197.26027397260273,
-    "tabOrder": 4000
+    "height": 96,
+    "width": 249.77011494252872,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Profit"
+                  "Property": "Net Sales"
                 }
               },
-              "queryRef": "_Measures.Profit",
-              "nativeQueryRef": "Profit"
+              "queryRef": "_Measures.Net Sales",
+              "nativeQueryRef": "Net Sales"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Profit"
+                "Property": "Net Sales"
               }
             },
             "direction": "Descending"
@@ -58,7 +58,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "15D"
+                  "Value": "26D"
                 }
               }
             },
@@ -75,6 +75,17 @@
                   "Value": "'left'"
                 }
               }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F172A'"
+                    }
+                  }
+                }
+              }
             }
           },
           "selector": {
@@ -88,7 +99,7 @@
             "bold": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -103,9 +114,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": -0.5
+                    "Literal": {
+                      "Value": "'#6B7280'"
                     }
                   }
                 }
@@ -131,13 +141,26 @@
           }
         }
       ],
-      "shapeCustomRectangle": [
+      "layout": [
         {
           "properties": {
-            "tileShape": {
+            "calloutSize": {
               "expr": {
                 "Literal": {
-                  "Value": "'rectangle'"
+                  "Value": "50D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "outline": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -163,60 +186,23 @@
           }
         }
       ],
-      "layout": [
+      "fillCustom": [
         {
           "properties": {
-            "calloutSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "50D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "outline": [
-        {
-          "properties": {
-            "lineColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 1,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
-            }
-          },
-          "selector": {
-            "id": "default"
-          }
-        }
-      ],
-      "smallMultiplesBorder": [
-        {
-          "properties": {
-            "gridlineShow": {
+            },
+            "transparency": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "0D"
                 }
               }
             }
-          },
-          "selector": {
-            "id": "default"
           }
         }
       ],
@@ -235,19 +221,6 @@
             "id": "default"
           }
         }
-      ],
-      "fillCustom": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
       ]
     },
     "visualContainerObjects": {
@@ -264,13 +237,55 @@
           }
         }
       ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
       "border": [
         {
           "properties": {
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F0'"
+                    }
+                  }
                 }
               }
             }

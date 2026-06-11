@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Profit"
+                  "Property": "Handling Cost (ABC)"
                 }
               },
-              "queryRef": "_Measures.Profit",
-              "nativeQueryRef": "Profit"
+              "queryRef": "_Measures.Handling Cost (ABC)",
+              "nativeQueryRef": "Handling Cost (ABC)"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Profit"
+                "Property": "Handling Cost (ABC)"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F172A'"
+                    }
+                  }
                 }
               }
             }

@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "853e9548904912a35078",
   "position": {
-    "x": 704,
-    "y": 176,
+    "x": 752,
+    "y": 208,
     "z": 1000,
-    "height": 240,
-    "width": 288,
+    "height": 320,
+    "width": 688,
     "tabOrder": 1000
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "scatterChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,14 +20,52 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_CHANNEL"
+                      "Entity": "DIM_MARKET"
                     }
                   },
                   "Property": "MARKET"
                 }
               },
-              "queryRef": "DIM_CHANNEL.MARKET",
+              "queryRef": "DIM_MARKET.MARKET",
               "nativeQueryRef": "MARKET",
+              "active": true
+            }
+          ]
+        },
+        "Details": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DIM_MARKET"
+                    }
+                  },
+                  "Property": "MARKET"
+                }
+              },
+              "queryRef": "DIM_MARKET.MARKET",
+              "nativeQueryRef": "MARKET",
+              "active": true
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Net Commercial Margin %"
+                }
+              },
+              "queryRef": "_Measures.Net Commercial Margin %",
+              "nativeQueryRef": "Net Commercial Margin %",
               "active": true
             }
           ]
@@ -42,38 +80,34 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Net Sales"
+                  "Property": "Revenue at Risk (Late SLA)"
                 }
               },
-              "queryRef": "_Measures.Net Sales",
-              "nativeQueryRef": "Net Sales"
+              "queryRef": "_Measures.Revenue at Risk (Late SLA)",
+              "nativeQueryRef": "Revenue at Risk (Late SLA)"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "_Measures"
-                  }
-                },
-                "Property": "Net Sales"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "objects": {
       "valueAxis": [
         {
           "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue at Risk ($)'"
+                }
+              }
+            },
             "gridlineShow": {
               "expr": {
                 "Literal": {
@@ -86,16 +120,9 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C8C6C4'"
+                      "Value": "'#E2E8F0'"
                     }
                   }
-                }
-              }
-            },
-            "gridlineTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
                 }
               }
             },
@@ -106,17 +133,276 @@
                 }
               }
             },
-            "showAxisTitle": {
+            "start": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "0D"
                 }
               }
             }
           }
         }
       ],
-      "labels": [
+      "dataPoint": [
+        {
+          "properties": {
+            "defaultColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "showAllDataPoints": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 6,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 6,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DIM_MARKET"
+                          }
+                        },
+                        "Property": "MARKET"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Africa'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DIM_MARKET"
+                          }
+                        },
+                        "Property": "MARKET"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Europe'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#ECE11A'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DIM_MARKET"
+                          }
+                        },
+                        "Property": "MARKET"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'LATAM'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 7,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DIM_MARKET"
+                          }
+                        },
+                        "Property": "MARKET"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Pacific Asia'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 9,
+                      "Percent": 0.2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DIM_MARKET"
+                          }
+                        },
+                        "Property": "MARKET"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'USCA'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "trend": [
         {
           "properties": {
             "show": {
@@ -126,14 +412,20 @@
                 }
               }
             },
-            "labelPosition": {
+            "displayName": {
               "expr": {
                 "Literal": {
-                  "Value": "'InsideEnd'"
+                  "Value": "'Trend line 1'"
                 }
               }
-            },
-            "bold": {
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
@@ -143,10 +435,23 @@
           }
         }
       ],
-      "categoryAxis": [
+      "legend": [
         {
           "properties": {
-            "showAxisTitle": {
+            "showTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "zoom": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"
@@ -161,6 +466,13 @@
       "title": [
         {
           "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Risk-Adjusted Profitability by Market'"
+                }
+              }
+            },
             "titleWrap": {
               "expr": {
                 "Literal": {
@@ -181,6 +493,17 @@
                 }
               }
             },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
             "transparency": {
               "expr": {
                 "Literal": {
@@ -194,10 +517,21 @@
       "border": [
         {
           "properties": {
-            "width": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "1D"
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F0'"
+                    }
+                  }
                 }
               }
             }

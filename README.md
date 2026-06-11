@@ -1,393 +1,172 @@
-# Commercial + Fulfilment Executive Dashboard (v1)
+# Commercial + Fulfilment Analytics
 
-## Databricks → Snowflake (trial serving layer) → Power BI
+**An end-to-end commercial analytics engineering project:** raw retail supply-chain data → **Databricks medallion pipeline (Bronze → Silver → Gold)** → star-schema semantic model → a **9-page, version-controlled Power BI executive dashboard** with activity-based cost-to-serve, financialized delivery risk, and What-If scenario planning.
 
-with CSV fallback for durability after trial expiry.
+Built to answer the questions a **Commercial Analyst** actually gets asked: *What does it really cost to serve this customer? What is late delivery costing us in dollars? What happens to net profit if freight goes up 25%?*
 
-End-to-end analytics build that takes raw retail + fulfilment data through a **medallion pipeline (Bronze → Silver → Gold)** in **Databricks Free Edition**, models it as a **star schema**, and delivers a **Power BI executive dashboard** covering commercial performance, discount leakage, fulfilment risk, and customer retention.
-
-> **Important:** Snowflake was used as the primary “serving layer” during the trial window.  
-> To keep this project durable after the trial ends, the report supports a **CSV fallback serving layer** (Gold exports loaded into Power BI).
-
----
-
-## Summary
-
-- **Business problem:** quantify **commercial performance**, identify **discount leakage**, monitor **fulfilment risk**, and track **customer retention** with a single executive-ready model.
-- **Stack:** **Databricks (Bronze/Silver/Gold)** → **Snowflake (trial serving layer)** or **CSV Gold exports (durable fallback)** → **Power BI (star schema + DAX KPI pack)**.
-- **Deliverable:** a **9-page Power BI executive dashboard** with **data trust checks**, **market-level RLS**, and **performance validation**.
+| | |
+|---|---|
+| **Current release** | `v2.0` — commercial upgrade (cost-to-serve, DIFOT financialization, What-If planning) |
+| **Baseline** | `v1.0` — operational tracker (sales, discounts, late delivery, retention) |
+| **Stack** | Databricks Free Edition (PySpark) · Power BI (PBIP / TMDL / PBIR) · DAX Studio · Git |
+| **Data** | DataCo supply chain — 180,519 order lines, 2 facts, 9 conformed dimensions |
 
 ---
 
-## Key features (capabilities shipped)
+## v1 → v2: what changed and why
 
-- **Star schema semantic model** (facts + conformed dimensions) powering all pages consistently
-- **DAX KPI pack** across commercial, pricing/discount, operations, and retention
-- **Data trust checks** (row counts + FK coverage) plus KPI definitions and refresh notes
-- **Security:** Market-level **Row-Level Security (RLS)** using a user-to-market mapping table (`SEC_USER_MARKET`)
-- **Performance discipline:** tested with **Performance Analyzer**; optimisation documented (Top N on leakage table)
-- **Durable refresh design:** Snowflake during trial + **CSV fallback** to keep the report usable after trial expiry
+v1 *described* operations (late %, discount $). v2 *prices* them — every operational metric is translated into a dollar impact on net profit, which is the difference between a tracker and a commercial decision tool.
 
----
+| Capability | v1 | v2 |
+|---|---|---|
+| Margin view | Gross Margin % | **Net Commercial Margin** = Profit − activity-based Cost-to-Serve |
+| Cost-to-Serve | — | **ABC model**: $2.50/order + $0.50/unit handling + per-mode freight ($1.50–$8/unit) |
+| Delivery risk | Late Delivery % | **Revenue at Risk** + **Estimated SLA Penalty** ($ on late-flagged orders) |
+| Trade spend | Discount $ | **Tiered rebate accrual** (1/3/5% by volume) + **True Net Profit (post-rebate)** |
+| Scenario planning | — | **3 What-If sliders**: Freight Surcharge (0–50%), MOQ Threshold ($25 LTL penalty), Rebate Shift — all cascade live into CTS and True Net Profit |
+| Axis flexibility | fixed charts | **Field parameters** — swap Category / Department / Shipping Mode / Region on key visuals |
+| Visual language | default theme | Token system (ink/blue/gold/red) + **data-grounded conditional formatting** on every KPI card |
+| Cohort analysis | flat table | **Retention heat map** (+ a v1 DAX bug found & fixed: cohort filter was being wiped by `FILTER(ALL(...))` — rates showed 499–1775%) |
+| Governance | row counts page | Pass/fail conditional indicators, QA evidence (DAX Studio timings, RLS audit), full v2 KPI definitions |
+| Engineering | PBIX binary | **PBIP + TMDL + PBIR in Git** — human-readable model & report source, reviewable diffs, batch-per-commit history |
 
-## What this delivers
-
-### Business questions answered
-
-- **Commercial performance:** Which markets, departments, categories and products drive **net sales vs profit**?
-- **Profitability structure:** Where do we have **high sales but low profit** (quadrant analysis)?
-- **Discount effectiveness:** Where is discounting improving outcomes vs **eroding margin**?
-- **Discount leakage:** Which categories/markets are giving away the most **discount $**?
-- **Fulfilment risk:** Where is **late delivery** concentrated and which shipping modes/markets drive risk?
-- **Retention:** Are customers returning, and which cohorts retain best?
-- **Trust & governance:** Are the KPIs backed by **validated keys and row counts**?
-
-### Engineering signals
-
-- Databricks medallion pipeline with curated **Gold star-schema tables**
-- Dimensional modelling (facts + conformed dimensions + date role handling for ship date)
-- Data quality checks (row counts + FK missing key checks)
-- Row-Level Security (RLS): **MarketManager** role using `SEC_USER_MARKET` mapping (market-level access control)
-- Semantic model governance: slicers wired to **dimension tables** (e.g., `DIM_MARKET[MARKET]`) to ensure consistent filtering + RLS propagation
-- Performance validation: Power BI **Performance Analyzer** runs captured for key pages/visuals
-- GitHub-ready documentation pack (BI brief, KPI glossary, data dictionary notes, QA reports)
-
----
-
-## KPI Pack (core measures)
-
-### Commercial
-
-- Net Sales
-- Profit
-- Gross Margin %
-- Orders
-- Net Sales / Profit by Market, Department, Category, Product
-- Profitability quadrants (Sales vs Profit)
-
-### Pricing & discount
-
-- Discount $
-- Discount Rate
-- Discount impact vs margin/profit outcomes
-- Discount leakage (ranked) + leakage trend
-
-### Operations / fulfilment
-
-- Late Delivery %
-- On-time Delivery %
-- Shipping Days (Scheduled vs Actual)
-- Delay distribution by Market / Shipping Mode
-- Revenue at Risk (delayed shipments / delayed orders)
-
-### Retention
-
-- New vs Returning Customers
-- Returning Customer %
-- Retention trend
-- Cohort table (first purchase month logic)
-
----
-
-## Data model contract (star schema at a glance)
-
-**Primary grain**
-
-- Commercial facts: **order line / order-level commercial outcomes** (Net Sales, Profit, Discount metrics)
-- Fulfilment facts: **shipment / delivery outcomes** (late delivery, shipping days, delay drivers)
-
-**Facts**
-
-- `FACT_SALES`
-- `FACT_FULFILMENT`
-
-**Conformed dimensions**
-
-- `DIM_DATE` (role-playing for different date contexts)
-- `DIM_CUSTOMER`
-- `DIM_PRODUCT`
-- `DIM_CATEGORY`
-- `DIM_DEPARTMENT`
-- `DIM_GEO`
-- `DIM_CHANNEL`
-- `DIM_MARKET`
-- `DIM_DISCOUNT_BAND`
-
-**Date role handling**
-
-- **Order Date** is the active relationship for commercial trends.
-- **Ship Date** is handled via an inactive relationship activated in measures using `USERELATIONSHIP()` where required.
-
-Full model notes: `docs/08_star_schema.md`
-
----
-
-## Data quality results (trust checks)
-
-The report includes a dedicated **Data Trust & KPI Definitions** page with validation outputs.
-
-- Gold model row counts: **~180,519 rows** (core fact table total)
-- FK coverage checks: **target = 0 missing keys**, achieved **0** in the validated Gold export set
-- Standardisation rules (applied in Silver/Gold):
-  - type enforcement + null handling for key columns
-  - de-duplication where required
-  - consistent key formatting to preserve joins
-
-(See: Page **09 Data Trust & KPI Definitions** + `docs/09_gold_data_quality_report.md`)
+**Data-grounded thresholds** (computed from the Gold layer, not guessed): late-rate bands at 45/60% (best shipping mode runs 38%, portfolio 54.8%); CTS target 12% (efficient categories ~11%, portfolio 4.2% weighted); retention alert below 65% (portfolio average 69%). The original 30% SLA reference line was *removed* after analysis showed the monthly late rate never drops below 51.9% — an unreachable line is decoration, not a target.
 
 ---
 
 ## Architecture
 
-1. **Databricks Free Edition**
-
-- Bronze: ingestion + raw audit
-- Silver: cleaned/standardised entities
-- Gold: curated fact/dim tables + star schema + quality checks
-
-2. **Serving layer**
-
-- **Primary (during trial):** Snowflake Gold tables (semantic serving layer)
-- **Fallback (durable):** CSV exports of Gold tables loaded into Power BI
-
-3. **Power BI Desktop**
-
-- Imports Gold tables (Snowflake or CSV fallback)
-- Measures & KPI logic (commercial, fulfilment, retention)
-- Executive dashboard pages + QA/definitions page
-
----
-
-## Power BI report
-
-**Report:** Commercial + Fulfilment Executive Dashboard (v1)  
-**Power BI assets:** see **`/powerbi/`** (includes PBIX + screenshots + a Power BI-specific README)
-
-### Pages included (v1)
-
-**01) Executive Overview** — top-line KPIs + trends + market/category views  
-![Executive Overview](powerbi/screenshots/01.png)
-
-**02) Commercial Breakdown** — product/category/department performance  
-![Commercial Breakdown](powerbi/screenshots/02.png)
-
-**03) Profitability Scatter** — net sales vs profit (quadrant analysis)  
-![Profitability Scatter](powerbi/screenshots/03.png)
-
-**04) Pricing & Discount Impact** — discount rate/amount vs margin/profit outcomes  
-![Pricing & Discount Impact](powerbi/screenshots/04.png)
-
-**05) Discount Leakage Table** — categories giving away the most discount $  
-![Discount Leakage Table](powerbi/screenshots/05.png)
-
-**06) Operations Overview** — late delivery trend, risk by market, scheduled vs actual days  
-![Operations Overview](powerbi/screenshots/06.png)
-
-**07) Operations Deep Dive** — revenue at risk + delay drivers + market table  
-![Operations Deep Dive](powerbi/screenshots/07.png)
-
-**08) Customer Retention** — new vs returning + retention trend + cohorts  
-![Customer Retention](powerbi/screenshots/08.png)
-
-**09) Data Trust & KPI Definitions** — row counts, FK checks, KPI definitions, refresh notes  
-![Data Trust & KPI Definitions](powerbi/screenshots/09.png)
-
----
-
-## Repo structure (artifacts & proof pack)
-
-```text
-/powerbi/
-  Commercial_Fulfilment_Executive_Dashboard_v1.pbix
-  README.md
-  /screenshots/
-    01.png
-    02.png
-    ...
-/data/
-  /databricks_gold_export/
-    FACT_SALES.csv
-    FACT_FULFILMENT.csv
-    DIM_DATE.csv
-    DIM_CUSTOMER.csv
-    DIM_PRODUCT.csv
-    DIM_CATEGORY.csv
-    DIM_DEPARTMENT.csv
-    DIM_GEO.csv
-    DIM_CHANNEL.csv
-    DIM_MARKET.csv
-    DIM_DISCOUNT_BAND.csv
-/docs/
-  rls.md
-  rls_demo.mp4
-  performance.md
-  01_bi_brief.md
-  02_kpi_glossary.md
-  03_data_dictionary_notes.md
-  04_ingestion_log.md
-  05_silver_layer_story.md
-  06_data_quality_report.md
-  07_engineering_notes_errors_and_decisions.md
-  08_star_schema.md
-  09_gold_data_quality_report.md
+```mermaid
+flowchart LR
+    A[Raw CSVs<br/>DataCo 180k rows] --> B[Databricks Free Edition<br/>Bronze → Silver → Gold<br/>PySpark]
+    B --> C[Gold star schema<br/>2 facts · 9 dims<br/>schema-asserted CSV export]
+    C --> D[Power BI semantic model<br/>TMDL · 60+ DAX measures<br/>RLS · What-If parameters]
+    D --> E[9-page PBIR report<br/>version-controlled JSON]
+    B -.->|trial window| F[(Snowflake<br/>serving layer)]
+    F -.-> D
 ```
 
-## Reproducibility runbook (serving layer options)
-
-### Option A — Snowflake serving layer (trial active)
-
-1. Ensure Gold tables/views exist in Snowflake (same schema/columns as documented in `docs/08_star_schema.md`).
-2. Power BI Desktop → configure the Snowflake connector to the Gold schema.
-3. Refresh → validate KPIs populate as expected.
-
-### Option B — CSV fallback (durable)
-
-Use the Quick start steps below to point the PBIX to `data/databricks_gold_export`.
+- **PySpark is the authoritative transform layer** — all cleaning pushed upstream out of Power Query; the M layer is a thin loader with a rigid schema contract (`data-pipeline/01_gold_build.py` asserts types post-write).
+- **Snowflake** served the Gold layer during its trial window; the **CSV export is the durable fallback** with an identical schema contract, so the repo stays reproducible forever.
+- **Everything that defines the model and report is text** (TMDL for the model, PBIR JSON for visuals) and lives in Git — the `.pbix` binary is a build artifact, downloadable from [Releases](../../releases).
 
 ---
 
-## Quick start (CSV fallback – durable)
+## The commercial measure stack (v2 core)
 
-1. **Open the PBIX**
+```
+Net Sales
+  − Total Cost-to-Serve        ← Handling (ABC: $2.50/order + $0.50/unit)
+                                  + Freight (per-mode rate × (1 + Freight Surcharge %))
+                                  + MOQ Penalty ($25 × sub-threshold orders)
+  = Net Commercial Margin
+  − Estimated SLA Penalty       ← 3% × Revenue at Risk (late-flagged orders)
+  − Retailer Rebate Accrual     ← tiered 1/3/5% by net-sales volume (+ Rebate Shift %)
+  = True Net Profit (Post-Rebate)
+```
 
-- `powerbi/Commercial_Fulfilment_Executive_Dashboard_v1.pbix`
-
-2. **Point Power BI to the CSV export folder**
-
-- Repo-relative folder: `data/databricks_gold_export`
-
-3. **Refresh the model**
-
-- Power BI Desktop → **Home → Refresh**
-- If prompted for a folder/parameter, select your local path:
-  - `<your-local-repo-path>/data/databricks_gold_export`
-
-4. **Test RLS (optional)**
-
-- Modeling → **View as** → **MarketManager**
-- Enter test user (e.g., `europe_mgr@company.com`)
-- Confirm visuals restrict to that market
-
-✅ The report should load using the Gold CSV exports.
+The three What-If sliders feed the underlined inputs, so dragging Freight Surcharge to 25% moves CTS, Net Commercial Margin, and True Net Profit live across every page. Full definitions: report page 09 and [`docs/02_kpi_glossary.md`](docs/02_kpi_glossary.md).
 
 ---
 
-## Notes on Snowflake vs CSV fallback (schema contract)
+## The 9 pages (v2)
 
-- **Snowflake (primary):** used as the serving layer while the trial is active.
-- **CSV fallback (durable):** keeps the dashboard refreshable after Snowflake access expires.
-- **Schema contract matters:** CSV filenames + column names + data types must match the Gold schema so measures don’t break.
-- Gold schema definition: `docs/08_star_schema.md`
+> v1 baseline captures for every page: [`powerbi/screenshots/v1/`](powerbi/screenshots/v1/)
 
----
+**01 — Executive Overview** — top-line KPIs, True Net Profit, CTS target line, What-If sliders
+![Executive Overview](powerbi/screenshots/v2/01.png)
 
-## Row-Level Security (RLS) — Market-based access
+**02 — Revenue & Margin** — Gross vs Net Commercial Margin, swappable dimension axis, KPI strip
+![Revenue & Margin](powerbi/screenshots/v2/02.png)
 
-### Tables
+**03 — Profitability Diagnostic** — Net Sales vs post-CTS margin scatter, break-even line, CTS composition
+![Profitability Diagnostic](powerbi/screenshots/v2/03.png)
 
-- `DIM_MARKET`  
-  Unique list of markets (1 row per market)
-- `SEC_USER_MARKET`  
-  User-to-market mapping table  
-  Columns: `UserEmail`, `MARKET`
+**04 — Pricing & Discount Impact** — discount efficiency scatter, margin erosion by band, profit capture
+![Pricing & Discount Impact](powerbi/screenshots/v2/04.png)
 
-### Relationships (required)
+**05 — Discount Leakage** — Top-20 leakage table with rebate accrual, trade-spend trend, market bars
+![Discount Leakage](powerbi/screenshots/v2/05.png)
 
-- `DIM_MARKET[MARKET] (1) → DIM_CHANNEL[MARKET] (*)`  
-  Cross-filter: **Single** | Active: ✅
-- `DIM_MARKET[MARKET] (1) ↔ SEC_USER_MARKET[MARKET] (*)`  
-  Cross-filter: **Both** | Active: ✅  
-  Purpose: allow the **MarketManager** RLS filter (on mapping table) to propagate into the model.
+**06 — Operations Overview** — late-rate trend vs best-mode target, Revenue at Risk by market, SLA penalty
+![Operations Overview](powerbi/screenshots/v2/06.png)
 
-### Report wiring requirement
+**07 — Operations Deep Dive** — market pivot with freight + penalty columns, delay drivers, MOQ lever
+![Operations Deep Dive](powerbi/screenshots/v2/07.png)
 
-Market slicers/filters must use:
+**08 — Customer Retention** — cohort retention heat map, segment alerts, New vs Returning mix
+![Customer Retention](powerbi/screenshots/v2/08.png)
 
-- `DIM_MARKET[MARKET]` (not `DIM_CHANNEL[MARKET]`)
-
-### Validation (Power BI Desktop)
-
-Modeling → View as → **MarketManager**  
-Test identity: `europe_mgr@company.com`
-
-Expected:
-
-- Only **Europe** available in Market slicer
-- All visuals restricted to **Europe** data
-- Executive role shows all markets
-
-Full RLS notes: `docs/rls.md`
+**09 — Data Trust & KPI Definitions** — pass/fail governance indicators, QA evidence, measure glossary
+![Data Trust](powerbi/screenshots/v2/09.png)
 
 ---
 
-## Performance & optimisation notes (Power BI Desktop)
+## Engineering practices
 
-Performance validated using **Performance Analyzer** on the Discount Leakage page(s).
-
-Typical visual render times observed:
-
-- Slicers: ~70–90 ms
-- Charts/cards: ~180–270 ms
-- Table visual: ~230–283 ms  
-  Breakdown (table): DAX query ~15–25 ms, visual display/render ~160 ms, remaining time = Power BI overhead/other
-
-Optimisation applied:
-
-- Discount leakage table uses **Top N filtering** to constrain the result set and reduce visual render cost while preserving decision value.
-
-Performance notes: `docs/performance.md`
+- **Version-controlled BI**: PBIP project format — semantic model as TMDL, report as PBIR JSON. Branch-per-version (`main` = v1 baseline, `feature/v2-commercial-upgrade` = the full v2 history), one commit per upgrade batch, Desktop-verified between batches.
+- **Captured-pattern workflow**: Power BI's report JSON has undocumented serialization shapes (field-parameter bindings, reference lines, conditional `FillRule` gradients). Rather than guessing, working shapes were captured from Desktop's own saves and reused as templates — documented in `powerbi/CLAUDE.md`.
+- **BPA hygiene**: all divisions use `DIVIDE()`, FK columns hidden, explicit format strings, display folders on all 60+ measures.
+- **Performance**: DAX Studio stress test on the heaviest measures (`Total Cost-to-Serve`, `True Net Profit`) — **164 ms total** (FE 94 / SE 70), well under the 300 ms budget. v1 Performance Analyzer pass documented in [`docs/11_performance_test_optimization.md`](docs/11_performance_test_optimization.md).
+- **Data trust as a feature**: page 09 turns red if row counts deviate from 180,519 or any FK check finds missing keys.
+- **Row-Level Security**: market-level access via `SEC_USER_MARKET` → `DIM_MARKET` → `DIM_CHANNEL` propagation; zero-leakage verified with View-as (details: [`docs/10_rls.md`](docs/10_rls.md)).
 
 ---
 
-## Publishing / Sharing
+## Star schema
 
-Power BI Service publishing requires a **work/school account**. Since this project is built and demonstrated in Power BI Desktop, sharing is provided via:
+![Star schema](powerbi/screenshots/v1/model_star_schema.png)
 
-- PBIX (`/powerbi/`)
-- Full screenshots of all pages (`/powerbi/screenshots/`)
-- RLS + performance documentation (`docs/rls.md`, `docs/performance.md`)
+**Grain:** 1 row per order item in both facts.
 
-This ensures the project is reviewable without Power BI Service access.
+- **Facts:** `FACT_SALES` (commercial outcomes), `FACT_FULFILMENT` (delivery outcomes, ship-date role via inactive relationship + `USERELATIONSHIP`)
+- **Conformed dimensions:** `DIM_DATE`, `DIM_CUSTOMER`, `DIM_PRODUCT`, `DIM_CATEGORY`, `DIM_DEPARTMENT`, `DIM_GEO`, `DIM_CHANNEL`, `DIM_MARKET`, `DIM_DISCOUNT_BAND`
+- Both facts join all shared dimensions, so one slicer filters commercial *and* fulfilment measures consistently.
 
----
-
-## Assumptions, limitations, and next iteration (v1 → v2)
-
-### Assumptions
-
-- Gold exports are treated as the source-of-truth contract for the Power BI semantic model.
-- Market-level access control is enforced via the `SEC_USER_MARKET` mapping table + RLS role design.
-
-### Limitations (v1)
-
-- Snowflake is used as a trial serving layer only; long-term use requires a paid account.
-- Power BI Service publishing is not included due to account constraints (work/school sign-in requirement).
-- Refresh is performed via Desktop against either Snowflake (trial) or local CSV exports.
-
-### Next iteration (v2)
-
-- Parameterised environment switching (Snowflake ↔ CSV) with documented “one-click” refresh flow
-- Incremental refresh strategy (where supported) and dataset size optimisation
-- More performance tuning on heavy visuals (reduce overdraw, optimise table rendering, tighten filters)
-- CI workflow for versioning Power BI artefacts (PBIP where applicable)
+Full contract: [`docs/08_star_schema.md`](docs/08_star_schema.md)
 
 ---
 
-## Documentation (proof pack)
+## Quick start
 
-All supporting project notes live in `docs/`:
+1. **Clone** the repo — the Gold CSV exports ship with it (`data/databricks_gold_export/`).
+2. **Open** `powerbi/Commercial + Fulfilment Executive Dashboard (v1).pbip` in Power BI Desktop.
+3. If prompted for the data folder parameter, point `pDataFolder` to your local `data/databricks_gold_export/` path and refresh.
+4. **Validate** on page 09 — all indicators should be green (180,519 rows, 0 missing keys).
+5. **Play**: drag the Freight Surcharge slider on page 01 and watch True Net Profit react.
 
-- BI brief (stakeholder goals + KPI contract)
-- KPI glossary (metric definitions)
-- Data dictionary notes (tables, grain, keys, pitfalls)
-- Ingestion + Silver story + QA reports
-- Engineering decisions & errors log
-- Gold data quality report
-- RLS design + validation
-- Performance validation notes
+Prefer a single file? Download the **`.pbix` from [Releases](../../releases)**.
 
-### Star schema (semantic model)
+**Test RLS:** Modeling → View as → `MarketManager`, identity `europe_mgr@company.com` → everything restricts to Europe.
 
-![Star schema model](powerbi/screenshots/model_star_schema.png)
+---
 
-Power BI-specific usage notes: `powerbi/README.md`
+## Repo structure
+
+```text
+data-pipeline/           PySpark Gold curation (authoritative ETL)
+data/
+  databricks_gold_export/  Gold CSVs (the durable serving layer)
+docs/                    Proof pack: BI brief, KPI glossary, star schema,
+                         data quality reports, RLS design, performance notes
+powerbi/
+  *.pbip                 Power BI project entry point (open this)
+  *.SemanticModel/       TMDL model source (tables, measures, roles)
+  *.Report/              PBIR report source (pages, visuals as JSON)
+  screenshots/v1/        v1 baseline captures
+  screenshots/v2/        v2 release captures
+  powerbi_README.md      Power BI-specific usage notes
+sql/                     Legacy Snowflake/SQL Gold build (deprecated; PySpark is authoritative)
+```
+
+---
+
+## Roadmap (v3 candidates)
+
+- **Contract-true SLA penalties**: the data carries per-mode SLA targets and a 2%/day penalty rate — replace the flat 3% with day-accurate penalty accrual.
+- **Deneb margin waterfall**: Gross Revenue → discounts → CTS → penalties → rebates → True Net Profit bridge chart (Vega-Lite).
+- **Service deployment**: publish to Power BI Service with scheduled refresh once a work account is available.
+
+---
+
+*Documentation pack in [`docs/`](docs/) · Power BI usage notes in [`powerbi/powerbi_README.md`](powerbi/powerbi_README.md) · Release history in [Releases](../../releases)*

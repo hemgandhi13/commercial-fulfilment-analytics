@@ -20,6 +20,10 @@ data/*.zip
 *.pbit
 *.pbiviz
 
+# --- Local working folders (never commit) ---
+powerbi/Docs/
+powerbi/PBIX/
+
 # --- Power BI local/cache files (nested anywhere in the tree) ---
 **/.pbi/localSettings.json
 **/.pbi/cache.abf

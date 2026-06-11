@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "ae6846c7d05c861db610",
   "position": {
     "x": 128,
-    "y": 192,
+    "y": 208,
     "z": 2000,
-    "height": 528,
-    "width": 576,
+    "height": 320,
+    "width": 624,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "lineChart",
+    "visualType": "waterfallChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_DATE"
+                      "Entity": "Waterfall_Bridge"
                     }
                   },
-                  "Property": "YEAR_MONTH"
+                  "Property": "Financial Bucket"
                 }
               },
-              "queryRef": "DIM_DATE.YEAR_MONTH",
-              "nativeQueryRef": "YEAR_MONTH",
+              "queryRef": "Waterfall_Bridge.Financial Bucket",
+              "nativeQueryRef": "Financial Bucket",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Net Sales"
+                  "Property": "Margin Waterfall Step"
                 }
               },
-              "queryRef": "_Measures.Net Sales",
-              "nativeQueryRef": "Net Sales"
+              "queryRef": "_Measures.Margin Waterfall Step",
+              "nativeQueryRef": "Margin Waterfall Step"
             }
           ]
         }
@@ -58,10 +58,10 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "DIM_DATE"
+                    "Entity": "Waterfall_Bridge"
                   }
                 },
-                "Property": "YEAR_MONTH"
+                "Property": "Sort Order"
               }
             },
             "direction": "Ascending"
@@ -70,27 +70,72 @@
       }
     },
     "objects": {
+      "sentimentColors": [
+        {
+          "properties": {
+            "increaseFill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#10B981'"
+                    }
+                  }
+                }
+              }
+            },
+            "decreaseFill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EF4444'"
+                    }
+                  }
+                }
+              }
+            },
+            "totalFill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F172A'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
       "valueAxis": [
         {
           "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
             "gridlineShow": {
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            },
-            "gridlineTransparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "gridlineStyle": {
-              "expr": {
-                "Literal": {
-                  "Value": "'dashed'"
                 }
               }
             },
@@ -99,16 +144,16 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#C8C6C4'"
+                      "Value": "'#E2E8F0'"
                     }
                   }
                 }
               }
             },
-            "showAxisTitle": {
+            "gridlineStyle": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "'dashed'"
                 }
               }
             }
@@ -121,55 +166,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryAxis": [
-        {
-          "properties": {
-            "concatenateLabels": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "maxMarginFactor": {
-              "expr": {
-                "Literal": {
-                  "Value": "15L"
+                  "Value": "true"
                 }
               }
             },
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
-                }
-              }
-            },
-            "preferredCategoryWidth": {
-              "expr": {
-                "Literal": {
-                  "Value": "20D"
-                }
-              }
-            },
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "9D"
                 }
               }
             }
@@ -184,7 +188,69 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Net Sales Trend'"
+                  "Value": "'Margin Waterfall: Gross Revenue → True Net Profit'"
+                }
+              }
+            },
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F0'"
+                    }
+                  }
                 }
               }
             }
@@ -193,39 +259,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "41169ad4294263b7900b",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DIM_DATE"
-              }
-            },
-            "Property": "YEAR"
-          }
-        },
-        "type": "Categorical",
-        "howCreated": "User",
-        "objects": {
-          "general": [
-            {
-              "properties": {
-                "isInvertedSelectionMode": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "true"
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }
-      }
-    ]
   }
 }

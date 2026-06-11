@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "On-Time Delivery Rate %"
+                  "Property": "Freight Cost (Est)"
                 }
               },
-              "queryRef": "_Measures.On-Time Delivery Rate %",
-              "nativeQueryRef": "On-Time Delivery Rate %"
+              "queryRef": "_Measures.Freight Cost (Est)",
+              "nativeQueryRef": "Freight Cost (Est)"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "On-Time Delivery Rate %"
+                "Property": "Freight Cost (Est)"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F172A'"
+                    }
+                  }
                 }
               }
             }

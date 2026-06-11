@@ -1,3 +1,6 @@
+-- DEPRECATED: Gold layer generation moved to PySpark (data-pipeline/01_gold_build.py)
+-- to enforce strict StringType casting on hash keys (geo_key, channel_key).
+-- This file is retained for historical reference only. Do not run in production.
 -- ============================================================
 -- 01_gold_build.sql
 -- Gold star schema build (Databricks SQL / Delta)

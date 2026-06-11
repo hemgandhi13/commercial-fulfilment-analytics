@@ -250,17 +250,8 @@ table FACT_FULFILMENT
 				    Source = fnLoadCsv("fact_fulfilment.csv"),
 				    UpperHeaders = Table.TransformColumnNames(Source, Text.Upper),
 				
-				    KeyText = Table.TransformColumns(
-				        UpperHeaders,
-				        {
-				            {"GEO_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text},
-				            {"CHANNEL_KEY", each try Number.ToText(Number.RoundDown(_), "0", "en-US") otherwise Text.From(_, "en-US"), type text},
-				            {"ORDER_ZIPCODE", each Text.From(_, "en-US"), type text}
-				        }
-				    ),
-				
 				    #"Changed Type" = Table.TransformColumnTypes(
-				        KeyText,
+				        UpperHeaders,
 				        {
 				            {"ORDER_ITEM_ID", Int64.Type},
 				            {"ORDER_ID", Int64.Type},
