@@ -105,7 +105,7 @@ The three What-If sliders feed the underlined inputs, so dragging Freight Surcha
 ## Engineering practices
 
 - **Version-controlled BI**: PBIP project format — semantic model as TMDL, report as PBIR JSON. Branch-per-version (`main` = v1 baseline, `feature/v2-commercial-upgrade` = the full v2 history), one commit per upgrade batch, Desktop-verified between batches.
-- **Captured-pattern workflow**: Power BI's report JSON has undocumented serialization shapes (field-parameter bindings, reference lines, conditional `FillRule` gradients). Rather than guessing, working shapes were captured from Desktop's own saves and reused as templates — documented in `powerbi/CLAUDE.md`.
+- **Captured-pattern workflow**: Power BI's report JSON has undocumented serialization shapes (field-parameter bindings, reference lines, conditional `FillRule` gradients). Rather than guessing, working shapes were captured from Desktop's own saves and reused as templates for all conditional-formatting and parameter wiring.
 - **BPA hygiene**: all divisions use `DIVIDE()`, FK columns hidden, explicit format strings, display folders on all 60+ measures.
 - **Performance**: DAX Studio stress test on the heaviest measures (`Total Cost-to-Serve`, `True Net Profit`) — **164 ms total** (FE 94 / SE 70), well under the 300 ms budget. v1 Performance Analyzer pass documented in [`docs/11_performance_test_optimization.md`](docs/11_performance_test_optimization.md).
 - **Data trust as a feature**: page 09 turns red if row counts deviate from 180,519 or any FK check finds missing keys.
@@ -155,7 +155,6 @@ powerbi/
   *.Report/              PBIR report source (pages, visuals as JSON)
   screenshots/v1/        v1 baseline captures
   screenshots/v2/        v2 release captures
-  powerbi_README.md      Power BI-specific usage notes
 sql/                     Legacy Snowflake/SQL Gold build (deprecated; PySpark is authoritative)
 ```
 
@@ -169,4 +168,4 @@ sql/                     Legacy Snowflake/SQL Gold build (deprecated; PySpark is
 
 ---
 
-*Documentation pack in [`docs/`](docs/) · Power BI usage notes in [`powerbi/powerbi_README.md`](powerbi/powerbi_README.md) · Release history in [Releases](../../releases)*
+*Documentation pack in [`docs/`](docs/) · Release history in [Releases](../../releases)*

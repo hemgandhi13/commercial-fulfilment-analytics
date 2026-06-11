@@ -23,6 +23,8 @@ data/*.zip
 # --- Local working folders (never commit) ---
 powerbi/Docs/
 powerbi/PBIX/
+powerbi/.claude/
+powerbi/CLAUDE.md
 
 # --- Power BI local/cache files (nested anywhere in the tree) ---
 **/.pbi/localSettings.json
