@@ -6,7 +6,7 @@
     "y": 256,
     "z": 0,
     "height": 464,
-    "width": 1136,
+    "width": 744,
     "tabOrder": 0
   },
   "visual": {
@@ -158,6 +158,34 @@
               },
               "queryRef": "_Measures.AOV (Avg Order Value)",
               "nativeQueryRef": "AOV (Avg Order Value)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Cost-to-Serve"
+                }
+              },
+              "queryRef": "_Measures.Total Cost-to-Serve",
+              "nativeQueryRef": "Total Cost-to-Serve"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "CTS % of Net Sales"
+                }
+              },
+              "queryRef": "_Measures.CTS % of Net Sales",
+              "nativeQueryRef": "CTS % of Net Sales"
             }
           ]
         },
@@ -190,11 +218,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Profit"
+                  "Property": "Net Commercial Margin"
                 }
               },
-              "queryRef": "_Measures.Profit",
-              "nativeQueryRef": "Profit"
+              "queryRef": "_Measures.Net Commercial Margin",
+              "nativeQueryRef": "Net Commercial Margin"
             }
           ]
         }
@@ -214,7 +242,7 @@
             "displayName": {
               "expr": {
                 "Literal": {
-                  "Value": "'Break-even (Profit = 0)'"
+                  "Value": "'Break-even (NCM = 0)'"
                 }
               }
             },
@@ -222,6 +250,13 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            },
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
                 }
               }
             },
@@ -364,7 +399,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Sales vs Profit (Category)'"
+                  "Value": "'Net Sales vs Net Commercial Margin (post-CTS)'"
                 }
               }
             }
