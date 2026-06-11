@@ -30,54 +30,6 @@
               "nativeQueryRef": "Product Category",
               "active": true,
               "displayName": "Product Category"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_DEPARTMENT"
-                    }
-                  },
-                  "Property": "DEPARTMENT_NAME"
-                }
-              },
-              "queryRef": "DIM_DEPARTMENT.DEPARTMENT_NAME",
-              "nativeQueryRef": "Product Department",
-              "active": false,
-              "displayName": "Product Department"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_CHANNEL"
-                    }
-                  },
-                  "Property": "SHIPPING_MODE"
-                }
-              },
-              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
-              "nativeQueryRef": "Shipping Mode",
-              "active": false,
-              "displayName": "Shipping Mode"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DIM_CHANNEL"
-                    }
-                  },
-                  "Property": "ORDER_REGION"
-                }
-              },
-              "queryRef": "DIM_CHANNEL.ORDER_REGION",
-              "nativeQueryRef": "Market Region",
-              "active": false,
-              "displayName": "Market Region"
             }
           ],
           "fieldParameters": [
@@ -93,7 +45,7 @@
                 }
               },
               "index": 0,
-              "length": 4
+              "length": 1
             }
           ]
         },
@@ -140,7 +92,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Freight Cost (Est)"
+                "Property": "Handling Cost (ABC)"
               }
             },
             "direction": "Descending"
