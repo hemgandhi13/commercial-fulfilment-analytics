@@ -72,7 +72,7 @@
                 }
               },
               "queryRef": "DIM_CHANNEL.ORDER_REGION",
-              "nativeQueryRef": "ORDER_REGION",
+              "nativeQueryRef": "Market Region",
               "displayName": "Market Region"
             },
             {

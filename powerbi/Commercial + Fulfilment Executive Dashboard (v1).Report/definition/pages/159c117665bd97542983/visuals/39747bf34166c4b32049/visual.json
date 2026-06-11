@@ -222,10 +222,17 @@
       "title": [
         {
           "properties": {
+            "titleWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Leakage by Market'"
+                  "Value": "'Leakage by Market — colour = discount rate (gold > 10%, red > 12.5%)'"
                 }
               }
             }
