@@ -130,7 +130,7 @@ Full contract: [`docs/08_star_schema.md`](docs/08_star_schema.md)
 ## Quick start
 
 1. **Clone** the repo — the Gold CSV exports ship with it (`data/databricks_gold_export/`).
-2. **Open** `powerbi/Commercial + Fulfilment Executive Dashboard (v1).pbip` in Power BI Desktop.
+2. **Open** `powerbi/Commercial + Fulfilment Executive Dashboard.pbip` in Power BI Desktop.
 3. If prompted for the data folder parameter, point `pDataFolder` to your local `data/databricks_gold_export/` path and refresh.
 4. **Validate** on page 09 — all indicators should be green (180,519 rows, 0 missing keys).
 5. **Play**: drag the Freight Surcharge slider on page 01 and watch True Net Profit react.
