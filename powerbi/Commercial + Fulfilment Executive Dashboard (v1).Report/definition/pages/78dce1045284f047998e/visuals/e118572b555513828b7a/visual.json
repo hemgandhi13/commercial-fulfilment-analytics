@@ -103,6 +103,87 @@
       }
     },
     "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Returning Customer %"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.65D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#C0392B'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Returning Customer %"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.65D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#2960A8'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ]
+          }
+        }
+      ],
       "labels": [
         {
           "properties": {
@@ -157,7 +238,14 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Retention by Segment'"
+                  "Value": "'Retention by Segment — red = below 65% (portfolio avg 69%)'"
+                }
+              },
+              "titleWrap": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
                 }
               }
             }

@@ -42,7 +42,7 @@ table VALIDATION_FK_COVERAGE
 			    VALIDATION_FK_COVERAGE[FACT_ROWS] 
 			)
 			```
-		formatString: 0%;-0%;0%
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: beb00a64-fdc5-486c-9e4e-49b9a79785bf
 		summarizeBy: sum
 
