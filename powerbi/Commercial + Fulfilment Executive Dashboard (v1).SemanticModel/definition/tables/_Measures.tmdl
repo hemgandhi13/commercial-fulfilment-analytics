@@ -511,9 +511,11 @@ table _Measures
 			RETURN
 			CALCULATE (
 			    DISTINCTCOUNT ( FACT_SALES[customer_id] ),
-			    FILTER (
-			        ALL ( DIM_CUSTOMER ),
-			        DIM_CUSTOMER[First Purchase YearMonthSort] < ActivityMinYM
+			    KEEPFILTERS (
+			        FILTER (
+			            ALL ( DIM_CUSTOMER ),
+			            DIM_CUSTOMER[First Purchase YearMonthSort] < ActivityMinYM
+			        )
 			    )
 			)
 			
