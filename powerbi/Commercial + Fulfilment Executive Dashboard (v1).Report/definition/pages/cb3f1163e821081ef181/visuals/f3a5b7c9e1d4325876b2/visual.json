@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "e5f601020304050607b0",
+  "name": "f3a5b7c9e1d4325876b2",
   "position": {
     "x": 0,
     "y": 496,
-    "z": 9000,
+    "z": 7000,
     "height": 96,
     "width": 128,
-    "tabOrder": 9500
+    "tabOrder": 9000
   },
   "visual": {
     "visualType": "slicer",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Scenario_FreightSurcharge"
+                      "Entity": "Scenario_MOQ"
                     }
                   },
-                  "Property": "Value"
+                  "Property": "MOQ_Threshold"
                 }
               },
-              "queryRef": "Scenario_FreightSurcharge.Value",
-              "nativeQueryRef": "Value",
+              "queryRef": "Scenario_MOQ.MOQ_Threshold",
+              "nativeQueryRef": "MOQ_Threshold",
               "active": true
             }
           ]
@@ -74,7 +74,7 @@
                 "From": [
                   {
                     "Name": "s",
-                    "Entity": "Scenario_FreightSurcharge",
+                    "Entity": "Scenario_MOQ",
                     "Type": 0
                   }
                 ],
@@ -90,7 +90,7 @@
                                   "Source": "s"
                                 }
                               },
-                              "Property": "Value"
+                              "Property": "MOQ_Threshold"
                             }
                           }
                         ],
@@ -98,7 +98,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "0D"
+                                "Value": "0L"
                               }
                             }
                           ]
@@ -107,13 +107,6 @@
                     }
                   }
                 ]
-              }
-            },
-            "orientation": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
               }
             }
           }
@@ -134,7 +127,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Freight Surcharge %'"
+                  "Value": "'MOQ Threshold (units)'"
                 }
               }
             },

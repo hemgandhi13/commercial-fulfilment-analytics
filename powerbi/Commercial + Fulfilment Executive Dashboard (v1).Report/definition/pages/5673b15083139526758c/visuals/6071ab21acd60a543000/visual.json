@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DIM_GEO"
+                      "Entity": "DIM_CHANNEL"
                     }
                   },
-                  "Property": "STATE"
+                  "Property": "SHIPPING_MODE"
                 }
               },
-              "queryRef": "DIM_GEO.STATE",
-              "nativeQueryRef": "STATE",
+              "queryRef": "DIM_CHANNEL.SHIPPING_MODE",
+              "nativeQueryRef": "SHIPPING_MODE",
               "active": true
             }
           ]

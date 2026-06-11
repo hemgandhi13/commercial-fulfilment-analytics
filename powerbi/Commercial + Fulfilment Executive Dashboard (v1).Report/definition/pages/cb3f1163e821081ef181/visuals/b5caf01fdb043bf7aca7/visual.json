@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Shipping Days (Real)"
+                  "Property": "MOQ Penalty Surcharge"
                 }
               },
-              "queryRef": "_Measures.Avg Shipping Days (Real)",
-              "nativeQueryRef": "Avg Shipping Days (Real)"
+              "queryRef": "_Measures.MOQ Penalty Surcharge",
+              "nativeQueryRef": "MOQ Penalty Surcharge"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Avg Shipping Days (Real)"
+                "Property": "MOQ Penalty Surcharge"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,72 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 1,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "MOQ Penalty Surcharge"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#C0392B'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 4,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "MOQ Penalty Surcharge"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#0F172A'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }

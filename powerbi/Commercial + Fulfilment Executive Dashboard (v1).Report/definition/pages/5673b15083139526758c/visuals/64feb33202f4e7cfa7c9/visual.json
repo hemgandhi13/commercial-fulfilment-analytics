@@ -42,6 +42,24 @@
                       "Entity": "_Measures"
                     }
                   },
+                  "Property": "Revenue at Risk (Late SLA)"
+                }
+              },
+              "queryRef": "_Measures.Revenue at Risk (Late SLA)",
+              "nativeQueryRef": "Revenue at Risk (Late SLA)"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
                   "Property": "Late Delivery Rate %"
                 }
               },
@@ -61,7 +79,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Late Delivery Rate %"
+                "Property": "Revenue at Risk (Late SLA)"
               }
             },
             "direction": "Descending"
@@ -71,6 +89,114 @@
       }
     },
     "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Conditional": {
+                      "Cases": [
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Late Delivery Rate %"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.6D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#C0392B'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 2,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Late Delivery Rate %"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.45D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#D4A843'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
+                              "ComparisonKind": 3,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "_Measures"
+                                    }
+                                  },
+                                  "Property": "Late Delivery Rate %"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0.45D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#2960A8'"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ]
+          }
+        }
+      ],
       "labels": [
         {
           "properties": {
@@ -164,7 +290,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Late Delivery Risk by Market'"
+                  "Value": "'Revenue at Risk by Market — colour = late rate (gold > 45%, red > 60%)'"
                 }
               }
             },
