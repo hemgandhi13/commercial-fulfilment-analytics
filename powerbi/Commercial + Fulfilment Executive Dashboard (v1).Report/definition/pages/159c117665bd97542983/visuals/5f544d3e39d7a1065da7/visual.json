@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Gross Margin %"
+                  "Property": "Retailer Rebate Accrual"
                 }
               },
-              "queryRef": "_Measures.Gross Margin %",
-              "nativeQueryRef": "Gross Margin %"
+              "queryRef": "_Measures.Retailer Rebate Accrual",
+              "nativeQueryRef": "Retailer Rebate Accrual"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Gross Margin %"
+                "Property": "Retailer Rebate Accrual"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D4A843'"
+                    }
+                  }
                 }
               }
             }

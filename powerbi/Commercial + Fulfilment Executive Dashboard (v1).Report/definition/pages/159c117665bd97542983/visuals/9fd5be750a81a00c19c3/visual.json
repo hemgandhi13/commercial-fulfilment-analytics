@@ -47,6 +47,20 @@
               },
               "queryRef": "_Measures.Discount Amount",
               "nativeQueryRef": "Discount Amount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Retailer Rebate Accrual"
+                }
+              },
+              "queryRef": "_Measures.Retailer Rebate Accrual",
+              "nativeQueryRef": "Retailer Rebate Accrual"
             }
           ]
         }
@@ -156,9 +170,8 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 4,
-                      "Percent": 0
+                    "Literal": {
+                      "Value": "'#2960A8'"
                     }
                   }
                 }
@@ -167,6 +180,24 @@
           },
           "selector": {
             "metadata": "_Measures.Discount Amount"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#D4A843'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Retailer Rebate Accrual"
           }
         }
       ],
