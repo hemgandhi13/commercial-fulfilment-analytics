@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg Shipping Variance"
+                  "Property": "Estimated SLA Penalty"
                 }
               },
-              "queryRef": "_Measures.Avg Shipping Variance",
-              "nativeQueryRef": "Avg Shipping Variance"
+              "queryRef": "_Measures.Estimated SLA Penalty",
+              "nativeQueryRef": "Estimated SLA Penalty"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "_Measures"
                   }
                 },
-                "Property": "Avg Shipping Variance"
+                "Property": "Estimated SLA Penalty"
               }
             },
             "direction": "Descending"
@@ -73,6 +73,17 @@
               "expr": {
                 "Literal": {
                   "Value": "'left'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C0392B'"
+                    }
+                  }
                 }
               }
             }
