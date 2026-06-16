@@ -1,5 +1,7 @@
 # Silver Data Quality Report (Day 2)
 
+> **Scope:** this covers the **Silver** layer (typed/standardised/encoding-fixed) and is unchanged by the dashboard v2 upgrade. **Gold** structural validation + the **v2 enrichment** PASS/MOCKED matrix are in [`09_gold_data_quality_report.md`](09_gold_data_quality_report.md). The "Silver v1/v2/v3" labels here are cleaning passes, not product versions — see [`05`](05_silver_layer_story.md).
+
 ## Scope
 
 This report documents the main Silver layer validations across:

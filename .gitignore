@@ -26,6 +26,9 @@ powerbi/PBIX/
 powerbi/.claude/
 powerbi/CLAUDE.md
 
+# --- Personal / non-project working files ---
+Linkedin Posting/
+
 # --- Power BI local/cache files (nested anywhere in the tree) ---
 **/.pbi/localSettings.json
 **/.pbi/cache.abf

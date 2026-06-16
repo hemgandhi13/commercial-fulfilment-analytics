@@ -12,6 +12,8 @@ Build an enterprise-safe **Silver** table that is:
 
 This repo tracks the evolution of the Silver layer across three iterations (v1 → v2 → v3), ending in a stable “current” object used by downstream models.
 
+> **⚠ Naming clash — “Silver v1/v2/v3” ≠ “dashboard v1.0/v2.0”.** The Silver iterations below are **data-cleaning passes** (typing → standardisation → encoding fixes) and were all complete before the dashboard's v1.0 release. They are unrelated to the **product** versions (`v1.0` operational tracker → `v2.0` commercial upgrade) used elsewhere in the docs. The Silver layer is **unchanged by the dashboard v2 upgrade** — v2's enrichment happens downstream at the Gold-export stage (see [`03`](03_data_dictionary_notes.md) §6), not here.
+
 ---
 
 ## Inputs and Lineage
@@ -154,4 +156,4 @@ Each iteration includes:
 - corruption checks for `�` (v2/v3)
 - documented anomalies and decisions
 
-See: `docs/06_silver_data_quality_report.md`
+See: [`docs/06_data_quality_report.md`](06_data_quality_report.md)

@@ -67,6 +67,8 @@ Net Sales
 
 The three What-If sliders feed the underlined inputs, so dragging Freight Surcharge to 25% moves CTS, Net Commercial Margin, and True Net Profit live across every page. Full definitions: report page 09 and [`docs/02_kpi_glossary.md`](docs/02_kpi_glossary.md).
 
+> **A note on the cost data:** DataCo provides commercial and fulfilment facts but no cost-to-serve, freight, SLA-contract, or rebate attributes. v2 supplies those as an explicit, deterministic enrichment layer modelled on FMCG/retail benchmarks — labelled throughout [`docs/03`](docs/03_data_dictionary_notes.md) and validated with a PASS/MOCKED matrix in [`docs/09`](docs/09_gold_data_quality_report.md). The costing *methods* (ABC cost-to-serve, DIFOT financialization, tiered rebates) are production-grade; the *rates* are benchmark stand-ins until activity actuals exist.
+
 ---
 
 ## The 9 pages (v2)

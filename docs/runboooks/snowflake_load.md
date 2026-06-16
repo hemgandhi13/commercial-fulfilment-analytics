@@ -1,5 +1,9 @@
 # Databricks Gold CSV → Snowflake Gold (UI Load)
 
+> **Status (read first):** This runbook documents the **Snowflake trial load** performed during v1. Snowflake served the Gold layer during its trial window only; the **durable, version-controlled serving layer is the Gold CSV export** (`data/databricks_gold_export/`), which Power BI reads directly via the `pDataFolder` parameter. PySpark (`data-pipeline/01_gold_build.py`) is the authoritative ETL — the deprecated `sql/` build is not. The procedure below remains valid if you re-provision Snowflake.
+>
+> **v2 delta:** v2 added one new table, **`dim_contract_terms`** (9 rows, synthesized — see [`03`](../03_data_dictionary_notes.md) §3.11), and enrichment columns on `fact_sales` / `fact_fulfilment` / `dim_product`. These were **not** part of the original trial load below; load them the same way (dimensions first) if replicating v2 into Snowflake.
+
 ## Objective
 
 Load the Databricks **Gold** layer exports (CSV files stored locally) into **Snowflake** using the **Snowsight UI**, then validate the star schema using row-count and foreign-key (FK) coverage checks. This creates a Snowflake-ready Gold layer for Power BI modelling.

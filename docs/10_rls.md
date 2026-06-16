@@ -1,5 +1,7 @@
 # Row-Level Security (RLS) — Market-level Access
 
+> **Status:** Implemented in the semantic model and **verified zero-leakage in v2 Phase 5** (View-as `MarketManager` / `europe_mgr@company.com` → only Europe visible). `DIM_MARKET` and `SEC_USER_MARKET` are real model tables (not Gold CSVs); see [`08_star_schema.md`](08_star_schema.md). Unchanged by the v2 commercial measures — RLS propagates through `DIM_CHANNEL`, so the new CTS/DIFOT/rebate measures inherit market scoping automatically.
+
 ## Objective
 
 Enforce **Market-scoped visibility** with an unrestricted executive role.

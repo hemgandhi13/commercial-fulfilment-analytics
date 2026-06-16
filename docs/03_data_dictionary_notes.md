@@ -4,7 +4,19 @@ This document defines the **Gold star schema contract** produced in **Databricks
 It is intentionally **Databricks-first**: table grain, keys, and column meanings as implemented in the Gold layer.
 
 **Gold schema location (Databricks):** `workspace.gold`  
+**Durable serving layer:** `data/databricks_gold_export/` (the version-controlled CSV export Power BI reads)  
 **Declared grain:** Facts are at **order-line grain** → **1 row per `order_item_id`**.
+
+> ### Two-stage Gold build (v1 core + v2 enrichment)
+>
+> | Stage | Script | Engine | Produces |
+> | :---- | :----- | :----- | :------- |
+> | **1. Core star schema** (v1) | `data-pipeline/01_gold_build.py` | PySpark | `fact_sales`, `fact_fulfilment` + 8 dims, with `xxhash64` surrogate keys cast to string and post-write schema assertions |
+> | **2. Commercial enrichment** (v2) | `data-pipeline/02_gold_schema_remediation.py` | pandas (on the CSV export) | Appends CTS/ABC, logistics-financial, DIFOT-date, SLA-contract, rebate, and waterfall columns; creates **`dim_contract_terms`** |
+>
+> **⚠ Provenance — read before trusting v2 columns.** DataCo ships commercial and fulfilment facts but **no** cost-to-serve, freight, weight/volume, SLA-contract, rebate-tier, or promotional attributes. Stage 2 supplies these as a **deterministic (seed-42), benchmark-modelled** enrichment using FMCG/retail industry rates. Stage-2 columns are flagged **`(v2 · synthesized)`** below. They are honest stand-ins so the commercial *methods* (ABC costing, DIFOT financialization, tiered rebates, scenario planning) can be demonstrated; replace with actuals when available. Stage-2 also self-reports a PASS/MOCKED diagnostic matrix on every run (mirrored in [`09`](09_gold_data_quality_report.md) §7).
+>
+> **What the v2 *model* actually consumes:** the DAX cost/penalty/rebate measures use **hard-coded rate assumptions** (see [`02_kpi_glossary.md`](02_kpi_glossary.md) §E–F), **not** most of these columns. The finer-grained Stage-2 columns (`base_freight_cost`, `warehouse_handling_fee`, `sla_penalty_pct_per_day`, `dim_contract_terms`) are **staged for a v3 "contract-true" rewrite** and are not yet wired into measures.
 
 ---
 
@@ -60,11 +72,15 @@ These are deterministic with `coalesce(...,'')` to prevent null-induced drift.
 - `gold.dim_geo`
 - `gold.dim_channel`
 - `gold.dim_discount_band`
+- `gold.dim_contract_terms` — **(v2 · synthesized)** rebate-tier & SLA contract terms by customer segment (§3.11)
 
 ### Facts
 
 - `gold.fact_sales`
 - `gold.fact_fulfilment`
+- `gold.fact_order_item` — **export-only convenience fact**: a wide join of sales + fulfilment at the same `order_item_id` grain, produced for the Snowflake serving layer (§3.12). Carries the v1 columns only; the v2 enrichment was applied to `fact_sales`/`fact_fulfilment`, not this table.
+
+> **Model-only tables (not Gold CSVs):** `DIM_MARKET` (distinct markets, for RLS) and `SEC_USER_MARKET` (user→market map) live in the Power BI semantic model, not the Gold layer — see [`08_star_schema.md`](08_star_schema.md) and [`10_rls.md`](10_rls.md).
 
 ---
 
@@ -109,6 +125,23 @@ These are deterministic with `coalesce(...,'')` to prevent null-induced drift.
 - `discount_band_key` is assigned based on `discount_rate` into bands:
   - 0%, >0–5%, >5–10%, >10–15%, >15–20%, >20–25%.
 
+**v2 enrichment columns** — appended by `02_gold_schema_remediation.py`. All **(v2 · synthesized)** except `order_date`; same `order_item_id` grain (cost columns joined from `fact_fulfilment`).
+
+| Column              | Type    | Definition / Notes                                                                 |
+| ------------------- | ------- | ---------------------------------------------------------------------------------- |
+| order_date          | date    | Calendar order date reconstructed from `order_date_key` (DAX convenience; not synthesized). |
+| is_promotional      | integer (0/1) | Order flagged promotional. ~25% of **orders** (seeded on `order_id`, so all lines of an order agree). |
+| base_freight_cost   | numeric | Per-unit base freight by mode (Same Day $8.50 / First $5 / Second $3 / Standard $1.75). |
+| fuel_surcharge      | numeric | 8% of `base_freight_cost` (industry fuel levy).                                    |
+| warehouse_handling_fee | numeric | Per-line handling by `delivery_type` ($4.00 / $2.50 / $1.50).                    |
+| delivery_type       | string  | Same-Day Express / Major DC Pallet Drop / Regional Fragmented Delivery (from mode). |
+| gross_revenue       | numeric | Alias of `gross_sales` (explicit anchor name for the Deneb waterfall spec).         |
+| base_fuel_cost      | numeric | = `fuel_surcharge`, named for What-If slider isolation.                             |
+| cost_to_serve_amount | numeric | `base_freight_cost + fuel_surcharge + warehouse_handling_fee` (per line).          |
+| net_margin          | numeric | `profit − cost_to_serve_amount` (row-level CTS margin; negatives expected).         |
+
+> These columns are **column-level inputs** for a future contract-true CTS rewrite. The shipped v2 DAX computes CTS from rate assumptions instead (see [`02`](02_kpi_glossary.md) §E) — so most of these are not yet read by any measure.
+
 ---
 
 ### 3.2 `gold.fact_fulfilment` — Operations / Delivery
@@ -140,6 +173,24 @@ These are deterministic with `coalesce(...,'')` to prevent null-induced drift.
 | order_zipcode               | string         | Zip/postcode from order; not used for geo grain due to nulls. |
 | \_ingest_ts                 | timestamp      | Lineage timestamp (tech).                                     |
 | \_batch_id                  | string/integer | Lineage batch identifier (tech).                              |
+
+**v2 enrichment columns** — appended by `02_gold_schema_remediation.py`. All **(v2 · synthesized)** except the date reconstructions; same `order_item_id` grain.
+
+| Column                  | Type    | Definition / Notes                                                            |
+| ----------------------- | ------- | ----------------------------------------------------------------------------- |
+| delivery_type           | string  | Same-Day Express / Major DC Pallet Drop / Regional Fragmented Delivery (from `shipping_mode`). |
+| base_freight_cost       | numeric | Per-unit base freight by mode (Same Day $8.50 / First $5 / Second $3 / Standard $1.75). |
+| fuel_surcharge          | numeric | 8% of `base_freight_cost`.                                                    |
+| warehouse_handling_fee  | numeric | Per-line handling by `delivery_type` ($4.00 / $2.50 / $1.50).                  |
+| sla_target_days         | integer | Contractual delivery SLA by mode: Same Day 1 / First 3 / Second 5 / Standard 7. |
+| sla_penalty_pct_per_day | numeric | Flat **0.02** (2% of invoice/day late after 24h grace). v3 input for day-accurate penalties. |
+| order_date              | date    | Reconstructed from `order_date_key` (not synthesized).                        |
+| ship_date               | date    | Reconstructed from `ship_date_key` (not synthesized).                         |
+| expected_delivery_date  | date    | `ship_date + sla_target_days` (derived).                                      |
+| actual_delivery_date    | date    | `ship_date + days_for_shipping_real`; **NULL** for `Shipping canceled` (open pipeline). |
+| pipeline_status         | string  | In Transit - Late / In Transit - On Time / Backordered-Canceled / Unknown (from `delivery_status`). |
+
+> Stage-2 integrity gates (all PASS): chronological `order_date ≤ expected_delivery_date`, ship-date orphan check, and `total_logistics_cost ≤ gross_sales` on every row. The v2 DAX still measures lateness from the binary `late_delivery_risk` flag — these dated columns are v3 enablement.
 
 ---
 
@@ -198,6 +249,14 @@ These are deterministic with `coalesce(...,'')` to prevent null-induced drift.
 | catalog_price       | numeric | Catalogue/list price.                                  |
 | product_description | string  | Product description text.                              |
 | product_status      | string  | Product status label.                                  |
+
+**v2 enrichment columns** — appended by `02_gold_schema_remediation.py`, **(v2 · synthesized)** to FMCG/sporting-goods volumetric benchmarks.
+
+| Column         | Type    | Definition / Notes                                            |
+| -------------- | ------- | ------------------------------------------------------------ |
+| unit_weight_kg | numeric | Per-unit weight (0.2–20 kg, weighted toward 0.5–2 kg).        |
+| unit_volume_m3 | numeric | Per-unit volume (≈ weight × 0.0015 ± 30%).                    |
+| storage_type   | string  | `Pallet` if ≥ 5 kg else `Carton` (drives the handling tier).  |
 
 ---
 
@@ -265,6 +324,34 @@ These are deterministic with `coalesce(...,'')` to prevent null-induced drift.
 
 ---
 
+### 3.11 `gold.dim_contract_terms` — Rebate & SLA contract terms **(v2 · synthesized)**
+
+**New table in v2**, written by `02_gold_schema_remediation.py` (9 rows). Modelled on an FMCG tiered retrospective-rebate framework.
+**Grain:** 1 row per `customer_segment` × `tier_label`.
+**Intended join:** `dim_customer.customer_segment = dim_contract_terms.customer_segment`.
+
+| Column                       | Type    | Definition                                                     |
+| ---------------------------- | ------- | ------------------------------------------------------------- |
+| customer_segment             | string  | Consumer / Corporate / Home Office.                           |
+| tier_label                   | string  | Bronze / Silver / Gold (by annual spend).                    |
+| annual_spend_min_usd         | numeric | Tier lower bound (USD).                                       |
+| annual_spend_max_usd         | numeric | Tier upper bound (USD).                                       |
+| rebate_pct                   | numeric | Rebate rate for the tier (0.01–0.05).                         |
+| payment_terms_days           | integer | Net payment terms (30 / 45 / 60).                            |
+| sla_service_level_target_pct | numeric | Target service level (0.90–0.98).                            |
+| sla_penalty_pct_per_day      | numeric | Flat 0.02 (consistent with `fact_fulfilment`).               |
+| grace_period_hours           | integer | 24.                                                          |
+
+> **Not yet consumed by the v2 model.** The shipped `Retailer Rebate Accrual` measure uses a simpler volume `SWITCH` (5% > $5M, 3% > $1M, else 1%). This table stages a segment-aware rebate for v3.
+
+---
+
+### 3.12 `gold.fact_order_item` — Wide convenience fact (export/Snowflake)
+
+**Grain:** 1 row per `order_item_id` (180,519). A denormalised join of `fact_sales` + `fact_fulfilment` produced for the Snowflake serving layer and shipped in the CSV export. Columns are the **v1 union** of both facts (sales measures + fulfilment signals + both date keys + `discount_band_key`); it does **not** carry the Stage-2 v2 enrichment columns. Power BI's model uses the two narrow facts, not this table — it exists for single-table SQL/BI consumers.
+
+---
+
 ## 4) Gold data quality expectations (contract)
 
 Gold build is considered valid when all conditions below hold:
@@ -279,8 +366,10 @@ Gold build is considered valid when all conditions below hold:
 - `dim_geo`: 3,772
 - `dim_channel`: 92
 - `dim_discount_band`: 6
+- `dim_contract_terms`: 9  *(v2)*
 - `fact_sales`: 180,519
 - `fact_fulfilment`: 180,519
+- `fact_order_item`: 180,519  *(export-only wide fact)*
 
 ### 4.2 Uniqueness
 
@@ -306,9 +395,11 @@ If any of these change, downstream semantic layers may break and must be version
 1. Table names (`gold.fact_sales`, `gold.dim_date`, etc.)
 2. Primary keys and FK columns
 3. Grain (facts must stay at order-line)
-4. Core KPI driver columns: `gross_sales`, `net_sales`, `profit`, `discount_amount`, `discount_rate`, shipping-day fields, `late_delivery_risk`
+4. Core KPI driver columns: `gross_sales`, `net_sales`, `profit`, `discount_amount`, `discount_rate`, shipping-day fields, `late_delivery_risk` (the binary lateness flag the dashboard's Late Delivery Rate keys off)
+5. **(v2)** Stage-2 enrichment columns consumed by DAX or report visuals — currently `gross_revenue` (waterfall) and the cost columns surfaced in tables. If Stage-2 rates change, the documented benchmark values in §3 and [`09`](09_gold_data_quality_report.md) §7 must be updated in lock-step.
 
 Related docs:
 
 - `08_star_schema.md` — star schema design and join map
 - `09_gold_data_quality_report.md` — validation snapshot and checks
+- `02_kpi_glossary.md` — measure definitions (incl. which v2 columns DAX actually reads)
